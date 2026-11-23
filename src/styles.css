@@ -122,3 +122,7 @@ dialog p{margin:0 0 1rem;color:var(--muted)}
 .muted{color:var(--muted)}
 .vt{grid-area:vt;align-self:center;font-size:.85rem;font-weight:700}
 .vt.pass{color:var(--pass)}.vt.check{color:var(--check)}.vt.fail{color:var(--fail)}
+
+/* repeat entry highlight */
+.list li.dup,.list li.dup a{background:#F4E842;color:#16252D}
+.list li.dup .meta{color:#16252D}
