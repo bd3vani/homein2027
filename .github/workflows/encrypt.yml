@@ -1,0 +1,34 @@
+name: Build and encrypt page
+
+# Rebuilds listing-check from src/ and data/, encrypts it with StatiCrypt,
+# and commits the encrypted index.html. GitHub Pages serves index.html.
+on:
+  push:
+    branches: [main]
+    paths: ["src/**", "data/**", "build.py", "scripts/encrypt.sh", ".staticrypt.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  encrypt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build and encrypt
+        env:
+          STATICRYPT_PASSWORD: ${{ secrets.STATICRYPT_PASSWORD }}
+          LISTING_SHEET_URL: ${{ secrets.LISTING_SHEET_URL }}
+          LISTING_SHEET_TOKEN: ${{ secrets.LISTING_SHEET_TOKEN }}
+        run: ./scripts/encrypt.sh
+      - name: Commit index.html
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .staticrypt.json
+          git diff --cached --quiet || git commit -m "Rebuild encrypted index.html"
+          git push

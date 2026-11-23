@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Listing check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+%CSS%</style>
+</head>
+<body>
+<main>
+<nav class="top"><span class="ver">Listing check v8.3.0</span><a href="https://docs.google.com/spreadsheets/d/1LYYPUgIz2QuCC12P-3ufATq0tb3jcv9CFPP1ldBKR8g/edit?usp=sharing" target="_blank" rel="noopener">Starred analysis ↗</a></nav>
+<h1>Is this house a fit?</h1>
+<p class="lede">Checks a listing against your needs (budget, size, pool, grocery, school, terrain) and your exit: a forced value add, or Airbnb income worth 3 months of mortgage.</p>
+<form class="field" id="checkForm" novalidate>
+  <label for="q">Address or listing URL</label>
+  <div class="row">
+    <input id="q" type="text" list="scan" placeholder="12507 Miranda St, Valley Village 91607" autocomplete="off">
+    <button type="submit">Check listing</button>
+  </div>
+  <datalist id="scan">%OPTS%</datalist>
+  <p id="status" role="status">Include the zip code so a new address lands in the right neighborhood.</p>
+</form>
+<section class="results" aria-live="polite">
+  <p class="empty">Pick a listing to see whether it’s a fit and how it scores on each filter.</p>
+%PANELS%
+</section>
+<section class="list" id="list">
+  <div id="starred" hidden>
+    <h2>Starred</h2>
+    <p>Listings you rated 3 stars.</p>
+    <ul id="starList"></ul>
+  </div>
+  <h2>Nov 21 scan</h2>
+  <p>Active listings with a pool, $1.3M–$2.75M, by neighborhood and next open house.</p>
+  <div class="chips" role="group" aria-label="Filter the list">
+    <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-f="fit" aria-pressed="false">Fit</button>
+    <button type="button" class="chip" data-f="exit" aria-pressed="false">Exit: Yes</button>
+    <button type="button" class="chip" data-f="oh" aria-pressed="false">Open house</button>
+    <button type="button" class="chip" data-f="starred" aria-pressed="false">Starred</button>
+  </div>
+  <p id="noMatch" class="muted" hidden>No listings match this filter.</p>
+%ITEMS%
+  <p class="rejbar"><button type="button" id="rejToggle" class="linkbtn" aria-expanded="false" aria-controls="rejected">Show rejected listings</button></p>
+  <div id="rejected" hidden>
+    <h3>Rejected listings</h3>
+    <p id="rejEmpty" class="muted">No rejected listings.</p>
+    <ul id="rejList"></ul>
+  </div>
+</section>
+<p class="mfoot">Mortgage is principal and interest on the price minus $1M cash, at 7.3% over 30 years.</p>
+</main>
+
+<script>
+%JS%</script>
+</body>
+</html>
