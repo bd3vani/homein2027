@@ -487,6 +487,93 @@
    },
    "note": "Added by you Nov 22, 2026. Listed at $3,495,000 (MLS SB26242175). A 1–5 PM open house is listed; date not confirmed.",
    "new": true
+  },
+  {
+   "neighborhood": "La Cañada Flintridge",
+   "address": "5221 La Forest Dr",
+   "price": 1995000,
+   "url": "https://www.sereno.com/P1-29527/5221-la-forest-drive-la-canada-flintridge-california-91011-crmls",
+   "size": "3 bd / 2 ba, 1,939 sf, 16,799 sf lot, single story, built 1955",
+   "pool": {
+    "result": "check",
+    "detail": "No pool. Flat backyard on a 16,799 sf lot, so an 18×20 pool likely fits; yard layout and build access not confirmed"
+   },
+   "grocery": {
+    "result": "check",
+    "detail": "Not checked yet"
+   },
+   "school": {
+    "result": "check",
+    "detail": "In La Cañada Unified per listing; assigned elementary and rating not checked yet"
+   },
+   "terrain": {
+    "result": "pass",
+    "detail": "Listing describes a flat backyard on a tree-lined cul-de-sac; no hillside noted"
+   },
+   "va": {
+    "result": "pass",
+    "detail": "1,939 sf single-story house on a 16,799 sf flat lot leaves room for an ADU or addition; not a fixer (new roof, paint, counters)"
+   },
+   "note": "Added by you Nov 23, 2026. Status is Contingent (MLS P1-29527, Sereno page updated Nov 20), so it may not be available. No open house listed.",
+   "new": true
+  },
+  {
+   "neighborhood": "Mar Vista",
+   "address": "11701 W Washington Blvd",
+   "price": 1095000,
+   "url": "https://www.trulia.com/home/11701-w-washington-blvd-los-angeles-ca-90066-20447465",
+   "size": "4-unit apartment building (two 2 bd/1 ba, two 1 bd/1 ba), 2,780 sf, about 4,879 sf corner lot, built 1952",
+   "pool": {
+    "result": "check",
+    "detail": "No pool mentioned; 4,879 sf lot is mostly taken by a 4-unit building, so room for 18×20 is unlikely but not confirmed"
+   },
+   "grocery": {
+    "result": "check",
+    "detail": "Not checked yet"
+   },
+   "school": {
+    "result": "check",
+    "detail": "Not checked yet"
+   },
+   "terrain": {
+    "result": "pass",
+    "detail": "Not flagged"
+   },
+   "va": {
+    "result": "check",
+    "detail": "Listing cites a possible ADU and garage conversion, subject to City approval"
+   },
+   "note": "Added by you Nov 23, 2026. Not a single-family home: a 4-unit income property (MLS 26105806, Active, listed Nov 2) with 3 units rented for $4,207/mo. Listing says it is subject to Culver City rent control. Price is below your $1.3M floor. No open house listed.",
+   "new": true
+  },
+  {
+   "neighborhood": "Cypress Park",
+   "address": "112 E Avenue 41",
+   "price": 1795000,
+   "url": "https://www.trulia.com/home/112-e-avenue-41-los-los-angeles-ca-90031-20755447",
+   "size": "6 bd / 4 ba, 3,345 sf, 5,811 sf lot, 3 stories, built 1888",
+   "pool": {
+    "result": "check",
+    "detail": "No pool. Grassy backyard with fruit trees and a rear home office on a 5,811 sf lot; room for 18×20 not confirmed"
+   },
+   "grocery": {
+    "result": "check",
+    "detail": "Not checked yet"
+   },
+   "school": {
+    "result": "check",
+    "detail": "Not checked yet"
+   },
+   "terrain": {
+    "result": "pass",
+    "detail": "Not flagged in listing"
+   },
+   "va": {
+    "result": "check",
+    "detail": "Fully restored 1888 Queen Anne (Cole Mansion), not a fixer. Inside the Highland Park-Garvanza HPOZ, which limits additions; ADU room not checked yet"
+   },
+   "note": "Added by you Nov 23, 2026. Active since Oct 15 (MLS 26102327). Trulia places it in Highland Park (Sycamore Grove), not Cypress Park. No open house listed.",
+   "new": true
   }
  ]
 }
