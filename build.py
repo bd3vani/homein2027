@@ -45,7 +45,9 @@ def key(a):
 def slug(a): return re.sub(r'[^a-z0-9]+','-',a.lower()).strip('-')
 LBL={"pass":"Pass","check":"Check","fail":"Fail"}
 def rows(price,x):
-    if price>2750000: p=("fail",f"${price:,}, above the $2.75M ceiling")
+    ex=x.get("price_exempt")
+    if ex and not 1300000<=price<=2750000: p=("pass",f"${price:,}, outside $1.3M–$2.75M; {ex}")
+    elif price>2750000: p=("fail",f"${price:,}, above the $2.75M ceiling")
     elif price<1300000: p=("fail",f"${price:,}, below the $1.3M floor")
     elif price>2600000: p=("pass",f"${price:,}, above the $2.6M target but under the ceiling")
     else: p=("pass",f"${price:,}")

@@ -56,6 +56,7 @@ Read this section before changing Listing check. The rest of the PRD is the spec
 - Exit verdict: any path passes → Yes; every path fails → No; else Needs check.
 - Monthly mortgage: principal and interest on price minus $1,000,000, at 7.3% over 360 months. Exit target = 3 × monthly.
 - Airbnb break-even = exit target ÷ nights allowed (City of LA 120, Pasadena 90). Pass if at or below the area average nightly rate; Check if up to 2× it; else Fail.
+- Price exemptions: a listing with `price_exempt` passes the price filter outside $1.3M–$2.75M. Current: 11701 W Washington Blvd, Mar Vista ($1,095,000), buyer decision Nov 22, 2026.
 - Area averages (Nov 2026): Sherman Oaks $295, other City of LA $267, Pasadena $197.
 - Burbank and La Cañada Flintridge always fail the Airbnb path. Glendale and La Crescenta are Check.
 
