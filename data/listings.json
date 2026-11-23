@@ -1,6 +1,6 @@
 {
  "scan_date": "2026-11-21",
- "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values.",
+ "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption).",
  "listings": [
   {
    "neighborhood": "Valley Village",
@@ -544,7 +544,8 @@
     "detail": "Listing cites a possible ADU and garage conversion, subject to City approval"
    },
    "note": "Added by you Nov 23, 2026. Not a single-family home: a 4-unit income property (MLS 26105806, Active, listed Nov 2) with 3 units rented for $4,207/mo. Listing says it is subject to Culver City rent control. Price is below your $1.3M floor. No open house listed.",
-   "new": true
+   "new": true,
+   "price_exempt": "buyer exemption (Nov 22, 2026)"
   },
   {
    "neighborhood": "Cypress Park",
