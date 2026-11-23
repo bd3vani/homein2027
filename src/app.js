@@ -302,6 +302,19 @@ function sheetDb(url,token){
   if(db.start) db.start();
 })();
 
+// repeat entries: scroll to the row in the list and fill it yellow
+const LSE="listing-check-entered";
+const entered=new Set((()=>{try{return JSON.parse(localStorage.getItem(LSE)||"[]")}catch(e){return []}})());
+function saveEntered(){ try{ localStorage.setItem(LSE,JSON.stringify([...entered])); }catch(e){} }
+function markDup(k){
+  const li=document.querySelector('#list li[data-key="'+k+'"]');
+  if(!li){ status.textContent="You entered this before."; return; }
+  if(li.classList.contains("ff")){ FILTER="all"; document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.f==="all"))); applyFilter(); }
+  document.querySelectorAll("#list li.dup").forEach(x=>x.classList.remove("dup"));
+  li.classList.add("dup");
+  li.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+  status.textContent="You entered this before. It’s highlighted in the list.";
+}
 $("#checkForm").addEventListener("submit",async e=>{
   e.preventDefault();
   const raw=$("#q").value;
@@ -309,8 +322,13 @@ $("#checkForm").addEventListener("submit",async e=>{
   const p=parse(raw);
   if(!p){status.textContent="Couldn’t find a street address. Try a number and street, like 4520 Kingswell Ave 90027.";return;}
   if(REMOVED.has(p.key)){status.textContent="You rejected this listing. Restore it from Rejected listings at the bottom.";return;}
-  if(SCAN[p.key]){status.textContent="Already in the Nov 21 report.";go(SCAN[p.key]);return;}
-  if(document.getElementById("added-"+p.key)){status.textContent="You already added this address.";go("added-"+p.key);return;}
+  const known=SCAN[p.key]||(document.getElementById("added-"+p.key)?"added-"+p.key:null);
+  if(known){
+    if(entered.has(p.key)||!SCAN[p.key]){ markDup(p.key); $("#q").value=""; return; }
+    entered.add(p.key); saveEntered();
+    status.textContent="Already in the weekly report."; go(known); return;
+  }
+  entered.add(p.key); saveEntered();
   const n=neighborhood(p.text);
   const d={key:p.key,street:p.street,nbhd:n.name,why:n.why,input:raw.trim().slice(0,500),added:new Date().toISOString()};
   const id=render(d);

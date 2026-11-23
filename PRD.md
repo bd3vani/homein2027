@@ -1,4 +1,4 @@
-# Listing check v8.3.0 — PRD
+# Listing check v8.4.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -151,7 +151,7 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 
 **P0: must have**
 
-- [ ] **Check box.** Accepts an address or a homes.com, Redfin or Zillow URL. A scan match opens its result. Matching uses street number plus street name, ignoring N/S/E/W and suffix spelling.
+- [ ] **Check box.** Accepts an address or a homes.com, Redfin or Zillow URL. A scan match opens its result the first time. Entering an address or URL already on the page again (a repeat scan match, or any added address) scrolls to its row in the list and fills it yellow (#F4E842); the filter resets to All if it hid the row. Entered addresses are remembered in the viewer's browser. Matching uses street number plus street name, ignoring N/S/E/W and suffix spelling.
 - [ ] **Verdict panel.** Shows the needs verdict and table, the Exit verdict and table, open houses, and an Open listing link.
 - [ ] **Weekly report list (changed in 8.3.0).** Grouped neighborhood > open-house day > open-house time. Neighborhoods stay in scan order. Each listing sits under its next open house that hasn't ended, on any day of the week, judged when the page is opened and refreshed every minute. Days and times run earliest first; day headings read "Open house Thu Nov 26" with "(today)" or "(tomorrow)" where true, and a running open house says "happening now." Listings sharing a time share one heading. "No upcoming open house" comes last. All times are Los Angeles time, whatever the viewer's time zone. New listings are tagged New.
 - [ ] **Quick filters (new in 8.2.0).** One-tap chips above the list: All, Fit, Exit: Yes, Open house, Starred. One is active at a time. Empty subheadings and neighborhoods hide; if nothing matches, the list says so. "Open house" shows listings with any open house that hasn't ended yet.
@@ -244,14 +244,15 @@ The biggest risk is stale or missing data: most verdicts are "Needs check" until
 
 Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
-1. **v8.4.0: Side-by-side compare.** Starred finalists in columns.
-2. **v8.5.0: Disclosure check.** Claude in the page flags risks from pasted disclosures.
+1. **v8.5.0: Side-by-side compare.** Starred finalists in columns.
+2. **v8.6.0: Disclosure check.** Claude in the page flags risks from pasted disclosures.
 3. **Weekly run upgrades.** Lot and house size, Airbnb comps and long-term rent filled per listing.
 
 **Version history**
 
 | Version | What changed |
 | --- | --- |
+| v8.4.0 | Repeat entries scroll to the listing's row and fill it yellow (#F4E842) |
 | v8.3.0 | Hosted on GitHub Pages, encrypted with StatiCrypt; shared data and the Starred tab in the Google Sheet via Apps Script; weekly scan moved to Thursday mornings to catch Thursday twilight open houses; list grouped neighborhood > next upcoming open-house day > time, from the moment the page is viewed; "Open house this weekend" chip became "Open house"; Sheet script opens the sheet by ID so it can run standalone |
 | v8.2.0 | Open-house subheadings within each neighborhood; quick filters; reject takes three taps instead of a dialog; exportable bundle |
 | v8.1.0 | Star ratings, Starred list, Starred analysis link, version label |
