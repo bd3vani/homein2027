@@ -45,12 +45,13 @@ def key(a):
 def slug(a): return re.sub(r'[^a-z0-9]+','-',a.lower()).strip('-')
 LBL={"pass":"Pass","check":"Check","fail":"Fail"}
 def rows(price,x):
-    p=("pass" if 1300000<=price<=2750000 else "fail", f"${price:,}" + (" — above $2.6M target" if price>2600000 and price<=2750000 else ""))
-    if price>2600000: p=("pass",f"${price:,}, above the $2.6M target but under the ceiling")
+    if price>2750000: p=("fail",f"${price:,}, above the $2.75M ceiling")
+    elif price<1300000: p=("fail",f"${price:,}, below the $1.3M floor")
+    elif price>2600000: p=("pass",f"${price:,}, above the $2.6M target but under the ceiling")
     else: p=("pass",f"${price:,}")
     size=x.get("size","Met scan minimums")
     return [
-     ("Active listing","pass","Active in Nov 21 scan"),
+     ("Active listing","pass",f"Active in {datetime.strptime(SCAN_DATE,'%Y-%m-%d'):%b} {int(SCAN_DATE[8:])} scan"),
      ("Price $1.3M–$2.75M",*p),
      ("3+ bed, 2+ bath","pass",size),
      ("2,400+ sf or 7,000+ sf lot","pass",size),
