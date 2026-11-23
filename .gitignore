@@ -1,0 +1,4 @@
+# Plain build output: never commit it, the repo is public.
+listing-check.html
+.encrypted/
+__pycache__/

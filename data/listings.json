@@ -1,0 +1,467 @@
+{
+  "scan_date": "2026-11-21",
+  "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values.",
+  "listings": [
+    {
+      "neighborhood": "Valley Village",
+      "address": "12507 Miranda St",
+      "price": 2680000,
+      "url": "https://www.homes.com/property/12507-miranda-st-valley-village-ca/cmkkvxvhqpp7v/",
+      "va": {
+        "result": "check",
+        "detail": "8,102 sf lot. It sold in Nov 2024 as a 1,243 sf house for $895,000, so it was likely rebuilt; ADU room depends on the new footprint"
+      },
+      "open_houses": [
+        {
+          "sort": 2114,
+          "label": "Sat Nov 21, 2–4 PM"
+        }
+      ],
+      "school": {
+        "result": "pass",
+        "detail": "Colfax Elementary, 96th pct"
+      }
+    },
+    {
+      "neighborhood": "Valley Village",
+      "address": "5841 Radford Ave",
+      "price": 1450000,
+      "url": "https://www.homes.com/property/5841-radford-ave-valley-village-ca/2hp83h7y47mcb/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2111.5,
+          "label": "Sat Nov 21, 11:30 AM–2:30 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Valley Village",
+      "address": "5506 Goodland Ave",
+      "price": 2565000,
+      "url": "https://www.homes.com/property/5506-goodland-ave-valley-village-ca/qq7crrnlryxbq/"
+    },
+    {
+      "neighborhood": "Valley Village",
+      "address": "12527 Emelita St",
+      "price": 1895000,
+      "url": "https://www.homes.com/property/12527-emelita-st-valley-village-ca/j58z3w25s3pfm/"
+    },
+    {
+      "neighborhood": "Sherman Oaks",
+      "address": "14701 Hartsook St",
+      "price": 2495000,
+      "url": "https://www.homes.com/property/14701-hartsook-st-sherman-oaks-ca/qscgcf6vbvxgz/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2113,
+          "label": "Sat Nov 21, 1–4 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Sherman Oaks",
+      "address": "5444 Murietta Ave",
+      "price": 2499950,
+      "url": "https://www.homes.com/property/5444-murietta-ave-sherman-oaks-ca/5r29p62hewsbk/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2113.1,
+          "label": "Sat Nov 21, 1–3 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Sherman Oaks",
+      "address": "5525 Wortser Ave",
+      "price": 2495000,
+      "url": "https://www.homes.com/property/5525-wortser-ave-sherman-oaks-ca/5t65l0sk985ev/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2213,
+          "label": "Sun Nov 22, 1–5 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Sherman Oaks",
+      "address": "5480 Katherine Ave",
+      "price": 1580000,
+      "url": "https://www.homes.com/property/5480-katherine-ave-sherman-oaks-ca/v00ll9rnz195k/",
+      "new": 1
+    },
+    {
+      "neighborhood": "Van Nuys",
+      "address": "13730 Calvert St",
+      "price": 1300000,
+      "url": "https://www.homes.com/property/13730-calvert-st-van-nuys-ca/vwwfpj5m2rb5z/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2112,
+          "label": "Sat Nov 21, 12–3 PM"
+        },
+        {
+          "sort": 2212,
+          "label": "Sun Nov 22, 12–6 PM"
+        }
+      ],
+      "pool": {
+        "result": "check",
+        "detail": "Listing says “private pool”; in-ground not stated"
+      }
+    },
+    {
+      "neighborhood": "Van Nuys",
+      "address": "6201 Allott Ave",
+      "price": 2150000,
+      "url": "https://www.homes.com/property/6201-allott-ave-van-nuys-ca/x11hqnbc6yk3z/",
+      "new": 1
+    },
+    {
+      "neighborhood": "Burbank",
+      "address": "329 N Niagara St",
+      "price": 2650000,
+      "url": "https://www.homes.com/property/329-n-niagara-st-burbank-ca/z39bm9jcqks1z/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2112,
+          "label": "Sat Nov 21, 12–3 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "North Hollywood / Toluca Lake",
+      "address": "4845 Denny Ave",
+      "price": 2250000,
+      "url": "https://www.homes.com/property/4845-denny-ave-north-hollywood-ca/jrx7sxmgylw3n/"
+    },
+    {
+      "neighborhood": "North Hollywood / Toluca Lake",
+      "address": "5045 Willowcrest Ave",
+      "price": 2399000,
+      "url": "https://www.homes.com/property/5045-willowcrest-ave-north-hollywood-ca/rx311y0g0nwn1/"
+    },
+    {
+      "neighborhood": "Studio City",
+      "address": "4343 Shadyglade Ave",
+      "price": 2399000,
+      "url": "https://www.homes.com/property/4343-shadyglade-ave-studio-city-ca/fb1bzg7myk9d5/",
+      "school": {
+        "result": "pass",
+        "detail": "Carpenter Elementary, 97.7th pct"
+      }
+    },
+    {
+      "neighborhood": "Glendale",
+      "address": "401 Brockmont Dr",
+      "price": 2299000,
+      "url": "https://www.homes.com/property/401-brockmont-dr-glendale-ca/v0ssp2rkss8gy/",
+      "open_houses": [
+        {
+          "sort": 2113,
+          "label": "Sat Nov 21, 1–4 PM"
+        },
+        {
+          "sort": 2213,
+          "label": "Sun Nov 22, 1–4 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Glendale",
+      "address": "1163 N Geneva St",
+      "price": 2400000,
+      "url": "https://www.homes.com/property/1163-geneva-st-glendale-ca/4x0z6nl76rp9g/",
+      "va": {
+        "result": "check",
+        "detail": "7,018 sf lot with a 2,585 sf house; ADU room depends on yard layout"
+      },
+      "size": "4 bd / 3 ba, 2,585 sf, 7,018 sf lot",
+      "grocery": {
+        "result": "pass",
+        "detail": "Trader Joe’s, about 0.5 mi"
+      },
+      "school": {
+        "result": "pass",
+        "detail": "Verdugo Woodlands, 85.6th pct, about 1.4 mi"
+      }
+    },
+    {
+      "neighborhood": "Glendale",
+      "address": "1523 Colina Dr",
+      "price": 2250000,
+      "url": "",
+      "new": 1
+    },
+    {
+      "neighborhood": "Glendale",
+      "address": "814 Kellogg Ave",
+      "price": 1878000,
+      "url": "https://www.homes.com/property/814-kellogg-ave-glendale-ca/5trsn4j0mnpxh/",
+      "va": {
+        "result": "pass",
+        "detail": "10,291 sf lot with a house of about 2,400 sf; room for an ADU or addition. Confirm setbacks."
+      },
+      "size": "3 bd / 2 ba, about 2,320–2,453 sf, 10,291 sf lot",
+      "grocery": {
+        "result": "check",
+        "detail": "Small market about 0.35 mi; confirm it’s a full grocery"
+      },
+      "school": {
+        "result": "pass",
+        "detail": "Franklin Elementary, 93rd pct, about 1.1 mi"
+      }
+    },
+    {
+      "neighborhood": "Glendale",
+      "address": "1650 Capistrano Ave",
+      "price": 1579000,
+      "url": "",
+      "new": 1
+    },
+    {
+      "neighborhood": "Glendale",
+      "address": "1417 Ardmore Ave",
+      "price": 1499000,
+      "url": "https://www.homes.com/property/1417-ardmore-ave-glendale-ca/5qfkm0dz0wj0s/",
+      "va": {
+        "result": "pass",
+        "detail": "Fixer: 1,788 sf on a 7,207 sf lot; renovation plus room to add square footage or an ADU"
+      },
+      "size": "3 bd / 2 ba, 1,788 sf, 7,207 sf lot (fixer)",
+      "grocery": {
+        "result": "pass",
+        "detail": "About 0.6–0.9 mi"
+      },
+      "school": {
+        "result": "check",
+        "detail": "Keppel Elementary, 78.7th pct, about 0.25 mi; decide if that’s highly rated"
+      }
+    },
+    {
+      "neighborhood": "La Crescenta",
+      "address": "3305 Community Ave",
+      "price": 1500000,
+      "url": "",
+      "new": 1
+    },
+    {
+      "neighborhood": "La Cañada Flintridge",
+      "address": "3726 Berwick Dr",
+      "price": 2625000,
+      "url": "",
+      "new": 1,
+      "note": "Redfin shows an undated “Sun 1–3”; not confirmed."
+    },
+    {
+      "neighborhood": "La Cañada Flintridge",
+      "address": "369 San Juan Way",
+      "price": 1949000,
+      "url": "",
+      "new": 1
+    },
+    {
+      "neighborhood": "Pasadena",
+      "address": "500 S Allen Ave",
+      "price": 2375000,
+      "url": "https://www.homes.com/property/500-s-allen-ave-pasadena-ca/19lfjmz2vp0sx/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2114,
+          "label": "Sat Nov 21, 2–4 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Pasadena",
+      "address": "1080 S Los Robles Ave",
+      "price": 1880000,
+      "url": "https://www.homes.com/property/1080-s-los-robles-ave-pasadena-ca/z87v359w2jl7p/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2114,
+          "label": "Sat Nov 21, 2–4 PM"
+        }
+      ],
+      "pool": {
+        "result": "check",
+        "detail": "Listing says “exercise pool”; confirm it’s a full pool, not a plunge"
+      }
+    },
+    {
+      "neighborhood": "Pasadena",
+      "address": "870 S Euclid Ave",
+      "price": 1998000,
+      "url": "",
+      "new": 1
+    },
+    {
+      "neighborhood": "Eagle Rock",
+      "address": "1785 Campus Rd",
+      "price": 2595000,
+      "url": "https://www.homes.com/property/1785-campus-rd-los-angeles-ca/7fh8cy0gdkfjx/",
+      "str_": {
+        "result": "check",
+        "detail": "Detached studio ADU and guest house could be rented as part of your primary residence; confirm they’re permitted with a certificate of occupancy and check nightly rates"
+      },
+      "va": {
+        "result": "check",
+        "detail": "ADU and guest house already built, so less room to add value"
+      },
+      "size": "4 bd / 5 ba, 2,896 sf, 8,003 sf lot",
+      "grocery": {
+        "result": "pass",
+        "detail": "Sprouts, about 0.45 mi"
+      },
+      "school": {
+        "result": "pass",
+        "detail": "Eagle Rock Elementary, 91.4th pct, about 0.4 mi"
+      }
+    },
+    {
+      "neighborhood": "Larchmont / Hancock Park",
+      "address": "359 N Ridgewood Pl",
+      "price": 1980000,
+      "url": "https://www.homes.com/property/359-n-ridgewood-place-los-angeles-ca/w5kh1q14hpk7e/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2113.5,
+          "label": "Sat Nov 21, 1:30–4 PM"
+        },
+        {
+          "sort": 2213,
+          "label": "Sun Nov 22, 1–2 PM"
+        },
+        {
+          "sort": 10613,
+          "label": "Sun Dec 6, 1–4 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Silver Lake",
+      "address": "753 Micheltorena St",
+      "price": 2625000,
+      "url": "https://www.homes.com/property/753-micheltorena-st-los-angeles-ca/c000h5zkrryrh/",
+      "open_houses": [
+        {
+          "sort": 2114,
+          "label": "Sat Nov 21, 2–4 PM"
+        },
+        {
+          "sort": 2214,
+          "label": "Sun Nov 22, 2–4 PM"
+        }
+      ],
+      "terrain": {
+        "result": "check",
+        "detail": "Hillside; borderline"
+      }
+    },
+    {
+      "neighborhood": "Los Feliz",
+      "address": "4799 Bonvue Ave",
+      "price": 2000000,
+      "url": "https://www.homes.com/property/4799-bonvue-ave-los-angeles-ca/nz248kkm9psfx/",
+      "va": {
+        "result": "check",
+        "detail": "8,805 sf lot, but hillside, so building costs more"
+      },
+      "open_houses": [
+        {
+          "sort": 2212,
+          "label": "Sun Nov 22, 12–2 PM"
+        }
+      ],
+      "size": "8,805 sf lot",
+      "pool": {
+        "result": "pass",
+        "detail": "Heated in-ground pool"
+      },
+      "terrain": {
+        "result": "check",
+        "detail": "Hillside with views; borderline"
+      }
+    },
+    {
+      "neighborhood": "Los Feliz",
+      "address": "4520 Kingswell Ave",
+      "price": 1995000,
+      "url": "https://www.homes.com/property/4520-kingswell-ave-los-angeles-ca/zt7xfdgpblz0w/",
+      "size": "4 bd / 3.5 ba, 3,295 sf",
+      "pool": {
+        "result": "pass",
+        "detail": "Saltwater heated pool and spa"
+      },
+      "grocery": {
+        "result": "pass",
+        "detail": "Vons, about 0.4 mi"
+      },
+      "school": {
+        "result": "pass",
+        "detail": "Franklin Ave Elementary, 93.5th pct, about 0.3 mi"
+      },
+      "note": "Price cut from $2,149,500."
+    },
+    {
+      "neighborhood": "Fairfax / Melrose",
+      "address": "737 N Fuller Ave",
+      "price": 2550000,
+      "url": "https://www.homes.com/property/737-n-fuller-ave-los-angeles-ca/vggqyhpwj9qqy/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2214,
+          "label": "Sun Nov 22, 2–5 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Mar Vista",
+      "address": "4161 Marcasel Ave",
+      "price": 2598000,
+      "url": "https://www.homes.com/property/4161-marcasel-ave-los-angeles-ca/w8mfrtzlw1vzc/",
+      "new": 1,
+      "open_houses": [
+        {
+          "sort": 2213,
+          "label": "Sun Nov 22, 1–4 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Mar Vista",
+      "address": "4217 Stewart Ave",
+      "price": 1895000,
+      "url": "https://www.redfin.com/CA/Los-Angeles/4217-Stewart-Ave-90066/home/6736967",
+      "new": 1
+    },
+    {
+      "neighborhood": "Cheviot Hills",
+      "address": "10340 Walavista Rd",
+      "price": 2495000,
+      "url": "https://www.homes.com/property/10340-walavista-rd-los-angeles-ca/ynssc8h17mrw2/",
+      "open_houses": [
+        {
+          "sort": 2214,
+          "label": "Sun Nov 22, 2–4 PM"
+        }
+      ]
+    },
+    {
+      "neighborhood": "Palms",
+      "address": "3671 Tilden Ave",
+      "price": 2225000,
+      "url": "https://www.redfin.com/CA/Los-Angeles/3671-Tilden-Ave-90034/home/6751596",
+      "new": 1
+    }
+  ]
+}
