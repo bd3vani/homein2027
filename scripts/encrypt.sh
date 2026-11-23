@@ -8,7 +8,7 @@ cd "$(dirname "$0")/.."
 python3 build.py
 rm -rf .encrypted
 ${STATICRYPT_CMD:-npx --yes staticrypt@3.5.4} listing-check.html \
-  -p "$STATICRYPT_PASSWORD" -d .encrypted -c .staticrypt.json --remember 30 \
+  -p "$STATICRYPT_PASSWORD" --short -d .encrypted -c .staticrypt.json --remember 30 \
   --template-title "Listing check" \
   --template-instructions "Enter the password to open Listing check." \
   --template-button "Open"
