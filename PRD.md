@@ -1,4 +1,4 @@
-# Listing check v8.4.0 — PRD
+# Listing check v8.5.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -56,6 +56,7 @@ Read this section before changing Listing check. The rest of the PRD is the spec
 - Exit verdict: any path passes → Yes; every path fails → No; else Needs check.
 - Monthly mortgage: principal and interest on price minus $1,000,000, at 7.3% over 360 months. Exit target = 3 × monthly.
 - Airbnb break-even = exit target ÷ nights allowed (City of LA 120, Pasadena 90). Pass if at or below the area average nightly rate; Check if up to 2× it; else Fail.
+- Address lookup (buyer-added addresses, new in 8.5.0): research these first, on their own budget. Try three searches (Zillow, Redfin, then homes.com or a brokerage). If no listing is found, never call it "not for sale": add it with `price: null`, note "Listing link not found", and fill beds, baths, living area, lot and year built from public records where found. A null price shows Price unknown and a Check price row.
 - Price exemptions: a listing with `price_exempt` passes the price filter outside $1.3M–$2.75M. Current: 11701 W Washington Blvd, Mar Vista ($1,095,000), buyer decision Nov 22, 2026.
 - Area averages (Nov 2026): Sherman Oaks $295, other City of LA $267, Pasadena $197.
 - Burbank and La Cañada Flintridge always fail the Airbnb path. Glendale and La Crescenta are Check.
@@ -140,6 +141,7 @@ All P0 requirements below ship in v8.2.0. A listing is "Fit" only when every nee
 | Grocery | A full grocery within walking distance |
 | School | A highly rated elementary within 2 miles |
 | Terrain | Not a steep hillside |
+| No HOA (new in 8.5.0) | No HOA. Listings with an HOA are not added by the scan; a buyer-added listing with a known HOA fails this row. The row shows only when HOA is known. |
 
 **Exit paths** (Exit is "Yes" if either passes)
 
@@ -245,14 +247,15 @@ The biggest risk is stale or missing data: most verdicts are "Needs check" until
 
 Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
-1. **v8.5.0: Side-by-side compare.** Starred finalists in columns.
-2. **v8.6.0: Disclosure check.** Claude in the page flags risks from pasted disclosures.
+1. **v8.6.0: Side-by-side compare.** Starred finalists in columns.
+2. **v8.7.0: Disclosure check.** Claude in the page flags risks from pasted disclosures.
 3. **Weekly run upgrades.** Lot and house size, Airbnb comps and long-term rent filled per listing.
 
 **Version history**
 
 | Version | What changed |
 | --- | --- |
+| v8.5.0 | No HOA filter (fails listings with a known HOA); null price supported for added addresses with no listing link found; added addresses researched first with three searches |
 | v8.4.0 | Repeat entries scroll to the listing's row and fill it yellow (#F4E842) |
 | v8.3.0 | Hosted on GitHub Pages, encrypted with StatiCrypt; shared data and the Starred tab in the Google Sheet via Apps Script; weekly scan moved to Thursday mornings to catch Thursday twilight open houses; list grouped neighborhood > next upcoming open-house day > time, from the moment the page is viewed; "Open house this weekend" chip became "Open house"; Sheet script opens the sheet by ID so it can run standalone |
 | v8.2.0 | Open-house subheadings within each neighborhood; quick filters; reject takes three taps instead of a dialog; exportable bundle |

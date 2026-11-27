@@ -1,6 +1,6 @@
 {
  "scan_date": "2026-11-26",
- "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption).",
+ "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA).",
  "listings": [
   {
    "neighborhood": "Valley Village",
@@ -1503,7 +1503,11 @@
     "detail": "Santa Monica allows only hosted home-sharing (host lives on site, business license and Home-Share permit); whole-home vacation rentals are banned (santamonica.gov, opened Nov 26, 2026)"
    },
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). TIC, NOT fee-simple single-family. Relisted as MLS CL26989727, added Sep 17, 2026, at $2,625,000 (homefront, updated Nov 26, 2026 5:08 PM). Prior MLS 26669881 listed Mar 27, 2026 at $2,995,000 by Compass. Offered furnished if wanted. No open houses listed. No open house listed Nov 26–Dec 6.",
-   "new": true
+   "new": true,
+   "hoa": {
+    "result": "fail",
+    "detail": "TIC with a $527/mo HOA (homefront, Nov 26, 2026); you don't want HOA listings"
+   }
   },
   {
    "neighborhood": "Other",
