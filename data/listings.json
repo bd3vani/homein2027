@@ -1570,6 +1570,72 @@
    },
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). MULTI-UNIT, not single-family. MLS SR26068002, added Mar 30, 2026 (homefront, updated Nov 26, 2026 5:16 PM). Current price $1,599,000 (MLSListings shows 241 DOM). An early IDX page showed $2,100,000, which suggests a large cut. Sale is subject to court confirmation, so overbid and court timing apply. Prevu says 'no longer on the market', which conflicts. Public record calls it a duplex, but the listing says 4 units. No open houses listed. No open house listed Nov 26–Dec 6.",
    "new": true
+  },
+  {
+   "neighborhood": "Other",
+   "address": "2265 23rd St",
+   "price": 2100000,
+   "url": "https://www.zillow.com/homedetails/2265-23rd-St-Santa-Monica-CA-90405/20472969_zpid/",
+   "size": "3 bd / 2 ba, 1,434 sf, 6,534 sf lot (listing text says about 7,000 sf), single-family, built 1939; under the 2,400 sf / 7,000 sf lot office proxy on the lot figure",
+   "pool": {
+    "result": "pass",
+    "detail": "No pool. Listing lot features include \"Room for a Pool\" on a level lot with RV access (Zillow, Nov 26, 2026)"
+   },
+   "grocery": {
+    "result": "check",
+    "detail": "Not checked yet"
+   },
+   "school": {
+    "result": "check",
+    "detail": "Grant Elementary, GreatSchools 7/10, 0.2 mi (Zillow); percentile not confirmed at 85th or higher"
+   },
+   "terrain": {
+    "result": "pass",
+    "detail": "Listing describes a level, flat parcel"
+   },
+   "va": {
+    "result": "pass",
+    "detail": "1,434 sf house on a 6,534 sf level lot; listing suggests an ADU (no permit status stated); garage with office/workshop"
+   },
+   "str_": {
+    "result": "check",
+    "detail": "Santa Monica allows only hosted home-sharing (host lives on site, business license and Home-Share permit); whole-home vacation rentals are banned (santamonica.gov, opened Nov 26, 2026)"
+   },
+   "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). Active per Zillow: listed Nov 16, 2026 at $2,100,000 (MLS 226005321, Century 21 Masters). No open house listed Nov 26–Dec 6.",
+   "new": true
+  },
+  {
+   "neighborhood": "Other",
+   "address": "805 Crestmoore Pl",
+   "price": 2250000,
+   "url": "https://www.redfin.com/CA/Venice/805-Crestmoore-Pl-90291/home/6740750",
+   "size": "Legal 2 bd / 1 ba, 808 sf main house (below 3+ bed, 2+ bath), plus a ~1,556 sf two-story rear structure permitted as a recreation room and carport and used as an unpermitted 3 bd / 2 ba; 4,200 sf LAR2 lot, built 1922. Public record says multi-family (2–4 units)",
+   "pool": {
+    "result": "check",
+    "detail": "No pool stated; 4,200 sf lot with two structures, so room for 18×20 is unlikely but not confirmed"
+   },
+   "grocery": {
+    "result": "check",
+    "detail": "Not checked yet"
+   },
+   "school": {
+    "result": "check",
+    "detail": "Coeur d'Alene Avenue Elementary, assigned, GreatSchools 10/10, 0.1 mi (Redfin); percentile not given"
+   },
+   "terrain": {
+    "result": "pass",
+    "detail": "Not flagged"
+   },
+   "va": {
+    "result": "check",
+    "detail": "Listing cites a permitted change of use / ADU conversion of the rear structure; current conversion is unpermitted and tenant-occupied"
+   },
+   "str_": {
+    "result": "check",
+    "detail": "City of LA (Venice 90291): primary residence only, registration required, 120-day yearly cap; rent-stabilized units are not eligible (LA City Planning Home-Sharing fact sheet, opened Nov 26, 2026)"
+   },
+   "note": "Added by you Nov 25, 2026 (zip 90291, outside your search areas; your \"805 Crest\" entry is the same address). Redfin shows For sale at $2,250,000, listed Sep 10, 2026 (MLS 26863211, Compass), but that page was last updated Sep 18, so confirm it is still active. Rear unit is tenant-occupied. No open house listed.",
+   "new": true
   }
  ]
 }
