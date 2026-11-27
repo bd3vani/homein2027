@@ -234,6 +234,7 @@ function applyFilter(){
     if(FILTER==="fit") ok=li.dataset.v==="pass";
     else if(FILTER==="exit") ok=li.dataset.ev==="pass";
     else if(FILTER==="oh") ok=!!nextOH(li,Date.now());
+    else if(FILTER==="fixer") ok=li.dataset.fx==="1";
     else if(FILTER==="starred") ok=(STARS.get(li.dataset.key)||0)===3;
     li.classList.toggle("ff",!ok);
   });

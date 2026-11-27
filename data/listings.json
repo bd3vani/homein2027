@@ -1,71 +1,7 @@
 {
  "scan_date": "2026-11-26",
- "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA).",
+ "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first).",
  "listings": [
-  {
-   "neighborhood": "Valley Village",
-   "address": "12507 Miranda St",
-   "price": 2680000,
-   "url": "https://www.homes.com/property/12507-miranda-st-valley-village-ca/cmkkvxvhqpp7v/",
-   "va": {
-    "result": "check",
-    "detail": "8,102 sf lot. It sold in Nov 2024 as a 1,243 sf house for $895,000, so it was likely rebuilt; ADU room depends on the new footprint"
-   },
-   "school": {
-    "result": "check",
-    "detail": "CONFLICT: Compass says John B. Monlux Elementary serves this home, rated 6/10 at 0.4 mi. That contradicts the earlier Colfax 96th-pct pass, so check the LAUSD boundary"
-   },
-   "size": "4 bd / 5 ba, 3,000 sf, 8,102 sf lot",
-   "pool": {
-    "result": "pass",
-    "detail": "In-ground pool plus in-ground spa and sport court (Compass, homefront)"
-   }
-  },
-  {
-   "neighborhood": "Valley Village",
-   "address": "5841 Radford Ave",
-   "price": 1450000,
-   "url": "https://www.homes.com/property/5841-radford-ave-valley-village-ca/2hp83h7y47mcb/",
-   "size": "5 bd / 4 ba, 2,739 sf, 7,625 sf lot",
-   "pool": {
-    "result": "pass",
-    "detail": "Pool listed as in-ground and private, no spa (Coldwell Banker MLS data dated 11/26/2026)"
-   },
-   "school": {
-    "result": "check",
-    "detail": "Maurice Sendak Elementary, GreatSchools 8/10, 0.7 mi (Redfin). Percentile not confirmed at 85th or higher"
-   },
-   "va": {
-    "result": "check",
-    "detail": "Renovated, not a fixer. 2,739 sf on a 7,625 sf lot. No ADU mentioned; the only extra structure is a shed"
-   }
-  },
-  {
-   "neighborhood": "Valley Village",
-   "address": "5506 Goodland Ave",
-   "price": 2565000,
-   "url": "https://www.homes.com/property/5506-goodland-ave-valley-village-ca/qq7crrnlryxbq/",
-   "size": "7 bd / 3 full + 2 half ba, 3,392 sf, 5,102 sf lot (built 1972)",
-   "pool": {
-    "result": "pass",
-    "detail": "Fenced, heated, in-ground pool and in-ground spa (rubyhome listing)"
-   },
-   "va": {
-    "result": "check",
-    "detail": "3,392 sf on a 5,102 sf lot (51x100). No ADU room evident"
-   }
-  },
-  {
-   "neighborhood": "Valley Village",
-   "address": "12527 Emelita St",
-   "price": 1895000,
-   "url": "https://www.homes.com/property/12527-emelita-st-valley-village-ca/j58z3w25s3pfm/",
-   "size": "4 bd / 3.5 ba, 2,323 sf, ~7,902 sf lot",
-   "pool": {
-    "result": "pass",
-    "detail": "In-ground, gated pool (Trulia)"
-   }
-  },
   {
    "neighborhood": "Sherman Oaks",
    "address": "14701 Hartsook St",
@@ -86,7 +22,9 @@
    "pool": {
     "result": "check",
     "detail": "Pool and spa with baja shelf and waterfall (eXp). The baja shelf implies in-ground, but in-ground is not stated outright"
-   }
+   },
+   "sf": 3157,
+   "lot_sf": 7292
   },
   {
    "neighborhood": "Sherman Oaks",
@@ -97,7 +35,8 @@
    "pool": {
     "result": "pass",
     "detail": "In-ground pool stated in listing (Nov 21 scan; not re-confirmed Nov 26)"
-   }
+   },
+   "sf": 2464
   },
   {
    "neighborhood": "Sherman Oaks",
@@ -114,8 +53,8 @@
     "detail": "Not checked yet"
    },
    "school": {
-    "result": "check",
-    "detail": "Riverside Drive Charter Elementary, GreatSchools 7/10, 0.5 mi, assigned (Compass)"
+    "result": "fail",
+    "detail": "Riverside Drive Charter Elementary, GreatSchools 7/10, 0.5 mi, assigned (Compass); below your GreatSchools 8+ bar"
    },
    "terrain": {
     "result": "check",
@@ -126,7 +65,9 @@
     "detail": "Remodeled; 2,400 sf on 7,198 sf lot, no ADU mentioned"
    },
    "note": "MLS PW26186224, listed Sep 17 at $1,999,000 and cut to $1,899,000 on Oct 13. About 69 DOM. homes.com also shows a For Rent entry ($7,950/mo, Oct 16), so the owner may be dual-listing. No open houses listed.",
-   "new": true
+   "new": true,
+   "sf": 2400,
+   "lot_sf": 7198
   },
   {
    "neighborhood": "Van Nuys",
@@ -144,7 +85,8 @@
     "detail": "Listing says “private pool”; in-ground not stated"
    },
    "size": "5 bd / 3 ba, 2,556 sf",
-   "note": "homes.com lists the Friday 3–6 PM open house without a date; taken as Fri Nov 27."
+   "note": "homes.com lists the Friday 3–6 PM open house without a date; taken as Fri Nov 27.",
+   "sf": 2556
   },
   {
    "neighborhood": "Van Nuys",
@@ -156,7 +98,9 @@
    "pool": {
     "result": "pass",
     "detail": "In-ground pool stated in listing (Nov 21 scan; not re-confirmed Nov 26)"
-   }
+   },
+   "sf": 4810,
+   "lot_sf": 13787
   },
   {
    "neighborhood": "Burbank",
@@ -167,7 +111,9 @@
    "pool": {
     "result": "pass",
     "detail": "New construction with swimming pool and integrated spa (listing description)"
-   }
+   },
+   "sf": 2429,
+   "lot_sf": 6098
   },
   {
    "neighborhood": "Burbank",
@@ -184,8 +130,8 @@
     "detail": "Not checked yet"
    },
    "school": {
-    "result": "check",
-    "detail": "Thomas Jefferson Elementary, GreatSchools 8/10, 0.6 mi; percentile not given"
+    "result": "pass",
+    "detail": "Thomas Jefferson Elementary, GreatSchools 8/10, 0.6 mi; meets your GreatSchools 8+ bar"
    },
    "terrain": {
     "result": "check",
@@ -196,7 +142,9 @@
     "detail": "Renovated, 6,107 sf lot with pool; little ADU room"
    },
    "note": "Listed Nov 24, 2026 (MLS 26109649, Coldwell Banker). Sold Aug 2024 for $1.4M. No open house yet.",
-   "new": true
+   "new": true,
+   "sf": 1893,
+   "lot_sf": 6107
   },
   {
    "neighborhood": "Burbank",
@@ -225,7 +173,9 @@
     "detail": "27,476 sf lot may allow an ADU; layout/slope unknown"
    },
    "note": "29 days on Zillow. Property page not opened (fetch limits).",
-   "new": true
+   "new": true,
+   "sf": 3214,
+   "lot_sf": 27476
   },
   {
    "neighborhood": "Burbank",
@@ -254,7 +204,8 @@
     "detail": "Small 1,493 sf house; lot size unknown"
    },
    "note": "42 days on Zillow. Property page not opened.",
-   "new": true
+   "new": true,
+   "sf": 1493
   },
   {
    "neighborhood": "North Hollywood / Toluca Lake",
@@ -270,7 +221,9 @@
     "result": "check",
     "detail": "Listing headline mentions an ADU but gives no details. An existing ADU is not added room"
    },
-   "note": "A search snippet from Orchard says Off Market (page not opened); confirm status."
+   "note": "A search snippet from Orchard says Off Market (page not opened); confirm status.",
+   "sf": 2797,
+   "lot_sf": 8276
   },
   {
    "neighborhood": "North Hollywood / Toluca Lake",
@@ -283,8 +236,8 @@
     "detail": "In-ground, filtered, private pool (Compass)"
    },
    "school": {
-    "result": "check",
-    "detail": "Toluca Lake Elementary, GreatSchools 8/10, 0.3 mi (Compass). Percentile not confirmed at 85th or higher"
+    "result": "pass",
+    "detail": "Toluca Lake Elementary, GreatSchools 8/10, 0.3 mi (Compass); meets your GreatSchools 8+ bar"
    },
    "va": {
     "result": "check",
@@ -299,7 +252,9 @@
      "sort": 2913,
      "label": "Sun Nov 29, 1–4 PM"
     }
-   ]
+   ],
+   "sf": 3012,
+   "lot_sf": 6261
   },
   {
    "neighborhood": "Studio City",
@@ -314,7 +269,9 @@
    "pool": {
     "result": "check",
     "detail": "Pool and spa in the backyard, plus a 2003 permit for a 'new heated swimming pool and spa'. In-ground not stated"
-   }
+   },
+   "sf": 3555,
+   "lot_sf": 7001
   },
   {
    "neighborhood": "Glendale",
@@ -325,7 +282,9 @@
    "pool": {
     "result": "pass",
     "detail": "Private pool, newly renovated (homes.com)"
-   }
+   },
+   "sf": 2575,
+   "lot_sf": 10514
   },
   {
    "neighborhood": "Glendale",
@@ -349,7 +308,9 @@
     "result": "pass",
     "detail": "40-ft pool and spa; private in-ground black-bottom pool (listing description)"
    },
-   "note": "Price cut $100,000 on Nov 12 (Zillow)."
+   "note": "Price cut $100,000 on Nov 12 (Zillow).",
+   "sf": 2585,
+   "lot_sf": 7018
   },
   {
    "neighborhood": "Glendale",
@@ -362,9 +323,11 @@
     "detail": "Private heated pool and spa"
    },
    "school": {
-    "result": "check",
-    "detail": "Verdugo Woodlands Elementary, GreatSchools 9/10, 0.4 mi (assigned); percentile not given"
-   }
+    "result": "pass",
+    "detail": "Verdugo Woodlands Elementary, GreatSchools 9/10, 0.4 mi (assigned); meets your GreatSchools 8+ bar"
+   },
+   "sf": 2499,
+   "lot_sf": 12632
   },
   {
    "neighborhood": "Glendale",
@@ -388,7 +351,9 @@
     "result": "pass",
     "detail": "Private in-ground pool plus in-ground spa"
    },
-   "note": "Price dropped to $1,775,000 (homes.com, Zillow, Nov 26)."
+   "note": "Price dropped to $1,775,000 (homes.com, Zillow, Nov 26).",
+   "sf": 2320,
+   "lot_sf": 10291
   },
   {
    "neighborhood": "Glendale",
@@ -412,7 +377,10 @@
     "result": "pass",
     "detail": "Private in-ground pool ('sparkling sun filled pool' in rear yard)"
    },
-   "note": "One Elliman field lists 1 bath against 2 in the details; confirm."
+   "note": "One Elliman field lists 1 bath against 2 in the details; confirm.",
+   "sf": 1788,
+   "lot_sf": 7207,
+   "fixer": true
   },
   {
    "neighborhood": "Glendale",
@@ -441,7 +409,8 @@
     "detail": "Not checked yet"
    },
    "note": "homes.com shows a $200K price drop; the Redfin cache still shows $2,199,000. Baths: 4 on homes.com and Zillow, 3 on Redfin.",
-   "new": true
+   "new": true,
+   "sf": 3440
   },
   {
    "neighborhood": "Glendale",
@@ -470,7 +439,9 @@
     "detail": "Not checked yet"
    },
    "note": "69 days on Zillow at $2.7M; the Redfin cache shows $2,990,000, so it was reduced.",
-   "new": true
+   "new": true,
+   "sf": 3192,
+   "lot_sf": 14377
   },
   {
    "neighborhood": "Glendale",
@@ -499,7 +470,8 @@
     "detail": "Lot size unknown"
    },
    "note": "35 days on Zillow.",
-   "new": true
+   "new": true,
+   "sf": 1752
   },
   {
    "neighborhood": "Glendale",
@@ -528,7 +500,8 @@
     "detail": "Not checked yet"
    },
    "note": "$196K price drop (homes.com); 127 days on Zillow.",
-   "new": true
+   "new": true,
+   "sf": 2137
   },
   {
    "neighborhood": "La Crescenta",
@@ -540,7 +513,8 @@
    "pool": {
     "result": "pass",
     "detail": "In-ground pool stated in listing (Nov 21 scan; not re-confirmed Nov 26)"
-   }
+   },
+   "sf": 1951
   },
   {
    "neighborhood": "La Crescenta",
@@ -569,7 +543,9 @@
     "detail": "Not checked yet"
    },
    "note": "Price cut $100,000 on Nov 21, 2026 (Zillow).",
-   "new": true
+   "new": true,
+   "sf": 2872,
+   "lot_sf": 9244
   },
   {
    "neighborhood": "La Crescenta",
@@ -604,7 +580,8 @@
     }
    ],
    "note": "Zillow uses the 'Glendale, CA 91214' address; homes.com says La Crescenta.",
-   "new": true
+   "new": true,
+   "sf": 1600
   },
   {
    "neighborhood": "La Crescenta",
@@ -633,7 +610,8 @@
     "detail": "Not checked yet"
    },
    "note": "$100K price drop; 100 days on Zillow.",
-   "new": true
+   "new": true,
+   "sf": 2130
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -657,7 +635,9 @@
    "va": {
     "result": "pass",
     "detail": "2,258 sf house on a 0.47 ac (20,491 sf) lot leaves room for an ADU or addition"
-   }
+   },
+   "sf": 2258,
+   "lot_sf": 20473
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -668,7 +648,8 @@
    "pool": {
     "result": "check",
     "detail": "Appears on Zillow, homes.com and Redfin pool-filtered searches, but no listing text confirms the pool"
-   }
+   },
+   "sf": 1554
   },
   {
    "neighborhood": "Pasadena",
@@ -683,7 +664,9 @@
    "terrain": {
     "result": "pass",
     "detail": "No hillside noted in listing"
-   }
+   },
+   "sf": 2558,
+   "lot_sf": 7940
   },
   {
    "neighborhood": "Pasadena",
@@ -696,13 +679,15 @@
    },
    "size": "3 bd / 2 ba, 2,412 sf, 8,767 sf lot",
    "school": {
-    "result": "check",
-    "detail": "Assigned McKinley School (K-8) is rated 2/10 on GreatSchools (Zillow page for nearby 870 S Euclid); not 85th pct"
+    "result": "fail",
+    "detail": "Assigned McKinley School (K-8) is rated 2/10 on GreatSchools (Zillow page for nearby 870 S Euclid); below your GreatSchools 8+ bar"
    },
    "va": {
     "result": "check",
     "detail": "2025 listing was a fixer with a 620 sf garage conversion 'ideal for an ADU'. 2026 condition not confirmed (likely renovated after the 2025 sale)"
-   }
+   },
+   "sf": 2412,
+   "lot_sf": 8767
   },
   {
    "neighborhood": "Pasadena",
@@ -719,8 +704,8 @@
     "detail": "Listing says near Whole Foods; walking distance not confirmed"
    },
    "school": {
-    "result": "check",
-    "detail": "McKinley School (K-8) 2/10, 0.7 mi (GreatSchools via Zillow)"
+    "result": "fail",
+    "detail": "McKinley School (K-8) 2/10, 0.7 mi (GreatSchools via Zillow); below your GreatSchools 8+ bar"
    },
    "terrain": {
     "result": "pass",
@@ -730,7 +715,9 @@
     "result": "check",
     "detail": "New ADU and a 12x20 workshop already built, so less upside"
    },
-   "note": "Price cut to $1,898,000 on Oct 11 (Trulia)."
+   "note": "Price cut to $1,898,000 on Oct 11 (Trulia).",
+   "sf": 2340,
+   "lot_sf": 9256
   },
   {
    "neighborhood": "Pasadena",
@@ -747,8 +734,8 @@
     "detail": "Not checked yet"
    },
    "school": {
-    "result": "check",
-    "detail": "Longfellow Elementary 4/10, 1.1 mi (GreatSchools via Zillow)"
+    "result": "fail",
+    "detail": "Longfellow Elementary 4/10, 1.1 mi (GreatSchools via Zillow); below your GreatSchools 8+ bar"
    },
    "terrain": {
     "result": "pass",
@@ -759,7 +746,9 @@
     "detail": "0.38-acre lot with rear alley; listing mentions a possible second dwelling, subject to city approval"
    },
    "note": "Listed Nov 19, 2026 (MLS P1-29639, eXp). 1924 Wallace Neff Spanish Revival in the North Pasadena Heights Landmark District (design limits). It last housed a preschool (closed 2026), so confirm residential use and condition. Only 1 full bath. Trust sale; cash or cash to new loan.",
-   "new": true
+   "new": true,
+   "sf": 3887,
+   "lot_sf": 16552
   },
   {
    "neighborhood": "Pasadena",
@@ -788,7 +777,9 @@
     "detail": "Updated ranch; no ADU mentioned"
    },
    "note": "MLS 26102157, 1948 ranch in Hastings Ranch, 14 days on market.",
-   "new": true
+   "new": true,
+   "sf": 2639,
+   "lot_sf": 13716
   },
   {
    "neighborhood": "Pasadena",
@@ -817,7 +808,9 @@
     "detail": "Small house on an about 8,500 sf lot; ADU room not confirmed"
    },
    "note": "Price per the homes.com pool search ($50K drop, 'New Price!'). Last sold Mar 2023 for $1,480,000 (Nourmand). I could not open its own listing page.",
-   "new": true
+   "new": true,
+   "sf": 1594,
+   "lot_sf": 8500
   },
   {
    "neighborhood": "Larchmont / Hancock Park",
@@ -843,7 +836,10 @@
     "result": "pass",
     "detail": "Listed as a fixer-style opportunity needing updating"
    },
-   "note": "The Sun Dec 6 open house is from the Nov 21 scan (homes.com) and could not be reconfirmed Nov 26."
+   "note": "The Sun Dec 6 open house is from the Nov 21 scan (homes.com) and could not be reconfirmed Nov 26.",
+   "sf": 2476,
+   "lot_sf": 6802,
+   "fixer": true
   },
   {
    "neighborhood": "Larchmont / Hancock Park",
@@ -872,7 +868,8 @@
     "detail": "Small 1,519 sf house; lot size unknown"
    },
    "note": "Two homes.com pages disagree on price: $1,825,000 vs $1,849,000. Hancock Park-adjacent (90036). Confirm price and status on the listing itself.",
-   "new": true
+   "new": true,
+   "sf": 1519
   },
   {
    "neighborhood": "Silver Lake",
@@ -889,13 +886,15 @@
     "detail": "Heated pool with in-ground spa"
    },
    "school": {
-    "result": "check",
-    "detail": "Dayton Heights Elementary 6/10, 0.5 mi (GreatSchools via Zillow)"
+    "result": "fail",
+    "detail": "Dayton Heights Elementary 6/10, 0.5 mi (GreatSchools via Zillow); below your GreatSchools 8+ bar"
    },
    "va": {
     "result": "check",
     "detail": "Detached ADU and rec room already built; just renovated"
-   }
+   },
+   "sf": 2263,
+   "lot_sf": 8128
   },
   {
    "neighborhood": "Los Feliz",
@@ -922,10 +921,11 @@
     "detail": "Hillside with views; borderline"
    },
    "school": {
-    "result": "check",
-    "detail": "Los Feliz STEMM Magnet 5/10, 0.7 mi (GreatSchools via Zillow)"
+    "result": "fail",
+    "detail": "Los Feliz STEMM Magnet 5/10, 0.7 mi (GreatSchools via Zillow); below your GreatSchools 8+ bar"
    },
-   "note": "homes.com lists the Tuesday 11 AM–2 PM open house without a date; taken as Tue Dec 1."
+   "note": "homes.com lists the Tuesday 11 AM–2 PM open house without a date; taken as Tue Dec 1.",
+   "lot_sf": 8805
   },
   {
    "neighborhood": "Los Feliz",
@@ -953,7 +953,8 @@
    "va": {
     "result": "check",
     "detail": "Remodeled; no ADU mentioned; 6,757 sf lot"
-   }
+   },
+   "sf": 3295
   },
   {
    "neighborhood": "Fairfax / Melrose",
@@ -978,7 +979,8 @@
    "va": {
     "result": "check",
     "detail": "Remodeled; detached guest house (1 bd/1 ba) already built"
-   }
+   },
+   "lot_sf": 8246
   },
   {
    "neighborhood": "Mar Vista",
@@ -997,7 +999,9 @@
    "va": {
     "result": "check",
     "detail": "Compass lists Guest House: None, Other Structures: None; no ADU noted"
-   }
+   },
+   "sf": 2878,
+   "lot_sf": 7022
   },
   {
    "neighborhood": "Mar Vista",
@@ -1013,7 +1017,9 @@
     "result": "pass",
     "detail": "Fully permitted detached ADU of about 400 sf with its own bath and separate address"
    },
-   "note": "Private tours only."
+   "note": "Private tours only.",
+   "sf": 1580,
+   "lot_sf": 8354
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -1032,14 +1038,16 @@
    "va": {
     "result": "pass",
     "detail": "Listing says the detached garage has approved ADU plans"
-   }
+   },
+   "sf": 2120,
+   "lot_sf": 9735
   },
   {
    "neighborhood": "Cheviot Hills",
    "address": "2642 Manning Ave",
    "price": 1950000,
    "url": "https://www.compass.com/homedetails/2642-Manning-Ave-Los-Angeles-CA-90064/1K1TVN_pid/",
-   "size": "4 bd / 2 ba, 1,918 sf, 6,987 sf corner lot, built 1925; below the 2,400 sf / 7,000 sf lot office proxy",
+   "size": "4 bd / 2 ba, 1,918 sf, 6,987 sf corner lot, built 1925",
    "pool": {
     "result": "pass",
     "detail": "Private in-ground pool"
@@ -1061,7 +1069,9 @@
     "detail": "No ADU mentioned"
    },
    "note": "MLS area is 'Cheviot Hills/Rancho Park (C08)'. Listed Mar 18, 2026, about 253 days on market. History shows $2,250,000 in May, and no record yet of the cut to $1,950,000. No open house.",
-   "new": true
+   "new": true,
+   "sf": 1918,
+   "lot_sf": 6987
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -1090,7 +1100,10 @@
     "detail": "Small house on a 9,358 sf lot; plans for a ~3,914 sf home plus a 469 sf ADU are in City review"
    },
    "note": "Listed Jul 10 at $2,595,000 and cut to $2,445,000 on Aug 13; 138 days on market. Marketed as a development or owner-build opportunity. No open house.",
-   "new": true
+   "new": true,
+   "sf": 1678,
+   "lot_sf": 9358,
+   "fixer": true
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -1119,7 +1132,10 @@
     "detail": "Listed as a fixer, sold as-is"
    },
    "note": "Listed Oct 12. Status went to 'Accepting Backup Offers' on Oct 26, then back to Active Nov 5. Confirm status with the agent. The only open house was Nov 8 (past).",
-   "new": true
+   "new": true,
+   "sf": 2604,
+   "lot_sf": 7151,
+   "fixer": true
   },
   {
    "neighborhood": "Silver Lake",
@@ -1143,7 +1159,9 @@
     "result": "check",
     "detail": "10,464 sf lot with a 3,200 sf house just renovated with permitted additions; ADU room depends on the slope"
    },
-   "note": "Added by you Nov 22, 2026. Listed at $3,495,000 (MLS SB26242175). A 1–5 PM open house is listed; date not confirmed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active. Not re-confirmed Nov 26 (Redfin returned an error)."
+   "note": "Added by you Nov 22, 2026. Listed at $3,495,000 (MLS SB26242175). A 1–5 PM open house is listed; date not confirmed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active. Not re-confirmed Nov 26 (Redfin returned an error).",
+   "sf": 3200,
+   "lot_sf": 10464
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1171,7 +1189,9 @@
     "result": "pass",
     "detail": "1,939 sf single-story house on a 16,799 sf flat lot leaves room for an ADU or addition; not a fixer (new roof, paint, counters)"
    },
-   "note": "Added by you Nov 23, 2026. Status is Contingent (MLS P1-29527, Sereno page updated Nov 20), so it may not be available; not re-confirmed Nov 26 (Sereno page blocked). No open house listed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active."
+   "note": "Added by you Nov 23, 2026. Status is Contingent (MLS P1-29527, Sereno page updated Nov 20), so it may not be available; not re-confirmed Nov 26 (Sereno page blocked). No open house listed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active.",
+   "sf": 1939,
+   "lot_sf": 16799
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1200,7 +1220,8 @@
     "detail": "1,790 sf house; lot size unknown"
    },
    "note": "52 days on Zillow.",
-   "new": true
+   "new": true,
+   "sf": 1790
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1229,7 +1250,9 @@
     "detail": "0.42 ac lot may allow an ADU; slope unknown"
    },
    "note": "Seen Nov 26, 2026 on Redfin only, which may be a cached page. Not on Zillow's LCF pool page 1 (two cards did not load). Confirm it is still active.",
-   "new": true
+   "new": true,
+   "sf": 2265,
+   "lot_sf": 18295
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1258,7 +1281,9 @@
     "detail": "1,975 sf house on a nearly 11,000 sf flat lot; room for an ADU or addition"
    },
    "note": "Fronts Foothill Blvd, a busy arterial; check traffic noise.",
-   "new": true
+   "new": true,
+   "sf": 1975,
+   "lot_sf": 11000
   },
   {
    "neighborhood": "Mar Vista",
@@ -1287,14 +1312,16 @@
     "detail": "Listing cites a possible ADU and garage conversion, subject to City approval"
    },
    "note": "Added by you Nov 23, 2026. Not a single-family home: a 4-unit income property (MLS 26105806, Active, listed Nov 2) with 3 units rented for $4,207/mo. Listing says it is subject to Culver City rent control. Price is below your $1.3M floor. No open house listed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active. Not re-confirmed Nov 26 (Trulia blocked).",
-   "price_exempt": "buyer exemption (Nov 22, 2026)"
+   "price_exempt": "buyer exemption (Nov 22, 2026)",
+   "sf": 2780,
+   "lot_sf": 4879
   },
   {
    "neighborhood": "Mar Vista",
    "address": "3512 Greenwood Ave",
    "price": 2250000,
    "url": "https://www.compass.com/homedetails/3512-Greenwood-Ave-Los-Angeles-CA-90066/1IZJ80_pid/",
-   "size": "4 bd / 3 ba, 1,672 sf, 5,022 sf lot (42x120), built 1947; below the 2,400 sf / 7,000 sf lot office proxy",
+   "size": "4 bd / 3 ba, 1,672 sf, 5,022 sf lot (42x120), built 1947",
    "pool": {
     "result": "pass",
     "detail": "In-ground gunite saltwater pool, gas-heated, with cover"
@@ -1322,7 +1349,9 @@
     }
    ],
    "note": "Listed Aug 31 at $2,495,000. Weichert says it was cut on Sep 23; Compass dates the cut Oct 30. Weichert and the Compass search page show the Nov 29 open house, but the Compass detail page does not. Weichert says to confirm with the agent.",
-   "new": true
+   "new": true,
+   "sf": 1672,
+   "lot_sf": 5022
   },
   {
    "neighborhood": "Mar Vista",
@@ -1351,7 +1380,10 @@
     "detail": "Condition listed as Fixer; small house on a 10k sf lot; listing cites ADU potential"
    },
    "note": "Listed Aug 23. Description notes a $245k price adjustment around Nov 8–9. Price is at the $2.75M ceiling. No open house.",
-   "new": true
+   "new": true,
+   "sf": 1514,
+   "lot_sf": 10017,
+   "fixer": true
   },
   {
    "neighborhood": "Mar Vista",
@@ -1380,7 +1412,9 @@
     "detail": "Service kitchen with 'ADU potential' only"
    },
    "note": "Listed Sep 18 at $2,700,000. The Compass search page shows $2,599,000, but the detail page still shows $2.7M (last updated Oct 15). Don Swiers architectural home. The only open house was Oct 18 (past).",
-   "new": true
+   "new": true,
+   "sf": 2614,
+   "lot_sf": 6752
   },
   {
    "neighborhood": "Palms",
@@ -1409,7 +1443,10 @@
     "detail": "Offered as-is by a motivated seller; listing cites potential ADU addition"
    },
    "note": "Listed Aug 14 at $1,700,000 and cut to $1,580,000 on Nov 3. MLS area is 'Palms - Mar Vista (C13)'. The block has many apartment buildings. No open house.",
-   "new": true
+   "new": true,
+   "sf": 2247,
+   "lot_sf": 7561,
+   "fixer": true
   },
   {
    "neighborhood": "Cypress Park",
@@ -1437,7 +1474,9 @@
     "result": "check",
     "detail": "Fully restored 1888 Queen Anne (Cole Mansion), not a fixer. Inside the Highland Park-Garvanza HPOZ, which limits additions; ADU room not checked yet"
    },
-   "note": "Added by you Nov 23, 2026. Active (Movoto, Nov 26); listed Oct 14–15 (MLS 26102327). Trulia places it in Highland Park (Sycamore Grove), not Cypress Park. No open house listed."
+   "note": "Added by you Nov 23, 2026. Active (Movoto, Nov 26); listed Oct 14–15 (MLS 26102327). Trulia places it in Highland Park (Sycamore Grove), not Cypress Park. No open house listed.",
+   "sf": 3345,
+   "lot_sf": 5811
   },
   {
    "neighborhood": "Other",
@@ -1470,7 +1509,9 @@
     "detail": "Santa Monica allows only hosted home-sharing (host lives on site, business license and Home-Share permit); whole-home vacation rentals are banned (santamonica.gov, opened Nov 26, 2026)"
    },
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). MULTI-UNIT, not single-family. MLS CLW-C122196 (Coldwell Banker shows MLS CL26837951 at $2,995,000). Price cut from $2,995,000 to $2,895,000 on Nov 6, 2026. 176 DOM, so listed about early June 2026 (exact date not stated). Page updated Nov 20, 2026. The seller may carry a 1st trust deed. Prevu shows 'no longer on the market', which conflicts. Crown Coastal (updated Nov 20) shows Active. No open houses listed ('Book Visit' only). No open house listed Nov 26–Dec 6.",
-   "new": true
+   "new": true,
+   "sf": 2850,
+   "lot_sf": 5496
   },
   {
    "neighborhood": "Other",
@@ -1507,7 +1548,9 @@
    "hoa": {
     "result": "fail",
     "detail": "TIC with a $527/mo HOA (homefront, Nov 26, 2026); you don't want HOA listings"
-   }
+   },
+   "sf": 1480,
+   "lot_sf": 6501
   },
   {
    "neighborhood": "Other",
@@ -1540,7 +1583,9 @@
     "detail": "Santa Monica allows only hosted home-sharing (host lives on site, business license and Home-Share permit); whole-home vacation rentals are banned (santamonica.gov, opened Nov 26, 2026)"
    },
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). Over $2.75M budget. Current MLS 26103760, listed Oct 22, 2026 at $3,996,000. History: MLS 26664905 listed Mar 16, 2026 at $3,395,000, withdrawn Apr 9, expired May 1, and shown Active again Jul 21, 2026 (Prevu). MLS 26691751 listed Apr 2026 at $4,395,000. Weichert's title shows $4,196,000, which may be a stale price. Sold Jun 22, 2018 for $3,400,000. Includes the 702 Navy lot. No open houses listed for Nov 26–Dec 6. No open house listed Nov 26–Dec 6.",
-   "new": true
+   "new": true,
+   "sf": 2301,
+   "lot_sf": 5554
   },
   {
    "neighborhood": "Other",
@@ -1573,7 +1618,9 @@
     "detail": "Santa Monica allows only hosted home-sharing (host lives on site, business license and Home-Share permit); whole-home vacation rentals are banned (santamonica.gov, opened Nov 26, 2026)"
    },
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). MULTI-UNIT, not single-family. MLS SR26068002, added Mar 30, 2026 (homefront, updated Nov 26, 2026 5:16 PM). Current price $1,599,000 (MLSListings shows 241 DOM). An early IDX page showed $2,100,000, which suggests a large cut. Sale is subject to court confirmation, so overbid and court timing apply. Prevu says 'no longer on the market', which conflicts. Public record calls it a duplex, but the listing says 4 units. No open houses listed. No open house listed Nov 26–Dec 6.",
-   "new": true
+   "new": true,
+   "sf": 2369,
+   "lot_sf": 6006
   },
   {
    "neighborhood": "Other",
@@ -1590,8 +1637,8 @@
     "detail": "Not checked yet"
    },
    "school": {
-    "result": "check",
-    "detail": "Grant Elementary, GreatSchools 7/10, 0.2 mi (Zillow); percentile not confirmed at 85th or higher"
+    "result": "fail",
+    "detail": "Grant Elementary, GreatSchools 7/10, 0.2 mi (Zillow); below your GreatSchools 8+ bar"
    },
    "terrain": {
     "result": "pass",
@@ -1606,7 +1653,9 @@
     "detail": "Santa Monica allows only hosted home-sharing (host lives on site, business license and Home-Share permit); whole-home vacation rentals are banned (santamonica.gov, opened Nov 26, 2026)"
    },
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). Active per Zillow: listed Nov 16, 2026 at $2,100,000 (MLS 226005321, Century 21 Masters). No open house listed Nov 26–Dec 6.",
-   "new": true
+   "new": true,
+   "sf": 1434,
+   "lot_sf": 6534
   },
   {
    "neighborhood": "Other",
@@ -1623,8 +1672,8 @@
     "detail": "Not checked yet"
    },
    "school": {
-    "result": "check",
-    "detail": "Coeur d'Alene Avenue Elementary, assigned, GreatSchools 10/10, 0.1 mi (Redfin); percentile not given"
+    "result": "pass",
+    "detail": "Coeur d'Alene Avenue Elementary, assigned, GreatSchools 10/10, 0.1 mi (Redfin); meets your GreatSchools 8+ bar"
    },
    "terrain": {
     "result": "pass",
@@ -1639,7 +1688,9 @@
     "detail": "City of LA (Venice 90291): primary residence only, registration required, 120-day yearly cap; rent-stabilized units are not eligible (LA City Planning Home-Sharing fact sheet, opened Nov 26, 2026)"
    },
    "note": "Added by you Nov 25, 2026 (zip 90291, outside your search areas; your \"805 Crest\" entry is the same address). Redfin shows For sale at $2,250,000, listed Sep 10, 2026 (MLS 26863211, Compass), but that page was last updated Sep 18, so confirm it is still active. Rear unit is tenant-occupied. No open house listed.",
-   "new": true
+   "new": true,
+   "sf": 808,
+   "lot_sf": 4200
   }
  ]
 }

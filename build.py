@@ -44,6 +44,13 @@ def key(a):
     return t[0]+"-"+rest[0]
 def slug(a): return re.sub(r'[^a-z0-9]+','-',a.lower()).strip('-')
 LBL={"pass":"Pass","check":"Check","fail":"Fail"}
+def office(x):
+    sf,lot=x.get("sf"),x.get("lot_sf")
+    have=[f"{sf:,} sf" if sf else "living area not captured",f"{lot:,} sf lot" if lot else "lot not captured"]
+    d=", ".join(have)
+    if (sf and sf>=2400) or (lot and lot>=7000): return ("pass",d)
+    if sf and lot: return ("fail",d+"; under both")
+    return ("check",d)
 def rows(price,x):
     ex=x.get("price_exempt")
     if price is None: p=("check","List price not found; listing link not found")
@@ -57,7 +64,7 @@ def rows(price,x):
      ("Active listing","pass",f"Active in {datetime.strptime(SCAN_DATE,'%Y-%m-%d'):%b} {int(SCAN_DATE[8:])} scan"),
      ("Price $1.3M–$2.75M",*p),
      ("3+ bed, 2+ bath","pass",size),
-     ("2,400+ sf or 7,000+ sf lot","pass",size),
+     ("2,400+ sf or 7,000+ sf lot",*office(x)),
      ("Pool: full in-ground, or room for 18×20 with access",*x.get("pool",("pass","In-ground pool stated in listing"))),
      ("Grocery in walking distance",*x.get("grocery",("check","Not checked yet"))),
      ("Highly rated elementary within 2 mi",*x.get("school",("check","Not checked yet"))),
@@ -123,10 +130,11 @@ for area,addr,price,url,x in L:
     keys[key(addr)]=sid
     opts.append(f'<option value="{E(addr)}, {E(area)}">')
     ohtxt=f"Open house {nxt}" if nxt else "No open house found"
-    newtag='<span class="new">New</span> ' if x.get("new") else ""
+    newtag=('<span class="new">New</span> ' if x.get("new") else "")+('<span class="new fx">Fixer</span> ' if x.get("fixer") else "")
+    prio=(0 if office(x)[0]=="pass" else 1) if x.get("fixer") else 2
     ohs=[t for t in (oh_times(lab,SCAN_DATE) for _,lab in oh) if t]
-    li=f'<li data-key="{key(addr)}" data-v="{v}" data-ev="{ev}" data-ohs="{E(json.dumps(ohs))}"><a href="#{sid}"><span class="dot {v}" aria-hidden="true"></span><span class="addr">{newtag}{E(addr)}</span><span class="meta">{f"${price/1e6:.2f}M" if price is not None else "Price unknown"}. Exit: {EVT[ev].lower()}</span><span class="vt {v}">{VT[v]}</span></a><button class="x" type="button" aria-label="Reject {E(addr)}" title="Reject">×</button></li>'
-    groups.setdefault(area,[]).append((oh[0][0] if oh else 99999,("Open house "+nxt) if nxt else "No upcoming open house",li))
+    li=f'<li data-key="{key(addr)}" data-fx="{1 if x.get('fixer') else 0}" data-v="{v}" data-ev="{ev}" data-ohs="{E(json.dumps(ohs))}"><a href="#{sid}"><span class="dot {v}" aria-hidden="true"></span><span class="addr">{newtag}{E(addr)}</span><span class="meta">{f"${price/1e6:.2f}M" if price is not None else "Price unknown"}. Exit: {EVT[ev].lower()}</span><span class="vt {v}">{VT[v]}</span></a><button class="x" type="button" aria-label="Reject {E(addr)}" title="Reject">×</button></li>'
+    groups.setdefault(area,[]).append(((oh[0][0] if oh else 99999,prio),("Open house "+nxt) if nxt else "No upcoming open house",li))
     tr="".join(f'<tr><th scope="row">{E(k)}</th><td><span class="tag {s}">{LBL[s]}</span></td><td>{E(d)}</td></tr>' for k,s,d in r)
     etr="".join(f'<tr><th scope="row">{E(k)}</th><td><span class="tag {s}">{LBL[s]}</span></td><td>{E(d)}</td></tr>' for k,s,d in er)
     ohp=("Open houses: "+"; ".join(o[1] for o in oh)+".") if oh else "No open house found."

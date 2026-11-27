@@ -6,7 +6,7 @@ Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
 Listing check tells a home buyer, in one tap, whether an LA listing fits their needs and whether it has a way out. It is a single hosted page, built from the weekly listing scan.
 
-**Problem.** The buyer is searching for a primary residence with a pool, $1.3M–$2.75M, across 18 LA neighborhoods. Each week brings about 36 candidate listings, and judging each one means checking 8 filters by hand across listing sites, maps and school rankings. A wrong pick is costly, so each home also needs an exit: a forced value add, or Airbnb income worth 3 months of mortgage.
+**Problem.** The buyer is searching for a primary residence with a pool, $1.3M–$2.75M, across 17 LA neighborhoods (Valley Village dropped by the buyer, Nov 26, 2026). Each week brings about 36 candidate listings, and judging each one means checking 8 filters by hand across listing sites, maps and school rankings. A wrong pick is costly, so each home also needs an exit: a forced value add, or Airbnb income worth 3 months of mortgage.
 
 **Who it's for.** The buyer and anyone they share the link with, such as a spouse or agent. Use is weekly, around open houses: Thursday twilight and the weekend.
 
@@ -63,10 +63,10 @@ Read this section before changing Listing check. The rest of the PRD is the spec
 
 **Defaults for terms the buyer hasn't defined**
 
-- Grocery "walking distance": no threshold yet. Pass only when the scan names a full grocery and its distance; otherwise Check.
-- School "highly rated": no threshold yet. As built, the 85th percentile and above passes and anything lower is Check.
+- Grocery "walking distance" (buyer decision Nov 26, 2026): a full grocery within 1 mile (about 20 minutes on foot). Pass when the scan names the store and a distance of 1 mile or less; Fail when the nearest full grocery is farther; otherwise Check.
+- School "highly rated" (buyer decision Nov 26, 2026): the assigned elementary within 2 miles rates GreatSchools 8/10 or higher. Pass at 8+, Fail below 8. With only a SchoolDigger percentile, the 85th and above passes and lower is Check. Ivanhoe Elementary counts as highly rated.
 - "Steep hillside": Check when the scan flags hillside; otherwise Pass.
-- Pool "room to build": Check unless lot size and yard layout are known.
+- Pool "room to build": Check unless lot size and yard layout are known (buyer confirmed Nov 26, 2026: room counts only when confirmed).
 
 **How to ship a change**
 
@@ -136,7 +136,7 @@ All P0 requirements below ship in v8.2.0. A listing is "Fit" only when every nee
 | Active listing | Active in the latest weekly scan |
 | Price | $1.3M–$2.75M; target $2.6M |
 | Size | 3+ bedrooms and 2+ baths |
-| Office proxy | 2,400+ sq ft living area, or a 7,000+ sq ft lot |
+| Office proxy (changed in 8.5.0) | 2,400+ sq ft living area, or a 7,000+ sq ft lot. Computed from `sf` and `lot_sf`; Fail when both are known and under; Check when either is missing |
 | Pool | An existing full in-ground pool, or room for a new 18×20 pool with access to build it; a plunge pool never counts |
 | Grocery | A full grocery within walking distance |
 | School | A highly rated elementary within 2 miles |
@@ -157,7 +157,7 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 - [ ] **Check box.** Accepts an address or a homes.com, Redfin or Zillow URL. A scan match opens its result the first time. Entering an address or URL already on the page again (a repeat scan match, or any added address) scrolls to its row in the list and fills it yellow (#F4E842); the filter resets to All if it hid the row. Entered addresses are remembered in the viewer's browser. Matching uses street number plus street name, ignoring N/S/E/W and suffix spelling.
 - [ ] **Verdict panel.** Shows the needs verdict and table, the Exit verdict and table, open houses, and an Open listing link.
 - [ ] **Weekly report list (changed in 8.3.0).** Grouped neighborhood > open-house day > open-house time. Neighborhoods stay in scan order. Each listing sits under its next open house that hasn't ended, on any day of the week, judged when the page is opened and refreshed every minute. Days and times run earliest first; day headings read "Open house Thu Nov 26" with "(today)" or "(tomorrow)" where true, and a running open house says "happening now." Listings sharing a time share one heading. "No upcoming open house" comes last. All times are Los Angeles time, whatever the viewer's time zone. New listings are tagged New.
-- [ ] **Quick filters (new in 8.2.0).** One-tap chips above the list: All, Fit, Exit: Yes, Open house, Starred. One is active at a time. Empty subheadings and neighborhoods hide; if nothing matches, the list says so. "Open house" shows listings with any open house that hasn't ended yet.
+- [ ] **Quick filters (new in 8.2.0).** One-tap chips above the list: All, Fit, Exit: Yes, Open house, Fixer (new in 8.5.0), Starred. One is active at a time. Empty subheadings and neighborhoods hide; if nothing matches, the list says so. "Open house" shows listings with any open house that hasn't ended yet.
 - [ ] **Add new address.** Files by zip or neighborhood name into a matching search area, else Other, under "No upcoming open house." Added listings show "Needs check" until the weekly run fills them.
 - [ ] **Reject (changed in 8.2.0).** × appears on hover at the top-right of each row (always visible on touch screens). Tapping it three times rejects the listing; the button shows "× 1/3" and "× 2/3" and the status line counts down. The count resets after 6 seconds without a tap. No confirmation dialog. Rejected listings stay hidden in every later session and stay in the weekly report.
 - [ ] **Show rejected listings.** Link at the list's end; lists rejections newest first with Restore.
@@ -255,7 +255,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
-| v8.5.0 | No HOA filter (fails listings with a known HOA); null price supported for added addresses with no listing link found; added addresses researched first with three searches |
+| v8.5.0 | Narrowing (buyer, Nov 26): school passes at GreatSchools 8+ and fails below; grocery passes within 1 mile; office-proxy row computed from sf and lot_sf instead of always passing; fixers tagged, given a Fixer chip and listed first in their open-house slot (office-proxy passes first); Valley Village dropped from the search. Also: No HOA filter (fails listings with a known HOA); null price supported for added addresses with no listing link found; added addresses researched first with three searches |
 | v8.4.0 | Repeat entries scroll to the listing's row and fill it yellow (#F4E842) |
 | v8.3.0 | Hosted on GitHub Pages, encrypted with StatiCrypt; shared data and the Starred tab in the Google Sheet via Apps Script; weekly scan moved to Thursday mornings to catch Thursday twilight open houses; list grouped neighborhood > next upcoming open-house day > time, from the moment the page is viewed; "Open house this weekend" chip became "Open house"; Sheet script opens the sheet by ID so it can run standalone |
 | v8.2.0 | Open-house subheadings within each neighborhood; quick filters; reject takes three taps instead of a dialog; exportable bundle |
