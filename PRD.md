@@ -1,4 +1,4 @@
-# Listing check v8.6.0 — PRD
+# Listing check v8.7.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -60,6 +60,7 @@ Read this section before changing Listing check. The rest of the PRD is the spec
 - Airbnb break-even = exit target ÷ nights allowed (City of LA 120, Pasadena 90). Pass if at or below the area average nightly rate; Check if up to 2× it; else Fail.
 - Address lookup (buyer-added addresses, new in 8.5.0): research these first, on their own budget. Try three searches (Zillow, Redfin, then homes.com or a brokerage). If no listing is found, never call it "not for sale": add it with `price: null`, note "Listing link not found", and fill beds, baths, living area, lot and year built from public records where found. A null price shows Price unknown and a Check price row.
 - Price exemptions: a listing with `price_exempt` passes the price filter outside $1.3M–$2.75M. Current: 11701 W Washington Blvd, Mar Vista ($1,095,000), buyer decision Nov 22, 2026.
+- Rent comps must be actual rental listings: for each unit, search rentals with the same beds and baths and similar square feet within about 2 miles, record each one in `cf.units[].comps` (address, rent, beds, baths, sf, source) and use their average as `cf.units[].rent`. Never use market averages as rent.
 - Cash-flow comps (`cf` on a listing): city, unit rents, whole-home nightly rate, neighborhood 5-year price trend, pool-build room and access, HOA, with sources and an as-of date. The daily and Thursday scans fill `cf` for every starred listing that lacks it. Without `cf`, the section shows PITI and live-in only.
 - Area averages (Nov 2026): Sherman Oaks $295, other City of LA $267, Pasadena $197.
 - Burbank and La Cañada Flintridge always fail the Airbnb path. Glendale and La Crescenta are Check.
@@ -173,9 +174,12 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
     - Monthly PITI at the rate used, with the low–high range; PITI + maintenance; cash at close (down payment, buyer closing, pool build when it applies).
     - Five columns: Live in, House hack (2+ units: you live in the largest unit), Rent all units, Airbnb at 20% legal (city night cap; $0 where banned), Airbnb at 20% gross (comps, ignoring rules).
     - Rows: income, monthly cash flow pre-tax and after tax, 5-year after-tax cash flow, sale proceeds after tax and loan payoff, total cash put in, profit, ROI (5-year and annualized), the same cash in the market at 5%, and home vs market.
-    - Defaults (buyer, Nov 27, 2026): 20% down; rate 6.49%–7.26%, 6.875% used; tax 1.25%; maintenance 3%/yr; pool build $250,000 only when there's no pool, room is confirmed and street access is confirmed (a per-listing checkbox overrides it for the view); Airbnb occupancy 20%; resale at the neighborhood 5-year trend; commission 5%, staging $4,000, seller transfer tax by city, one month of carry for a 30-day sale; market 5%/yr.
+    - Defaults (buyer, Nov 27, 2026): 20% down; rate 6.49%–7.26%, 6.875% used; tax 1.25%; maintenance 2%/yr (changed from 3% on Nov 27, 2026); pool build $250,000 only when there's no pool, room is confirmed and street access is confirmed (a per-listing checkbox overrides it for the view); Airbnb occupancy 20%; resale at the neighborhood 5-year trend; commission 5%, staging $4,000, seller transfer tax by city, one month of carry for a 30-day sale; market 5%/yr.
     - After tax: mortgage interest deduction (federal on the first $750,000 of loan, California on $1M), property tax (California fully; federal only within the SALT room input), rental income at ordinary rates with 27.5-year depreciation on the building share, passive losses held until sale, Airbnb expenses limited to Airbnb income, home-sale exclusion on the share you live in, recapture at 25%, gains at 20% + 3.8% + California. Market gains are taxed the same way at the end.
     - Assumptions the buyer should set: insurance (0.35%), buyer closing (1%), tax brackets (35% federal, 9.3% California), Airbnb operating costs (15%), building share (50%).
+
+- [ ] **Flow (new in 8.7.0).** The page runs in four steps, labeled and linked from the header: 1 Find (check box), 2 Evaluate the basics (verdict panel), 3 Evaluate as a group (list and filters), 4 Evaluate financing (cash flow). The cash-flow section can show Starred (default) or All listings, and lists each unit's rent comps.
+- [ ] **Ruled out.** A listing with `out` in the data is kept but left off the page (5221 La Forest Dr, Nov 27, 2026).
 
 **P1: next**
 
@@ -266,6 +270,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.7.0 | Four-step flow (find, basics, group, financing); rent from averages of actual rental listings for every listing; maintenance 2%; All-listings toggle in cash flow; 5221 La Forest Dr ruled out |
 | v8.6.0 | Cash flow section for starred listings: PITI, four exits (legal and gross Airbnb), 5-year after-tax resale profit and ROI vs 5% market; inputs in a collapsible menu, not saved |
 | v8.5.0 | Narrowing (buyer, Nov 26): school passes at GreatSchools 8+ and fails below; grocery passes within 1 mile; office-proxy row computed from sf and lot_sf instead of always passing; fixers tagged, given a Fixer chip and listed first in their open-house slot (office-proxy passes first); Valley Village dropped from the search. Also: No HOA filter (fails listings with a known HOA); null price supported for added addresses with no listing link found; added addresses researched first with three searches |
 | v8.4.0 | Repeat entries scroll to the listing's row and fill it yellow (#F4E842) |

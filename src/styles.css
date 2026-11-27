@@ -165,3 +165,12 @@ dialog p{margin:0 0 1rem;color:var(--muted)}
 .cfnotes{font-size:.8rem;margin:.6rem 0 0;padding-left:1.1rem}
 .cfsrc{font-size:.75rem;color:var(--muted);margin:.5rem 0 0}
 @media (prefers-color-scheme:dark){.cfv input{color:#7aa7ff}.cftable .pos{color:#4ade80}.cftable .neg{color:#f87171}}
+
+/* flow steps */
+.step{margin:2rem 0 .5rem;font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.step b{display:inline-grid;place-items:center;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--pool);color:#fff;font-size:.8rem;letter-spacing:0}
+.top .flow{font-size:.85rem;color:var(--muted)}
+.top .flow a{font-weight:600}
+.cashflow{margin-top:.5rem}
+.cfcomps{font-size:.8rem;margin:.2rem 0 .6rem}.cfcomps summary{cursor:pointer;font-weight:600}.cfcomps ul{margin:.3rem 0 0;padding-left:1.1rem}.cfcomps li span{color:var(--muted)}
+.cfscope{margin:.5rem 0}

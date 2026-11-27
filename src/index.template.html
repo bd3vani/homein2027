@@ -12,9 +12,10 @@
 </head>
 <body>
 <main>
-<nav class="top"><span class="ver">Listing check v8.6.0</span><a href="#cashflow">Cash flow ↓</a><a href="https://docs.google.com/spreadsheets/d/1LYYPUgIz2QuCC12P-3ufATq0tb3jcv9CFPP1ldBKR8g/edit?usp=sharing" target="_blank" rel="noopener">Starred analysis ↗</a></nav>
+<nav class="top"><span class="ver">Listing check v8.7.0</span><span class="flow"><a href="#find">1 Find</a> → <a href="#basics">2 Basics</a> → <a href="#group">3 Group</a> → <a href="#financing">4 Financing</a></span><a href="https://docs.google.com/spreadsheets/d/1LYYPUgIz2QuCC12P-3ufATq0tb3jcv9CFPP1ldBKR8g/edit?usp=sharing" target="_blank" rel="noopener">Starred analysis ↗</a></nav>
 <h1>Is this house a fit?</h1>
 <p class="lede">Checks a listing against your needs (budget, size, pool, grocery, school, terrain) and your exit: a forced value add, or Airbnb income worth 3 months of mortgage.</p>
+<p class="step" id="find"><b>1</b> Find</p>
 <form class="field" id="checkForm" novalidate>
   <label for="q">Address or listing URL</label>
   <div class="row">
@@ -24,16 +25,12 @@
   <datalist id="scan">%OPTS%</datalist>
   <p id="status" role="status">Include the zip code so a new address lands in the right neighborhood.</p>
 </form>
+<p class="step" id="basics"><b>2</b> Evaluate the basics</p>
 <section class="results" aria-live="polite">
   <p class="empty">Pick a listing to see whether it’s a fit and how it scores on each filter.</p>
 %PANELS%
 </section>
-<section class="cashflow" id="cashflow">
-  <h2>Cash flow <span id="cfCount" class="cfcount"></span></h2>
-  <p>Starred listings, any rating. Monthly cost, income by exit, and 5-year after-tax profit against the same cash in the market.</p>
-  <details class="cfmenu"><summary>Assumptions</summary><div id="cfInputs" class="cfinputs"></div><p class="cfhint">Changes last until you leave or reload the page. Nothing is saved.</p></details>
-  <div id="cfBody"></div>
-</section>
+<p class="step" id="group"><b>3</b> Evaluate as a group</p>
 <section class="list" id="list">
   <div id="starred" hidden>
     <h2>Starred</h2>
@@ -58,6 +55,14 @@
     <p id="rejEmpty" class="muted">No rejected listings.</p>
     <ul id="rejList"></ul>
   </div>
+</section>
+<p class="step" id="financing"><b>4</b> Evaluate financing</p>
+<section class="cashflow" id="cashflow">
+  <h2>Cash flow <span id="cfCount" class="cfcount"></span></h2>
+  <p>Starred listings (any rating) or all listings. Rent is the average of actual nearby rental listings for the same beds, baths and size. Monthly cost, income by exit, and 5-year after-tax profit against the same cash in the market.</p>
+  <div class="chips cfscope" role="group" aria-label="Which listings"><button type="button" class="chip" data-s="starred" aria-pressed="true">Starred</button><button type="button" class="chip" data-s="all" aria-pressed="false">All listings</button></div>
+  <details class="cfmenu"><summary>Assumptions</summary><div id="cfInputs" class="cfinputs"></div><p class="cfhint">Changes last until you leave or reload the page. Nothing is saved.</p></details>
+  <div id="cfBody"></div>
 </section>
 <p class="mfoot">Mortgage is principal and interest on the price minus $1M cash, at 7.3% over 30 years.</p>
 </main>
