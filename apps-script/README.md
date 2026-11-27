@@ -27,3 +27,7 @@ If you change `Code.gs` later, use **Deploy → Manage deployments → Edit → 
 ## Free limits that matter here
 
 Consumer-account limits are far above this page's use (a few dozen writes a week): 6 minutes per execution and 30 simultaneous executions per user. See Google's [Apps Script quotas](https://developers.google.com/apps-script/guides/services/quotas).
+
+## Update for v8.8.0 (group votes)
+
+`Code.gs` now also stores a `votes` tab. Paste the new `Code.gs` over the old one, save, then **Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy**. The URL stays the same. Until then, votes stay in each viewer's browser.

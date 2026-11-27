@@ -66,6 +66,7 @@ function render(d){
   if(typeof regroupReady!=="undefined") regroup();
   if(REMOVED.has(d.key)) hideKey(d.key);
   if(window.__starsReady&&STARS.has(d.key)){ paintStars(d.key); drawStarred(); }
+  try{ paintVotes(d.key); }catch(e){}
   return id;
 }
 function show(){
@@ -199,6 +200,46 @@ document.addEventListener("click",async e=>{
   if(!saved){ try{ const o=lsStars(); if(n) o[k]=n; else delete o[k]; localStorage.setItem(LSS,JSON.stringify(o)); }catch(err){} }
 });
 
+// group vote: three named voters, Yes/No per listing; 2 of 3 Yes advances to financing
+const VOTERS=%VOTERS%; const LSV="listing-check-votes", LSME="listing-check-voter";
+const VOTES=new Map(); // key -> [v0,v1,v2] with "yes"/"no"/undefined
+function yesCount(k){ return (VOTES.get(k)||[]).filter(v=>v==="yes").length; }
+window.__cfYes=()=>{ const m=new Map(); VOTES.forEach((a,k)=>m.set(k,a.filter(v=>v==="yes").length)); return m; };
+function lsVotes(){try{return JSON.parse(localStorage.getItem(LSV)||"{}")}catch(e){return {}}}
+const me=$("#voteAs");
+VOTERS.forEach((n,i)=>{ const o=document.createElement("option"); o.value=String(i); o.textContent=n; me.append(o); });
+try{ me.value=localStorage.getItem(LSME)||""; }catch(e){}
+me.addEventListener("change",()=>{ try{ localStorage.setItem(LSME,me.value); }catch(e){} paintAllVotes(); });
+function voteBox(k){
+  const a=VOTES.get(k)||[], y=yesCount(k), cast=a.filter(Boolean).length;
+  return `<p class="vlbl">Group vote: <b>${y} of 3 Yes</b>${y>=2?' <span class="adv">Advances to financing</span>':cast===3?' <span class="noadv">Doesn’t advance</span>':""}</p><div class="vrow">${VOTERS.map((n,i)=>`<span class="voter${me.value===String(i)?" me":""}"><span class="vname">${esc(n)}</span><button type="button" class="vbtn" data-v="yes" data-i="${i}" aria-pressed="${a[i]==="yes"}" aria-label="${esc(n)}: Yes">Yes</button><button type="button" class="vbtn" data-v="no" data-i="${i}" aria-pressed="${a[i]==="no"}" aria-label="${esc(n)}: No">No</button></span>`).join("")}</div>`;
+}
+function paintVotes(k){
+  document.querySelectorAll('.panel[data-key="'+k+'"]').forEach(p=>{ let v=p.querySelector(".vote"); if(!v){ v=document.createElement("div"); v.className="vote"; const st=p.querySelector(".stars"); (st?st:p.querySelector("h2")).after(v); } v.innerHTML=voteBox(k); });
+  const y=yesCount(k), cast=(VOTES.get(k)||[]).filter(Boolean).length;
+  document.querySelectorAll('.nb li[data-key="'+k+'"] .addr').forEach(el=>{
+    let s=el.querySelector(".vind"); if(!cast){ if(s) s.remove(); return; }
+    if(!s){ s=document.createElement("span"); s.className="vind"; el.append(s); }
+    s.textContent=`${y}/3 Yes`; s.classList.toggle("adv",y>=2);
+  });
+}
+function paintAllVotes(){ document.querySelectorAll(".panel[data-key]").forEach(p=>paintVotes(p.dataset.key)); }
+function setVote(k,i,v){ const a=(VOTES.get(k)||[]).slice(); a[i]=v||undefined; if(a.some(Boolean)) VOTES.set(k,a); else VOTES.delete(k); paintVotes(k); if(FILTER==="advance") applyFilter(); if(window.__cfRender) window.__cfRender(); }
+Object.entries(lsVotes()).forEach(([k,a])=>{ (a||[]).forEach((v,i)=>{ if(v) setVote(k,i,v); }); });
+paintAllVotes();
+document.addEventListener("click",async e=>{
+  const b=e.target.closest(".vbtn"); if(!b) return;
+  const p=b.closest(".panel"), k=p.dataset.key, i=+b.dataset.i, street=p.querySelector("h2").textContent;
+  if(me.value===""){ status.textContent="Pick your name under “I’m voting as” first."; me.focus(); return; }
+  if(String(i)!==me.value){ status.textContent=`You’re voting as ${VOTERS[+me.value]}. Only your own vote can change.`; return; }
+  const cur=(VOTES.get(k)||[])[i], v=cur===b.dataset.v?null:b.dataset.v;
+  setVote(k,i,v);
+  status.textContent=`${VOTERS[i]} voted ${v?v.toUpperCase():"(cleared)"} on ${street}. ${yesCount(k)} of 3 Yes.`;
+  let saved=false; const id=k+"--v"+i;
+  if(db){ try{ if(v) await db.doc("votes/"+id).set({key:id,listing:k,voter:i,vote:v,at:new Date().toISOString()}); else await db.doc("votes/"+id).delete(); saved=true; }catch(err){} }
+  if(!saved){ try{ const o=lsVotes(); const a=o[k]||[]; a[i]=v||null; o[k]=a; localStorage.setItem(LSV,JSON.stringify(o)); }catch(err){} }
+});
+
 // open houses: each listing sits under its next open house that hasn't ended,
 // grouped neighborhood > day > time, earliest first, from the moment the page is viewed.
 const TZ="America/Los_Angeles";
@@ -241,6 +282,7 @@ function applyFilter(){
     else if(FILTER==="oh") ok=!!nextOH(li,Date.now());
     else if(FILTER==="fixer") ok=li.dataset.fx==="1";
     else if(FILTER==="starred") ok=(STARS.get(li.dataset.key)||0)===3;
+    else if(FILTER==="advance") ok=yesCount(li.dataset.key)>=2;
     li.classList.toggle("ff",!ok);
   });
   tidyGroups();
@@ -297,6 +339,9 @@ function sheetDb(url,token){
   if(!db) return;
   db.collection("stars").onSnapshot(snap=>{
     snap.docChanges().forEach(c=>{ const d=c.doc.data(); if(!d||!d.key) return; setStars(d.key,c.type==="removed"?0:(+d.stars||0)); });
+  },()=>{});
+  db.collection("votes").onSnapshot(snap=>{
+    snap.docChanges().forEach(c=>{ const d=c.doc.data(); if(!d||!d.listing) return; setVote(d.listing,+d.voter,c.type==="removed"?null:d.vote); });
   },()=>{});
   db.collection("removed").onSnapshot(snap=>{
     snap.docChanges().forEach(c=>{ const d=c.doc.data(); if(!d||!d.key) return; if(c.type==="removed") unhideKey(d.key); else hideKey(d.key,d); });

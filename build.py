@@ -166,6 +166,7 @@ def _cfrow(t):
     nb,addr,price,url,x=t; pool=x.get("pool")
     return {"key":key(addr),"addr":addr,"nbhd":nb,"price":price,"pool":pool[0] if pool else "pass","cf":x.get("cf")}
 _cf=json.dumps([_cfrow(t) for t in L],ensure_ascii=False).replace("</","<\\/")
+_js=_js.replace("%VOTERS%",json.dumps(json.load(open("data/listings.json")).get("voters",["Voter 1","Voter 2","Voter 3"]),ensure_ascii=False))
 _js+="\n"+open("src/cashflow.js").read().replace("%CFDATA%",_cf)
 tpl=open("src/index.template.html").read().replace("%CSS%",open("src/styles.css").read()).replace("%JS%",_js)
 out=tpl.replace("%OPTS%","".join(opts)).replace("%ITEMS%","\n".join(items)).replace("%PANELS%","\n".join(panels)).replace("%COUNT%",str(len(L))).replace("%KEYS%",__import__("json").dumps(keys))
