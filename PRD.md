@@ -40,6 +40,8 @@ Read this section before changing Listing check. The rest of the PRD is the spec
 - MUST NOT invent listing facts. An unknown value is "Not checked yet" with a Check result.
 - MUST cite rules and rates from pages you actually opened, with the as-of date.
 
+**Standing scan step: cash-flow comps.** Every scheduled scan (daily and Thursday) also reads the Sheet's "stars" tab. For each starred listing (any rating, not removed) with no `cf` object in `data/listings.json`, research and add `cf`: city; units [{beds, baths, rent}] from rental comps; rent_src; adr (whole-home nightly rate for that size and area, from AirDNA, AirROI or BNBCalc); adr_src; cagr5 (neighborhood or city 5-year annual price growth from Zillow ZHVI or Redfin, as a decimal); cagr_src; pool_add {room, access, note} when there's no pool (true/false only when confirmed); hoa_mo; str_note; as_of. Cite only pages you opened and leave out what you can't find. List them in the PR under "Cash-flow comps added".
+
 **Data contract**
 
 - Listing key: lowercase the address, drop punctuation, then join the street number and the first following word that isn't N, S, E, W, North, South, East or West. Example: "1163 N Geneva St" → `1163-geneva`.
