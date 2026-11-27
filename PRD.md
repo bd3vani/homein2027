@@ -1,4 +1,4 @@
-# Listing check v8.7.0 — PRD
+# Listing check v8.8.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -181,6 +181,13 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 - [ ] **Flow (new in 8.7.0).** The page runs in four steps, labeled and linked from the header: 1 Find (check box), 2 Evaluate the basics (verdict panel), 3 Evaluate as a group (list and filters), 4 Evaluate financing (cash flow). The cash-flow section can show Starred (default) or All listings, and lists each unit's rent comps.
 - [ ] **Ruled out.** A listing with `out` in the data is kept but left off the page (5221 La Forest Dr, Nov 27, 2026).
 
+- [ ] **Group vote (new in 8.8.0, step 3).** Three named voters (`voters` in `data/listings.json`). A viewer picks “I’m voting as” (remembered in their browser) and taps Yes or No on a listing’s panel; tapping again clears it. Only your own vote changes. A listing with 2 of 3 Yes advances to financing. Rows show “n/3 Yes”; an Advancing chip filters the list. Votes are saved in the Sheet’s `votes` tab (one row per listing and voter, key `listing--v0/1/2`); if the Sheet script hasn’t been updated, votes fall back to the browser.
+- [ ] **Financing (changed in 8.8.0, step 4).** Scope defaults to Advancing (2 of 3 Yes) when any listing advances, else Starred; All is available.
+    - Income paths: Live in, House hack, Rent all units, Airbnb 20% legal, Airbnb 20% gross, Live in + shoots (Peerspace 2 bookings × 4 hrs a month at the median nearby rate, less 20% host fee and 10% wear, plus 1 film day a year at $5,000; only homes with a pool), and Best legal combo (live there or house hack, plus shoots, plus legal Airbnb nights for single-unit homes).
+    - Owner paths use owner-occupied loans; Rent all and Airbnb gross use a conventional investment loan (25% down, rate +0.625%) or DSCR.
+    - Financing screen: every eligible path × loan, ranked by 5-year after-tax profit vs the same cash in the market; the best 6 show with cash at close, after-tax monthly cash flow, DSCR, profit and annualized ROI. Loans tested: 30-yr fixed at 20%, 25%, 30% down and $1M down; 7/6 ARM; 1 and 2 discount points; conforming 10% and 5% down with PMI; FHA 3.5% down with MIP; conventional investment 25% down; DSCR 25% and 20% down.
+    - PMI, MIP and points surface only when they beat the same path without them. Loans over the 2026 LA County limit for the unit count (1 unit $1,249,125; 2 units $1,599,375; 3 units $1,933,200; 4 units $2,402,625) and DSCR below the minimum are listed under “Not surfaced” with the reason.
+
 **P1: next**
 
 - Side-by-side compare of 2–3 listings.
@@ -270,6 +277,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.8.0 | Group vote (3 voters, 2 of 3 Yes advances); financing adds shoots (Peerspace + film), best legal combo, and a loan screen (fixed, ARM, points, PMI, FHA, investment, DSCR) ranked by profit vs market |
 | v8.7.0 | Four-step flow (find, basics, group, financing); rent from averages of actual rental listings for every listing; maintenance 2%; All-listings toggle in cash flow; 5221 La Forest Dr ruled out |
 | v8.6.0 | Cash flow section for starred listings: PITI, four exits (legal and gross Airbnb), 5-year after-tax resale profit and ROI vs 5% market; inputs in a collapsible menu, not saved |
 | v8.5.0 | Narrowing (buyer, Nov 26): school passes at GreatSchools 8+ and fails below; grocery passes within 1 mile; office-proxy row computed from sf and lot_sf instead of always passing; fixers tagged, given a Fixer chip and listed first in their open-house slot (office-proxy passes first); Valley Village dropped from the search. Also: No HOA filter (fails listings with a known HOA); null price supported for added addresses with no listing link found; added addresses researched first with three searches |

@@ -1,6 +1,6 @@
 {
  "scan_date": "2026-11-26",
- "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first). cf: cash-flow comps for starred listings {city, units:[{beds,baths,rent}], rent_src, adr (whole-home nightly), adr_src, cagr5 (5-yr annual price growth, decimal), cagr_src, pool_add:{room,access:true|false|null,note}, hoa_mo, str_note, as_of}. Missing cf = comps not filled yet. out: text; listing ruled out by the buyer. Kept in the data, left off the page. cf.units[].rent: average of the comps listed in cf.units[].comps [{addr,rent,beds,baths,sf,src}] (actual rental listings); cf.units[].n = comp count.",
+ "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first). cf: cash-flow comps for starred listings {city, units:[{beds,baths,rent}], rent_src, adr (whole-home nightly), adr_src, cagr5 (5-yr annual price growth, decimal), cagr_src, pool_add:{room,access:true|false|null,note}, hoa_mo, str_note, as_of}. Missing cf = comps not filled yet. out: text; listing ruled out by the buyer. Kept in the data, left off the page. cf.units[].rent: average of the comps listed in cf.units[].comps [{addr,rent,beds,baths,sf,src}] (actual rental listings); cf.units[].n = comp count. voters (top level): the three group voters, in order.",
  "listings": [
   {
    "neighborhood": "Sherman Oaks",
@@ -5301,5 +5301,10 @@
     "rent_as_of": "2026-11-27"
    }
   }
+ ],
+ "voters": [
+  "Voter 1",
+  "Voter 2",
+  "Voter 3"
  ]
 }

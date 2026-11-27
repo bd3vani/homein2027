@@ -9,6 +9,7 @@
  *   added    key | street | nbhd | why | input | added | json
  *   removed  key | street | removed | json
  *   stars    key | street | stars | at | json
+ *   votes    key | listing | voter | vote | at | json   (key = listing--v0/1/2)
  *   Starred  key | street | stars | starred at   (add your own columns from E on;
  *                                                 they stay with their row)
  *
@@ -26,6 +27,7 @@ const COLLS = {
   added: ['key', 'street', 'nbhd', 'why', 'input', 'added'],
   removed: ['key', 'street', 'removed'],
   stars: ['key', 'street', 'stars', 'at'],
+  votes: ['key', 'listing', 'voter', 'vote', 'at'],
 };
 const STARRED_TAB = 'Starred';
 const STARRED_HEAD = ['key', 'street', 'stars', 'starred at'];
