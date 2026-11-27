@@ -29,7 +29,7 @@ const IN=[
  ["closeBuy","Buyer closing costs",1,"% of price","Loan","Assumption"],
  ["ptax","Property tax",1.25,"% of price/yr","Carry"],
  ["ins","Insurance",0.35,"% of price/yr","Carry","Assumption; set from your quote"],
- ["maint","Maintenance",3,"% of price/yr","Carry"],
+ ["maint","Maintenance",2,"% of price/yr","Carry","Plumbing, roof, systems"],
  ["pool","Pool build cost",250000,"$","Carry","Added only when there's no pool, room is confirmed and build access is confirmed"],
  ["occ","Airbnb occupancy",20,"%","Income"],
  ["strCost","Airbnb operating costs",15,"% of revenue","Income","Cleaning, supplies, platform fees; assumption"],
@@ -195,7 +195,7 @@ function card(x){
    <div><dt>PITI /mo</dt><dd>${usd(m.pitiMo)}<small>${usd(m.pitiLo)}–${usd(m.pitiHi)} at ${V.rateLo}–${V.rateHi}%</small></dd></div>
    <div><dt>PITI + maintenance /mo</dt><dd>${usd(m.carryMo)}</dd></div>
    <div><dt>Cash at close</dt><dd>${usd(m.upfront)}<small>${usd(m.down)} down + ${usd(m.closing)} closing${m.poolCost?` + ${usd(m.poolCost)} pool`:""}</small></dd></div>
-   <div><dt>Rent, all units /mo</dt><dd>${m.rentAll?usd(m.rentAll):"—"}</dd></div>
+   <div><dt>Rent, all units /mo</dt><dd>${m.rentAll?usd(m.rentAll):"—"}<small>${(c.units||[]).length?(c.units.length>1?`${c.units.length} units, `:"")+`avg of ${c.units.map(u=>u.n||0).reduce((a,b)=>a+b,0)} listings`:""}</small></dd></div>
    <div><dt>Airbnb at ${V.occ}% /mo, gross</dt><dd>${c.adr?usd(c.adr*365*V.occ/100/12):"—"}<small>${c.adr?`$${c.adr}/night`:""}</small></dd></div>
    <div><dt>Resale in ${m.Y} yrs</dt><dd>${m.sale!=null?usd(m.sale):"—"}<small>${c.cagr5!=null?`${(c.cagr5*100).toFixed(1)}%/yr`:"No area trend yet"}</small></dd></div>
    <div><dt>Sale costs</dt><dd>${m.saleCosts!=null?usd(m.saleCosts):"—"}<small>${V.comm}% commission, ${usd(V.stage)} staging, ${(m.tt*100).toFixed(2)}% transfer tax, ${V.saleMonths} mo carry</small></dd></div>
@@ -205,21 +205,24 @@ function card(x){
   const body=ROWS.map(([l,f])=>`<tr><th scope="row">${l}</th>${COLS.map(([k])=>{const s=m.s[k]; return `<td>${s.na||s.zero?`<span class="na">—</span>`:f(s)}</td>`;}).join("")}</tr>`).join("");
   const notes=COLS.map(([k,l])=>m.s[k].note&&!m.s[k].zero&&!m.s[k].na?`<li><b>${l}:</b> ${m.s[k].note}</li>`:"").join("");
   const src=[c.rent_src&&`Rent: ${c.rent_src}`,c.adr_src&&`Nightly: ${c.adr_src}`,c.cagr_src&&`Trend: ${c.cagr_src}`,m.rule&&`Transfer tax: ${m.rule.ttNote}`,c.str_note&&`Short-term rental: ${c.str_note}`].filter(Boolean);
+  const comps=(c.units||[]).filter(u=>u.comps&&u.comps.length).map((u,i,arr)=>`<details class="cfcomps"><summary>Rent comps${arr.length>1?`, unit ${i+1} (${u.beds||"studio"} bd / ${u.baths} ba)`:""}: ${usd(u.rent)} average of ${u.n}</summary><ul>${u.comps.map(k=>`<li>${k.addr}: ${usd(k.rent)}, ${k.beds||"studio"} bd / ${k.baths??"?"} ba${k.sf?`, ${Number(k.sf).toLocaleString("en-US")} sf`:""} <span>(${k.src})</span></li>`).join("")}</ul></details>`).join("");
   const missing=!x.cf?`<p class="cfmiss">Comps not filled yet. The next daily or Thursday scan adds rent, nightly rate and area trend for starred listings.</p>`:"";
-  return `<article class="cfcard">${head}${missing}<p class="cfpoolnote">${pnote}</p>${poolCtl}${facts}<div class="cfscroll"><table class="cftable"><thead><tr><th></th>${th}</tr></thead><tbody>${body}</tbody></table></div>${notes?`<ul class="cfnotes">${notes}</ul>`:""}${src.length?`<p class="cfsrc">${src.join(" · ")}${c.as_of?` (as of ${c.as_of})`:""}</p>`:""}</article>`;
+  return `<article class="cfcard">${head}${missing}<p class="cfpoolnote">${pnote}</p>${poolCtl}${facts}${comps}<div class="cfscroll"><table class="cftable"><thead><tr><th></th>${th}</tr></thead><tbody>${body}</tbody></table></div>${notes?`<ul class="cfnotes">${notes}</ul>`:""}${src.length?`<p class="cfsrc">${src.join(" · ")}${c.as_of?` (as of ${c.as_of})`:""}</p>`:""}</article>`;
 }
 
+let SCOPE="starred";
 function shortlist(){
   const stars=window.__cfStars?window.__cfStars():new Map(), rej=window.__cfRejected?window.__cfRejected():new Set();
-  return CF.filter(x=>(stars.get(x.key)||0)>0&&!rej.has(x.key)&&x.price).map(x=>Object.assign({},x,{stars:stars.get(x.key)}))
+  return CF.filter(x=>(SCOPE==="all"||(stars.get(x.key)||0)>0)&&!rej.has(x.key)&&x.price).map(x=>Object.assign({},x,{stars:stars.get(x.key)||0}))
     .sort((a,b)=>b.stars-a.stars||a.price-b.price);
 }
 function render(){
   const L=shortlist();
-  root.innerHTML=L.length?L.map(card).join(""):`<p class="cfmiss">Star a listing (any rating) to see its cash flow here.</p>`;
-  $("#cfCount").textContent=L.length?`${L.length} starred`:"";
+  root.innerHTML=L.length?L.map(card).join(""):`<p class="cfmiss">Star a listing (any rating) to see its cash flow here, or show all listings.</p>`;
+  $("#cfCount").textContent=L.length?`${L.length} ${SCOPE==="all"?"listings":"starred"}`:"";
 }
 root.addEventListener("change",e=>{ const k=e.target.dataset&&e.target.dataset.k; if(k){ POOL.set(k,e.target.checked); render(); } });
+document.querySelectorAll(".cfscope button").forEach(b=>b.addEventListener("click",()=>{ SCOPE=b.dataset.s; document.querySelectorAll(".cfscope button").forEach(x=>x.setAttribute("aria-pressed",String(x===b))); render(); }));
 window.__cfRender=render;
 render();
 })();

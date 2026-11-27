@@ -32,6 +32,7 @@ def _load():
             if k=="open_houses": x["oh"]=[(o["sort"],o["label"]) for o in v]
             elif isinstance(v,dict) and "result" in v: x[k]=(v["result"],v["detail"])
             else: x[k]=v
+        if r.get("out"): continue
         out.append((r["neighborhood"],r["address"],r["price"],r["url"],x))
     return out
 L=_load()

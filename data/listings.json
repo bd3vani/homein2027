@@ -1,6 +1,6 @@
 {
  "scan_date": "2026-11-26",
- "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first). cf: cash-flow comps for starred listings {city, units:[{beds,baths,rent}], rent_src, adr (whole-home nightly), adr_src, cagr5 (5-yr annual price growth, decimal), cagr_src, pool_add:{room,access:true|false|null,note}, hoa_mo, str_note, as_of}. Missing cf = comps not filled yet.",
+ "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first). cf: cash-flow comps for starred listings {city, units:[{beds,baths,rent}], rent_src, adr (whole-home nightly), adr_src, cagr5 (5-yr annual price growth, decimal), cagr_src, pool_add:{room,access:true|false|null,note}, hoa_mo, str_note, as_of}. Missing cf = comps not filled yet. out: text; listing ruled out by the buyer. Kept in the data, left off the page. cf.units[].rent: average of the comps listed in cf.units[].comps [{addr,rent,beds,baths,sf,src}] (actual rental listings); cf.units[].n = comp count.",
  "listings": [
   {
    "neighborhood": "Sherman Oaks",
@@ -24,7 +24,54 @@
     "detail": "Pool and spa with baja shelf and waterfall (eXp). The baja shelf implies in-ground, but in-ground is not stated outright"
    },
    "sf": 3157,
-   "lot_sf": 7292
+   "lot_sf": 7292,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 4.5,
+      "rent": 9912,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3217 Longridge Ter, Sherman Oaks 91423",
+        "rent": 15000,
+        "beds": 4,
+        "baths": 4,
+        "sf": 2958,
+        "src": "renthop.com (leased)"
+       },
+       {
+        "addr": "3910 Woodcliff Rd, Sherman Oaks 91403",
+        "rent": 6900,
+        "beds": 4,
+        "baths": 4,
+        "sf": 2400,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "14602 Morrison St, Sherman Oaks 91403",
+        "rent": 10250,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2808,
+        "src": "homes.com"
+       },
+       {
+        "addr": "4431 Stern Ave, Sherman Oaks 91423",
+        "rent": 7500,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2706,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 4+ ba, ~3,150 sf, Sherman Oaks; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Sherman Oaks",
@@ -36,7 +83,86 @@
     "result": "pass",
     "detail": "In-ground pool stated in listing (Nov 21 scan; not re-confirmed Nov 26)"
    },
-   "sf": 2464
+   "sf": 2464,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 8372,
+      "n": 8,
+      "comps": [
+       {
+        "addr": "5332 Lennox Ave, Sherman Oaks 91401",
+        "rent": 7200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2460,
+        "src": "homes.com"
+       },
+       {
+        "addr": "14602 Morrison St, Sherman Oaks 91403",
+        "rent": 10250,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2808,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3709 Stone Canyon Ave, Sherman Oaks 91403",
+        "rent": 6950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2535,
+        "src": "homes.com"
+       },
+       {
+        "addr": "15242 La Maida St, Sherman Oaks 91403",
+        "rent": 6000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2190,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "14235 Greenleaf St, Sherman Oaks 91423",
+        "rent": 10500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2327,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "4186 Fulton Ave, Sherman Oaks 91423",
+        "rent": 10700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2223,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "4712 Burnet Ave, Sherman Oaks 91403",
+        "rent": 7880,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 2507,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "4431 Stern Ave, Sherman Oaks 91423",
+        "rent": 7500,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2706,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,400 sf, Sherman Oaks; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Sherman Oaks",
@@ -67,7 +193,86 @@
    "note": "MLS PW26186224, listed Sep 17 at $1,999,000 and cut to $1,899,000 on Oct 13. About 69 DOM. homes.com also shows a For Rent entry ($7,950/mo, Oct 16), so the owner may be dual-listing. No open houses listed.",
    "new": true,
    "sf": 2400,
-   "lot_sf": 7198
+   "lot_sf": 7198,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 8372,
+      "n": 8,
+      "comps": [
+       {
+        "addr": "5332 Lennox Ave, Sherman Oaks 91401",
+        "rent": 7200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2460,
+        "src": "homes.com"
+       },
+       {
+        "addr": "14602 Morrison St, Sherman Oaks 91403",
+        "rent": 10250,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2808,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3709 Stone Canyon Ave, Sherman Oaks 91403",
+        "rent": 6950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2535,
+        "src": "homes.com"
+       },
+       {
+        "addr": "15242 La Maida St, Sherman Oaks 91403",
+        "rent": 6000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2190,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "14235 Greenleaf St, Sherman Oaks 91423",
+        "rent": 10500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2327,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "4186 Fulton Ave, Sherman Oaks 91423",
+        "rent": 10700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2223,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "4712 Burnet Ave, Sherman Oaks 91403",
+        "rent": 7880,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 2507,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "4431 Stern Ave, Sherman Oaks 91423",
+        "rent": 7500,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2706,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,400 sf, Sherman Oaks; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Van Nuys",
@@ -86,7 +291,62 @@
    },
    "size": "5 bd / 3 ba, 2,556 sf",
    "note": "homes.com lists the Friday 3–6 PM open house without a date; taken as Fri Nov 27.",
-   "sf": 2556
+   "sf": 2556,
+   "cf": {
+    "units": [
+     {
+      "beds": 5,
+      "baths": 3.0,
+      "rent": 7100,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "14018 Calvert St, Van Nuys 91401",
+        "rent": 7500,
+        "beds": 5,
+        "baths": 3,
+        "sf": 2400,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "7424 Whitaker Ave, Van Nuys 91406",
+        "rent": 7500,
+        "beds": 5,
+        "baths": 3,
+        "sf": 2596,
+        "src": "rentler.com"
+       },
+       {
+        "addr": "15607 Lilli Way, Van Nuys 91406",
+        "rent": 5950,
+        "beds": 5,
+        "baths": 3,
+        "sf": 2250,
+        "src": "rentler.com"
+       },
+       {
+        "addr": "15013 Hartsook St, Sherman Oaks 91403",
+        "rent": 6650,
+        "beds": 5,
+        "baths": 3,
+        "sf": 2450,
+        "src": "homes.com"
+       },
+       {
+        "addr": "6716 Ventura Canyon Ave, Van Nuys 91401 (furnished)",
+        "rent": 7900,
+        "beds": 5,
+        "baths": 3,
+        "sf": 2150,
+        "src": "forrentuniversity.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (5 bd / 3 ba, ~2,550 sf, Van Nuys; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Van Nuys",
@@ -100,7 +360,46 @@
     "detail": "In-ground pool stated in listing (Nov 21 scan; not re-confirmed Nov 26)"
    },
    "sf": 4810,
-   "lot_sf": 13787
+   "lot_sf": 13787,
+   "cf": {
+    "units": [
+     {
+      "beds": 5,
+      "baths": 4.5,
+      "rent": 10833,
+      "n": 3,
+      "comps": [
+       {
+        "addr": "4148 Sunswept Dr, Studio City 91604",
+        "rent": 14000,
+        "beds": 5,
+        "baths": 5,
+        "sf": 4163,
+        "src": "mlslistings.com"
+       },
+       {
+        "addr": "4248 Vanetta Dr, Studio City 91604",
+        "rent": 10500,
+        "beds": 5,
+        "baths": 4,
+        "sf": 3900,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3962 Oakfield Dr, Sherman Oaks 91423",
+        "rent": 8000,
+        "beds": 5,
+        "baths": 5,
+        "sf": 3700,
+        "src": "homes.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (5 bd / 4–5 ba, 3,700–4,800 sf, Van Nuys / Sherman Oaks / Studio City (some comps over 2 mi); same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Burbank",
@@ -113,7 +412,70 @@
     "detail": "New construction with swimming pool and integrated spa (listing description)"
    },
    "sf": 2429,
-   "lot_sf": 6098
+   "lot_sf": 6098,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 4.0,
+      "rent": 8598,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "1925 W Parkside Ave, Burbank 91506",
+        "rent": 8995,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2426,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "1716 Via La Paz, Burbank 91501",
+        "rent": 9995,
+        "beds": 4,
+        "baths": 4,
+        "sf": 2984,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "3119 Mesa Verde Dr, Burbank 91504",
+        "rent": 8995,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2506,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1350 E Tujunga Ave, Burbank 91501",
+        "rent": 9900,
+        "beds": 4,
+        "baths": 4,
+        "sf": 3137,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "832 E Valencia Ave, Burbank 91501",
+        "rent": 6700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2187,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1083 E Elmwood Ave, Burbank 91501",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2212,
+        "src": "zillow.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3–4 ba, 2,400–3,200 sf, Burbank; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Burbank",
@@ -144,7 +506,70 @@
    "note": "Listed Nov 24, 2026 (MLS 26109649, Coldwell Banker). Sold Aug 2024 for $1.4M. No open house yet.",
    "new": true,
    "sf": 1893,
-   "lot_sf": 6107
+   "lot_sf": 6107,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 4933,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "849 Lima St, Burbank 91505",
+        "rent": 4500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1500,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1440 N Pass Ave, Burbank 91505",
+        "rent": 4650,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1500,
+        "src": "forrent.com"
+       },
+       {
+        "addr": "1527 N Screenland Dr, Burbank 91505",
+        "rent": 6000,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1477,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2431 N Lamer St, Burbank 91504",
+        "rent": 4800,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1700,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "808 N Valley St, Burbank 91505",
+        "rent": 4900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1589,
+        "src": "homes.com"
+       },
+       {
+        "addr": "522 E Angeleno Ave, Burbank 91501",
+        "rent": 4750,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1500,
+        "src": "rentler.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, 1,500–1,900 sf, Burbank; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Burbank",
@@ -175,7 +600,70 @@
    "note": "29 days on Zillow. Property page not opened (fetch limits).",
    "new": true,
    "sf": 3214,
-   "lot_sf": 27476
+   "lot_sf": 27476,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 8598,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "1925 W Parkside Ave, Burbank 91506",
+        "rent": 8995,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2426,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "1716 Via La Paz, Burbank 91501",
+        "rent": 9995,
+        "beds": 4,
+        "baths": 4,
+        "sf": 2984,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "3119 Mesa Verde Dr, Burbank 91504",
+        "rent": 8995,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2506,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1350 E Tujunga Ave, Burbank 91501",
+        "rent": 9900,
+        "beds": 4,
+        "baths": 4,
+        "sf": 3137,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "832 E Valencia Ave, Burbank 91501",
+        "rent": 6700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2187,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1083 E Elmwood Ave, Burbank 91501",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2212,
+        "src": "zillow.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3–4 ba, 2,400–3,200 sf, Burbank; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Burbank",
@@ -205,7 +693,70 @@
    },
    "note": "42 days on Zillow. Property page not opened.",
    "new": true,
-   "sf": 1493
+   "sf": 1493,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 4933,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "849 Lima St, Burbank 91505",
+        "rent": 4500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1500,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1440 N Pass Ave, Burbank 91505",
+        "rent": 4650,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1500,
+        "src": "forrent.com"
+       },
+       {
+        "addr": "1527 N Screenland Dr, Burbank 91505",
+        "rent": 6000,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1477,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2431 N Lamer St, Burbank 91504",
+        "rent": 4800,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1700,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "808 N Valley St, Burbank 91505",
+        "rent": 4900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1589,
+        "src": "homes.com"
+       },
+       {
+        "addr": "522 E Angeleno Ave, Burbank 91501",
+        "rent": 4750,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1500,
+        "src": "rentler.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, 1,500–1,900 sf, Burbank; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "North Hollywood / Toluca Lake",
@@ -223,7 +774,62 @@
    },
    "note": "A search snippet from Orchard says Off Market (page not opened); confirm status.",
    "sf": 2797,
-   "lot_sf": 8276
+   "lot_sf": 8276,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.5,
+      "rent": 8979,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "11217 Kling St, Toluca Lake 91602",
+        "rent": 8495,
+        "beds": 4,
+        "baths": 4,
+        "sf": 3433,
+        "src": "homes.com / theagencyre.com"
+       },
+       {
+        "addr": "4722 Forman Ave, Toluca Lake 91602",
+        "rent": 8500,
+        "beds": 5,
+        "baths": 4,
+        "sf": 3320,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4555 Mariota Ave, Toluca Lake 91602 (furnished)",
+        "rent": 11450,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 2561,
+        "src": "weichert.com"
+       },
+       {
+        "addr": "4747 Cartwright Ave, North Hollywood 91602",
+        "rent": 7950,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2211,
+        "src": "homes.com"
+       },
+       {
+        "addr": "4429 Tujunga Ave, Studio City 91602",
+        "rent": 8500,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 2200,
+        "src": "avail.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3.5–4 ba, 2,800–3,000 sf, Toluca Lake / North Hollywood; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "North Hollywood / Toluca Lake",
@@ -254,7 +860,62 @@
     }
    ],
    "sf": 3012,
-   "lot_sf": 6261
+   "lot_sf": 6261,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 4.0,
+      "rent": 8979,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "11217 Kling St, Toluca Lake 91602",
+        "rent": 8495,
+        "beds": 4,
+        "baths": 4,
+        "sf": 3433,
+        "src": "homes.com / theagencyre.com"
+       },
+       {
+        "addr": "4722 Forman Ave, Toluca Lake 91602",
+        "rent": 8500,
+        "beds": 5,
+        "baths": 4,
+        "sf": 3320,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4555 Mariota Ave, Toluca Lake 91602 (furnished)",
+        "rent": 11450,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 2561,
+        "src": "weichert.com"
+       },
+       {
+        "addr": "4747 Cartwright Ave, North Hollywood 91602",
+        "rent": 7950,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2211,
+        "src": "homes.com"
+       },
+       {
+        "addr": "4429 Tujunga Ave, Studio City 91602",
+        "rent": 8500,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 2200,
+        "src": "avail.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3.5–4 ba, 2,800–3,000 sf, Toluca Lake / North Hollywood; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Studio City",
@@ -271,7 +932,62 @@
     "detail": "Pool and spa in the backyard, plus a 2003 permit for a 'new heated swimming pool and spa'. In-ground not stated"
    },
    "sf": 3555,
-   "lot_sf": 7001
+   "lot_sf": 7001,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 5.0,
+      "rent": 12539,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "4252 Shadyglade Ave, Studio City 91604",
+        "rent": 14500,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 3300,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "4452 Bellingham Ave, Studio City 91604",
+        "rent": 13500,
+        "beds": 4,
+        "baths": 5,
+        "sf": 3246,
+        "src": "theagencyre.com"
+       },
+       {
+        "addr": "3300 Coldwater Canyon Ave, Studio City 91604",
+        "rent": 13900,
+        "beds": 4,
+        "baths": 5,
+        "sf": 3992,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "12944 Woodbridge St, Studio City 91604 (furnished, pool)",
+        "rent": 9500,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 3100,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "3200 Dona Emilia Dr, Studio City 91604",
+        "rent": 11295,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 3200,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 4.5–5 ba, ~3,500 sf, Studio City; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -284,7 +1000,70 @@
     "detail": "Private pool, newly renovated (homes.com)"
    },
    "sf": 2575,
-   "lot_sf": 10514
+   "lot_sf": 10514,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 6892,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "1269 Alameda Ave, Glendale 91201",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2497,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1801 Cielito Dr, Glendale 91207",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2700,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3170 Buckingham Rd, Glendale 91206",
+        "rent": 9950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2504,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3160 Kirkham Dr, Glendale 91206",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 2,
+        "sf": 2185,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4420 Lowell Ave, Glendale 91214",
+        "rent": 5200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2145,
+        "src": "rentspree.com"
+       },
+       {
+        "addr": "3053 Honolulu Ave, Glendale 91214",
+        "rent": 4700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2120,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,500 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -310,7 +1089,70 @@
    },
    "note": "Price cut $100,000 on Nov 12 (Zillow).",
    "sf": 2585,
-   "lot_sf": 7018
+   "lot_sf": 7018,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 6892,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "1269 Alameda Ave, Glendale 91201",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2497,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1801 Cielito Dr, Glendale 91207",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2700,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3170 Buckingham Rd, Glendale 91206",
+        "rent": 9950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2504,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3160 Kirkham Dr, Glendale 91206",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 2,
+        "sf": 2185,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4420 Lowell Ave, Glendale 91214",
+        "rent": 5200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2145,
+        "src": "rentspree.com"
+       },
+       {
+        "addr": "3053 Honolulu Ave, Glendale 91214",
+        "rent": 4700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2120,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,500 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -327,7 +1169,70 @@
     "detail": "Verdugo Woodlands Elementary, GreatSchools 9/10, 0.4 mi (assigned); meets your GreatSchools 8+ bar"
    },
    "sf": 2499,
-   "lot_sf": 12632
+   "lot_sf": 12632,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 6892,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "1269 Alameda Ave, Glendale 91201",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2497,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1801 Cielito Dr, Glendale 91207",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2700,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3170 Buckingham Rd, Glendale 91206",
+        "rent": 9950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2504,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3160 Kirkham Dr, Glendale 91206",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 2,
+        "sf": 2185,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4420 Lowell Ave, Glendale 91214",
+        "rent": 5200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2145,
+        "src": "rentspree.com"
+       },
+       {
+        "addr": "3053 Honolulu Ave, Glendale 91214",
+        "rent": 4700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2120,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,500 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -353,7 +1258,62 @@
    },
    "note": "Price dropped to $1,775,000 (homes.com, Zillow, Nov 26).",
    "sf": 2320,
-   "lot_sf": 10291
+   "lot_sf": 10291,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 5710,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1207 Reynolds Dr, Glendale 91205",
+        "rent": 5900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1709,
+        "src": "forrentuniversity.com"
+       },
+       {
+        "addr": "1201 Imperial Dr, Glendale 91207",
+        "rent": 5750,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1887,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3050 Honolulu Ave, Glendale 91214",
+        "rent": 4200,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1644,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "Address not disclosed (Rossmoyne), Glendale 91206",
+        "rent": 8900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1600,
+        "src": "trulia.com"
+       },
+       {
+        "addr": "126 E Garfield Ave, Glendale 91205",
+        "rent": 3800,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1490,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, 1,750–2,300 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -386,17 +1346,61 @@
     "units": [
      {
       "beds": 3,
-      "baths": 2,
-      "rent": 4500
+      "baths": 2.0,
+      "rent": 5710,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1207 Reynolds Dr, Glendale 91205",
+        "rent": 5900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1709,
+        "src": "forrentuniversity.com"
+       },
+       {
+        "addr": "1201 Imperial Dr, Glendale 91207",
+        "rent": 5750,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1887,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3050 Honolulu Ave, Glendale 91214",
+        "rent": 4200,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1644,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "Address not disclosed (Rossmoyne), Glendale 91206",
+        "rent": 8900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1600,
+        "src": "trulia.com"
+       },
+       {
+        "addr": "126 E Garfield Ave, Glendale 91205",
+        "rent": 3800,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1490,
+        "src": "apartments.com"
+       }
+      ]
      }
     ],
-    "rent_src": "Trulia, Glendale 3-bedroom average rent $4,500 (May 2026); Zumper houses $4,195, Zillow 3-bed $4,395",
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, 1,750–2,300 sf, Glendale; same neighborhood or zip, distance not measured)",
     "adr": 243,
     "adr_src": "AirROI, Glendale average nightly rate $243 (Aug 2025–Jul 2026); AirDNA $193",
     "cagr5": 0.041,
     "cagr_src": "Glendale 5-yr ZHVI trend CAGR +4.1% (ocity.org, Zillow ZHVI)",
     "str_note": "Glendale allows hosted home-sharing only; whole-home rentals banned (Ord. 5941)",
-    "as_of": "2026-11-27"
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
    }
   },
   {
@@ -427,7 +1431,70 @@
    },
    "note": "homes.com shows a $200K price drop; the Redfin cache still shows $2,199,000. Baths: 4 on homes.com and Zillow, 3 on Redfin.",
    "new": true,
-   "sf": 3440
+   "sf": 3440,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 6892,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "1269 Alameda Ave, Glendale 91201",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2497,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1801 Cielito Dr, Glendale 91207",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2700,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3170 Buckingham Rd, Glendale 91206",
+        "rent": 9950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2504,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3160 Kirkham Dr, Glendale 91206",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 2,
+        "sf": 2185,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4420 Lowell Ave, Glendale 91214",
+        "rent": 5200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2145,
+        "src": "rentspree.com"
+       },
+       {
+        "addr": "3053 Honolulu Ave, Glendale 91214",
+        "rent": 4700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2120,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,500 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -458,7 +1525,54 @@
    "note": "69 days on Zillow at $2.7M; the Redfin cache shows $2,990,000, so it was reduced.",
    "new": true,
    "sf": 3192,
-   "lot_sf": 14377
+   "lot_sf": 14377,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 4.0,
+      "rent": 9225,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3381 E Chevy Chase Dr, Glendale 91206",
+        "rent": 7950,
+        "beds": 3,
+        "baths": 3,
+        "sf": 2350,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "1907 Alpha Rd, Glendale 91208",
+        "rent": 12000,
+        "beds": 4,
+        "baths": 5,
+        "sf": 2989,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3170 Buckingham Rd, Glendale 91206",
+        "rent": 9950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2504,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "1801 Cielito Dr, Glendale 91207",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2700,
+        "src": "hotpads.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3–4 bd / 3+ ba, 2,350–3,200 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -488,7 +1602,62 @@
    },
    "note": "35 days on Zillow.",
    "new": true,
-   "sf": 1752
+   "sf": 1752,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.5,
+      "rent": 5710,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1207 Reynolds Dr, Glendale 91205",
+        "rent": 5900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1709,
+        "src": "forrentuniversity.com"
+       },
+       {
+        "addr": "1201 Imperial Dr, Glendale 91207",
+        "rent": 5750,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1887,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3050 Honolulu Ave, Glendale 91214",
+        "rent": 4200,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1644,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "Address not disclosed (Rossmoyne), Glendale 91206",
+        "rent": 8900,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1600,
+        "src": "trulia.com"
+       },
+       {
+        "addr": "126 E Garfield Ave, Glendale 91205",
+        "rent": 3800,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1490,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, 1,750–2,300 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -518,7 +1687,70 @@
    },
    "note": "$196K price drop (homes.com); 127 days on Zillow.",
    "new": true,
-   "sf": 2137
+   "sf": 2137,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 6892,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "1269 Alameda Ave, Glendale 91201",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2497,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "1801 Cielito Dr, Glendale 91207",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2700,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3170 Buckingham Rd, Glendale 91206",
+        "rent": 9950,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2504,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3160 Kirkham Dr, Glendale 91206",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 2,
+        "sf": 2185,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4420 Lowell Ave, Glendale 91214",
+        "rent": 5200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2145,
+        "src": "rentspree.com"
+       },
+       {
+        "addr": "3053 Honolulu Ave, Glendale 91214",
+        "rent": 4700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2120,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,500 sf, Glendale; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Crescenta",
@@ -531,7 +1763,62 @@
     "result": "pass",
     "detail": "In-ground pool stated in listing (Nov 21 scan; not re-confirmed Nov 26)"
    },
-   "sf": 1951
+   "sf": 1951,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 5880,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "3447 Community Ave, La Crescenta 91214",
+        "rent": 6000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1900,
+        "src": "homes.com"
+       },
+       {
+        "addr": "4420 Lowell Ave, La Crescenta 91214",
+        "rent": 5200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2145,
+        "src": "rentspree.com"
+       },
+       {
+        "addr": "3053 Honolulu Ave, La Crescenta 91214",
+        "rent": 4700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2120,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2906 Mountain Pine Dr, La Crescenta 91214",
+        "rent": 9000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2446,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "3006 Fairesta St, La Crescenta 91214",
+        "rent": 4500,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": null,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2.5–3 ba, ~1,950–2,150 sf, La Crescenta; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Crescenta",
@@ -562,7 +1849,54 @@
    "note": "Price cut $100,000 on Nov 21, 2026 (Zillow).",
    "new": true,
    "sf": 2872,
-   "lot_sf": 9244
+   "lot_sf": 9244,
+   "cf": {
+    "units": [
+     {
+      "beds": 5,
+      "baths": 3.0,
+      "rent": 7561,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "2906 Mountain Pine Dr, La Crescenta 91214",
+        "rent": 9000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2446,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "2915 Hopeton Rd, La Crescenta 91214",
+        "rent": 6995,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3820 Honolulu Ave, La Crescenta 91214",
+        "rent": 7000,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 3400,
+        "src": "renthop.com (no longer available)"
+       },
+       {
+        "addr": "Compass listing, La Crescenta (address not shown)",
+        "rent": 7250,
+        "beds": 4,
+        "baths": null,
+        "sf": 2434,
+        "src": "compass.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (5 bd / 3 ba, ~2,870 sf, La Crescenta; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Crescenta",
@@ -598,7 +1932,54 @@
    ],
    "note": "Zillow uses the 'Glendale, CA 91214' address; homes.com says La Crescenta.",
    "new": true,
-   "sf": 1600
+   "sf": 1600,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.5,
+      "rent": 4350,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3149 Alabama St, La Crescenta 91214",
+        "rent": 3850,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1700,
+        "src": "homes.com"
+       },
+       {
+        "addr": "4717 Glenwood Ave, La Crescenta 91214",
+        "rent": 4700,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1189,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3238 Montrose Ln, La Crescenta 91214",
+        "rent": 4650,
+        "beds": 3,
+        "baths": null,
+        "sf": null,
+        "src": "compass.com"
+       },
+       {
+        "addr": "3050 Honolulu Ave, Glendale 91214",
+        "rent": 4200,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1644,
+        "src": "hotpads.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–2.5 ba, ~1,600 sf, La Crescenta; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Crescenta",
@@ -628,7 +2009,62 @@
    },
    "note": "$100K price drop; 100 days on Zillow.",
    "new": true,
-   "sf": 2130
+   "sf": 2130,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 2.5,
+      "rent": 5880,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "3447 Community Ave, La Crescenta 91214",
+        "rent": 6000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1900,
+        "src": "homes.com"
+       },
+       {
+        "addr": "4420 Lowell Ave, La Crescenta 91214",
+        "rent": 5200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2145,
+        "src": "rentspree.com"
+       },
+       {
+        "addr": "3053 Honolulu Ave, La Crescenta 91214",
+        "rent": 4700,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2120,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2906 Mountain Pine Dr, La Crescenta 91214",
+        "rent": 9000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2446,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "3006 Fairesta St, La Crescenta 91214",
+        "rent": 4500,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": null,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2.5–3 ba, ~1,950–2,150 sf, La Crescenta; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -654,7 +2090,54 @@
     "detail": "2,258 sf house on a 0.47 ac (20,491 sf) lot leaves room for an ADU or addition"
    },
    "sf": 2258,
-   "lot_sf": 20473
+   "lot_sf": 20473,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 3.0,
+      "rent": 6974,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "5414 Palm Dr, La Cañada Flintridge 91011",
+        "rent": 6500,
+        "beds": 3,
+        "baths": 2.5,
+        "sf": 2263,
+        "src": "homes.com"
+       },
+       {
+        "addr": "4918 Commonwealth Ave, La Cañada Flintridge 91011",
+        "rent": 6995,
+        "beds": 3,
+        "baths": 2,
+        "sf": 2201,
+        "src": "homes.com"
+       },
+       {
+        "addr": "804 Lynnhaven Ln, La Cañada Flintridge 91011",
+        "rent": 8500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 2160,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "Apartments.com listing, La Cañada Flintridge (address not shown)",
+        "rent": 5900,
+        "beds": 3,
+        "baths": 4,
+        "sf": 2056,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2.5–3 ba, ~2,250 sf, La Cañada Flintridge; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -666,7 +2149,70 @@
     "result": "check",
     "detail": "Appears on Zillow, homes.com and Redfin pool-filtered searches, but no listing text confirms the pool"
    },
-   "sf": 1554
+   "sf": 1554,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 6031,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "4450 St Francis Pl, La Cañada Flintridge 91011",
+        "rent": 6000,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1640,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4828 Grand Ave, La Cañada Flintridge 91011",
+        "rent": 5888,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1760,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2260 Los Amigos St, La Cañada Flintridge 91011",
+        "rent": 7500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1912,
+        "src": "homes.com"
+       },
+       {
+        "addr": "5036 Westslope Ln, La Cañada Flintridge 91011",
+        "rent": 6700,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1617,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2279 Saranne St, La Cañada Flintridge 91011",
+        "rent": 4600,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1547,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4913 Revlon Dr, La Cañada Flintridge 91011",
+        "rent": 5500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1480,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–2.5 ba, 1,550–2,000 sf, La Cañada Flintridge; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Pasadena",
@@ -683,7 +2229,62 @@
     "detail": "No hillside noted in listing"
    },
    "sf": 2558,
-   "lot_sf": 7940
+   "lot_sf": 7940,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 7090,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2241 Brigden Rd, Pasadena 91104",
+        "rent": 6650,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2381,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3949 Sycamore Ave, Pasadena 91107",
+        "rent": 6800,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 2300,
+        "src": "homes.com"
+       },
+       {
+        "addr": "420 Tamarac Dr, Pasadena",
+        "rent": 9500,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "1542 Pepper Dr, Pasadena 91104",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2168,
+        "src": "rentler.com"
+       },
+       {
+        "addr": "426 Santa Paula Ave, Pasadena",
+        "rent": 6000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2000,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2.5–3 ba, 2,300–2,650 sf, Pasadena; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Pasadena",
@@ -704,7 +2305,62 @@
     "detail": "2025 listing was a fixer with a 620 sf garage conversion 'ideal for an ADU'. 2026 condition not confirmed (likely renovated after the 2025 sale)"
    },
    "sf": 2412,
-   "lot_sf": 8767
+   "lot_sf": 8767,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 6435,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1016 S Euclid Ave, Pasadena 91106",
+        "rent": 8700,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1600,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "2340 Brigden Rd, Pasadena",
+        "rent": 6950,
+        "beds": 3,
+        "baths": 3,
+        "sf": 2500,
+        "src": "rentable.co"
+       },
+       {
+        "addr": "Apartments.com listing, Pasadena (address not shown)",
+        "rent": 6550,
+        "beds": 3,
+        "baths": 2,
+        "sf": 2550,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "Apartments.com listing, Pasadena (address not shown)",
+        "rent": 4975,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1480,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "Zumper listing, Pasadena (address not shown)",
+        "rent": 5000,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1540,
+        "src": "zumper.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, 1,600–2,400 sf, Pasadena; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Pasadena",
@@ -734,7 +2390,62 @@
    },
    "note": "Price cut to $1,898,000 on Oct 11 (Trulia).",
    "sf": 2340,
-   "lot_sf": 9256
+   "lot_sf": 9256,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 7090,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2241 Brigden Rd, Pasadena 91104",
+        "rent": 6650,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2381,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3949 Sycamore Ave, Pasadena 91107",
+        "rent": 6800,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 2300,
+        "src": "homes.com"
+       },
+       {
+        "addr": "420 Tamarac Dr, Pasadena",
+        "rent": 9500,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "1542 Pepper Dr, Pasadena 91104",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2168,
+        "src": "rentler.com"
+       },
+       {
+        "addr": "426 Santa Paula Ave, Pasadena",
+        "rent": 6000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2000,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2.5–3 ba, 2,300–2,650 sf, Pasadena; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Pasadena",
@@ -765,7 +2476,38 @@
    "note": "Listed Nov 19, 2026 (MLS P1-29639, eXp). 1924 Wallace Neff Spanish Revival in the North Pasadena Heights Landmark District (design limits). It last housed a preschool (closed 2026), so confirm residential use and condition. Only 1 full bath. Trust sale; cash or cash to new loan.",
    "new": true,
    "sf": 3887,
-   "lot_sf": 16552
+   "lot_sf": 16552,
+   "cf": {
+    "units": [
+     {
+      "beds": 5,
+      "baths": 3.0,
+      "rent": 9000,
+      "n": 2,
+      "comps": [
+       {
+        "addr": "209 San Miguel Rd, Pasadena 91105",
+        "rent": 11500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 3456,
+        "src": "homes.com"
+       },
+       {
+        "addr": "1542 Pepper Dr, Pasadena 91104",
+        "rent": 6500,
+        "beds": 5,
+        "baths": 3,
+        "sf": 2168,
+        "src": "rentler.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (5 bd / 3 ba, ~3,900 sf, Pasadena; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Pasadena",
@@ -796,7 +2538,62 @@
    "note": "MLS 26102157, 1948 ranch in Hastings Ranch, 14 days on market.",
    "new": true,
    "sf": 2639,
-   "lot_sf": 13716
+   "lot_sf": 13716,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 7090,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2241 Brigden Rd, Pasadena 91104",
+        "rent": 6650,
+        "beds": 4,
+        "baths": 2.5,
+        "sf": 2381,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3949 Sycamore Ave, Pasadena 91107",
+        "rent": 6800,
+        "beds": 4,
+        "baths": 4.5,
+        "sf": 2300,
+        "src": "homes.com"
+       },
+       {
+        "addr": "420 Tamarac Dr, Pasadena",
+        "rent": 9500,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "1542 Pepper Dr, Pasadena 91104",
+        "rent": 6500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2168,
+        "src": "rentler.com"
+       },
+       {
+        "addr": "426 Santa Paula Ave, Pasadena",
+        "rent": 6000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2000,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2.5–3 ba, 2,300–2,650 sf, Pasadena; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Pasadena",
@@ -827,7 +2624,62 @@
    "note": "Price per the homes.com pool search ($50K drop, 'New Price!'). Last sold Mar 2023 for $1,480,000 (Nourmand). I could not open its own listing page.",
    "new": true,
    "sf": 1594,
-   "lot_sf": 8500
+   "lot_sf": 8500,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 6435,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1016 S Euclid Ave, Pasadena 91106",
+        "rent": 8700,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1600,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "2340 Brigden Rd, Pasadena",
+        "rent": 6950,
+        "beds": 3,
+        "baths": 3,
+        "sf": 2500,
+        "src": "rentable.co"
+       },
+       {
+        "addr": "Apartments.com listing, Pasadena (address not shown)",
+        "rent": 6550,
+        "beds": 3,
+        "baths": 2,
+        "sf": 2550,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "Apartments.com listing, Pasadena (address not shown)",
+        "rent": 4975,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1480,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "Zumper listing, Pasadena (address not shown)",
+        "rent": 5000,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1540,
+        "src": "zumper.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, 1,600–2,400 sf, Pasadena; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Larchmont / Hancock Park",
@@ -856,7 +2708,62 @@
    "note": "The Sun Dec 6 open house is from the Nov 21 scan (homes.com) and could not be reconfirmed Nov 26.",
    "sf": 2476,
    "lot_sf": 6802,
-   "fixer": true
+   "fixer": true,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 7975,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "613 N Lucerne Blvd, Los Angeles 90004",
+        "rent": 7780,
+        "beds": 4,
+        "baths": 4,
+        "sf": 2106,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "445 S Mansfield Ave, Los Angeles 90036 (incl. ADU)",
+        "rent": 8000,
+        "beds": 5,
+        "baths": 3,
+        "sf": 2228,
+        "src": "homes.com"
+       },
+       {
+        "addr": "325 N Wilton Pl, Los Angeles 90004",
+        "rent": 7995,
+        "beds": 4,
+        "baths": 4,
+        "sf": null,
+        "src": "nestseekers.com"
+       },
+       {
+        "addr": "162 N Citrus Ave, Los Angeles 90036",
+        "rent": 5700,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "nestseekers.com"
+       },
+       {
+        "addr": "379 N Ridgewood Pl, Los Angeles 90004",
+        "rent": 10400,
+        "beds": 3,
+        "baths": 3,
+        "sf": 2466,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,500 sf, Hancock Park / Larchmont; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Larchmont / Hancock Park",
@@ -886,7 +2793,30 @@
    },
    "note": "Two homes.com pages disagree on price: $1,825,000 vs $1,849,000. Hancock Park-adjacent (90036). Confirm price and status on the listing itself.",
    "new": true,
-   "sf": 1519
+   "sf": 1519,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 10400,
+      "n": 1,
+      "comps": [
+       {
+        "addr": "379 N Ridgewood Pl, Los Angeles 90004",
+        "rent": 10400,
+        "beds": 3,
+        "baths": 3,
+        "sf": 2466,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2 ba, ~1,500 sf, Hancock Park / Larchmont; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Silver Lake",
@@ -911,7 +2841,62 @@
     "detail": "Detached ADU and rec room already built; just renovated"
    },
    "sf": 2263,
-   "lot_sf": 8128
+   "lot_sf": 8128,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 4.5,
+      "rent": 7449,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2132 Cove Ave, Los Angeles 90039",
+        "rent": 7500,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "westsiderentals.com"
+       },
+       {
+        "addr": "1510 Benton Wy, Los Angeles 90026",
+        "rent": 7495,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2026,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2724 Locksley Pl, Los Angeles 90039",
+        "rent": 8200,
+        "beds": 4,
+        "baths": 2,
+        "sf": null,
+        "src": "westsiderentals.com"
+       },
+       {
+        "addr": "1376 Edgecliffe Dr, Los Angeles 90026",
+        "rent": 6300,
+        "beds": 4,
+        "baths": 4,
+        "sf": null,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "1508 Elevado St, Los Angeles 90026",
+        "rent": 7750,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": null,
+        "src": "renthop.com (inactive)"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3–4.5 ba, 2,000–3,300 sf, Silver Lake / Los Feliz; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Los Feliz",
@@ -971,7 +2956,62 @@
     "result": "check",
     "detail": "Remodeled; no ADU mentioned; 6,757 sf lot"
    },
-   "sf": 3295
+   "sf": 3295,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.5,
+      "rent": 7449,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2132 Cove Ave, Los Angeles 90039",
+        "rent": 7500,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "westsiderentals.com"
+       },
+       {
+        "addr": "1510 Benton Wy, Los Angeles 90026",
+        "rent": 7495,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2026,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2724 Locksley Pl, Los Angeles 90039",
+        "rent": 8200,
+        "beds": 4,
+        "baths": 2,
+        "sf": null,
+        "src": "westsiderentals.com"
+       },
+       {
+        "addr": "1376 Edgecliffe Dr, Los Angeles 90026",
+        "rent": 6300,
+        "beds": 4,
+        "baths": 4,
+        "sf": null,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "1508 Elevado St, Los Angeles 90026",
+        "rent": 7750,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": null,
+        "src": "renthop.com (inactive)"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3–4.5 ba, 2,000–3,300 sf, Silver Lake / Los Feliz; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Fairfax / Melrose",
@@ -997,7 +3037,62 @@
     "result": "check",
     "detail": "Remodeled; detached guest house (1 bd/1 ba) already built"
    },
-   "lot_sf": 8246
+   "lot_sf": 8246,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 3.0,
+      "rent": 6247,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1350 1/2 N Fairfax Ave, West Hollywood 90046",
+        "rent": 6650,
+        "beds": 3,
+        "baths": 4,
+        "sf": 2105,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "905 1/2 N Fairfax Ave, West Hollywood 90046",
+        "rent": 8795,
+        "beds": 3,
+        "baths": 3.5,
+        "sf": 2000,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "725 N Stanley Ave, Los Angeles 90046",
+        "rent": 4695,
+        "beds": 3,
+        "baths": 3,
+        "sf": 1482,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "7719 Clinton St, Los Angeles 90036",
+        "rent": 4595,
+        "beds": 3,
+        "baths": 3,
+        "sf": 1482,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "822 N Fuller Ave, Los Angeles 90046",
+        "rent": 6500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1673,
+        "src": "redfin.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–3.5 ba, 1,500–2,100 sf, Fairfax / Melrose; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Mar Vista",
@@ -1018,7 +3113,54 @@
     "detail": "Compass lists Guest House: None, Other Structures: None; no ADU noted"
    },
    "sf": 2878,
-   "lot_sf": 7022
+   "lot_sf": 7022,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 3.5,
+      "rent": 12775,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3363 Colbert Ave, Los Angeles 90066",
+        "rent": 11200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2436,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3540 Mountain View Ave, Los Angeles 90066 (furnished)",
+        "rent": 13500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2268,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "Savills listing, Mar Vista Hill 90066",
+        "rent": 8900,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2600,
+        "src": "savills.com"
+       },
+       {
+        "addr": "12718 Westminster Ave, Los Angeles 90066",
+        "rent": 17500,
+        "beds": 4,
+        "baths": 4,
+        "sf": 2969,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3–4 bd / 3+ ba, 2,400–2,900 sf, Mar Vista; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Mar Vista",
@@ -1036,7 +3178,54 @@
    },
    "note": "Private tours only.",
    "sf": 1580,
-   "lot_sf": 8354
+   "lot_sf": 8354,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 10312,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3839 Marcasel Ave, Los Angeles 90066",
+        "rent": 8500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1578,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3600 Coolidge Ave, Los Angeles 90066",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1900,
+        "src": "forrent.com"
+       },
+       {
+        "addr": "3268 Butler Ave, Los Angeles 90066",
+        "rent": 12750,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2025,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "4147 S Marcasel Ave, Los Angeles 90066",
+        "rent": 12000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1325,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2–3 ba, 1,500–2,000 sf, Mar Vista; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -1057,7 +3246,46 @@
     "detail": "Listing says the detached garage has approved ADU plans"
    },
    "sf": 2120,
-   "lot_sf": 9735
+   "lot_sf": 9735,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 3.75,
+      "rent": 6482,
+      "n": 3,
+      "comps": [
+       {
+        "addr": "2350 Malcolm Ave, Los Angeles 90064",
+        "rent": 7950,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 1838,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2963 Queensbury Dr, Los Angeles 90064",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2295,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3401 Manning Ave Unit 107, Los Angeles 90064 (apartment)",
+        "rent": 3495,
+        "beds": 3,
+        "baths": 2,
+        "sf": null,
+        "src": "redfin.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–3.75 ba, 1,700–2,100 sf, Cheviot Hills; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -1088,7 +3316,62 @@
    "note": "MLS area is 'Cheviot Hills/Rancho Park (C08)'. Listed Mar 18, 2026, about 253 days on market. History shows $2,250,000 in May, and no record yet of the cut to $1,950,000. No open house.",
    "new": true,
    "sf": 1918,
-   "lot_sf": 6987
+   "lot_sf": 6987,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 2.0,
+      "rent": 9190,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2700 Coolidge Ave, Los Angeles 90064",
+        "rent": 9150,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2580,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2350 Malcolm Ave, Los Angeles 90064",
+        "rent": 7950,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 1838,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2963 Queensbury Dr, Los Angeles 90064",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2295,
+        "src": "homes.com"
+       },
+       {
+        "addr": "10833 Tabor St, Los Angeles 90034",
+        "rent": 9899,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2198,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2929 Motor Ave, Los Angeles 90064",
+        "rent": 10950,
+        "beds": 4,
+        "baths": 4,
+        "sf": 3037,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2–3 ba, 1,900–2,600 sf, Cheviot Hills / Palms; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -1120,7 +3403,46 @@
    "new": true,
    "sf": 1678,
    "lot_sf": 9358,
-   "fixer": true
+   "fixer": true,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 6482,
+      "n": 3,
+      "comps": [
+       {
+        "addr": "2350 Malcolm Ave, Los Angeles 90064",
+        "rent": 7950,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 1838,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2963 Queensbury Dr, Los Angeles 90064",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2295,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3401 Manning Ave Unit 107, Los Angeles 90064 (apartment)",
+        "rent": 3495,
+        "beds": 3,
+        "baths": 2,
+        "sf": null,
+        "src": "redfin.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–3.75 ba, 1,700–2,100 sf, Cheviot Hills; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -1152,7 +3474,62 @@
    "new": true,
    "sf": 2604,
    "lot_sf": 7151,
-   "fixer": true
+   "fixer": true,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 2.0,
+      "rent": 9190,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2700 Coolidge Ave, Los Angeles 90064",
+        "rent": 9150,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2580,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2350 Malcolm Ave, Los Angeles 90064",
+        "rent": 7950,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 1838,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2963 Queensbury Dr, Los Angeles 90064",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2295,
+        "src": "homes.com"
+       },
+       {
+        "addr": "10833 Tabor St, Los Angeles 90034",
+        "rent": 9899,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2198,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2929 Motor Ave, Los Angeles 90064",
+        "rent": 10950,
+        "beds": 4,
+        "baths": 4,
+        "sf": 3037,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2–3 ba, 1,900–2,600 sf, Cheviot Hills / Palms; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Silver Lake",
@@ -1178,7 +3555,62 @@
    },
    "note": "Added by you Nov 22, 2026. Listed at $3,495,000 (MLS SB26242175). A 1–5 PM open house is listed; date not confirmed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active. Not re-confirmed Nov 26 (Redfin returned an error).",
    "sf": 3200,
-   "lot_sf": 10464
+   "lot_sf": 10464,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 7449,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2132 Cove Ave, Los Angeles 90039",
+        "rent": 7500,
+        "beds": 4,
+        "baths": 3,
+        "sf": null,
+        "src": "westsiderentals.com"
+       },
+       {
+        "addr": "1510 Benton Wy, Los Angeles 90026",
+        "rent": 7495,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2026,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2724 Locksley Pl, Los Angeles 90039",
+        "rent": 8200,
+        "beds": 4,
+        "baths": 2,
+        "sf": null,
+        "src": "westsiderentals.com"
+       },
+       {
+        "addr": "1376 Edgecliffe Dr, Los Angeles 90026",
+        "rent": 6300,
+        "beds": 4,
+        "baths": 4,
+        "sf": null,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "1508 Elevado St, Los Angeles 90026",
+        "rent": 7750,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": null,
+        "src": "renthop.com (inactive)"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3–4.5 ba, 2,000–3,300 sf, Silver Lake / Los Feliz; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1230,7 +3662,8 @@
     },
     "str_note": "La Cañada Flintridge bans short-term rentals",
     "as_of": "2026-11-27"
-   }
+   },
+   "out": "Ruled out by buyer, Nov 27, 2026"
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1260,7 +3693,70 @@
    },
    "note": "52 days on Zillow.",
    "new": true,
-   "sf": 1790
+   "sf": 1790,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 6031,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "4450 St Francis Pl, La Cañada Flintridge 91011",
+        "rent": 6000,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1640,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4828 Grand Ave, La Cañada Flintridge 91011",
+        "rent": 5888,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1760,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2260 Los Amigos St, La Cañada Flintridge 91011",
+        "rent": 7500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1912,
+        "src": "homes.com"
+       },
+       {
+        "addr": "5036 Westslope Ln, La Cañada Flintridge 91011",
+        "rent": 6700,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1617,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2279 Saranne St, La Cañada Flintridge 91011",
+        "rent": 4600,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1547,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4913 Revlon Dr, La Cañada Flintridge 91011",
+        "rent": 5500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1480,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–2.5 ba, 1,550–2,000 sf, La Cañada Flintridge; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1291,7 +3787,46 @@
    "note": "Seen Nov 26, 2026 on Redfin only, which may be a cached page. Not on Zillow's LCF pool page 1 (two cards did not load). Confirm it is still active.",
    "new": true,
    "sf": 2265,
-   "lot_sf": 18295
+   "lot_sf": 18295,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 4.0,
+      "rent": 8898,
+      "n": 3,
+      "comps": [
+       {
+        "addr": "Compass listing, La Cañada Flintridge (address not shown)",
+        "rent": 9800,
+        "beds": 4,
+        "baths": null,
+        "sf": 2828,
+        "src": "compass.com"
+       },
+       {
+        "addr": "Compass listing, La Cañada Flintridge (address not shown)",
+        "rent": 9900,
+        "beds": 4,
+        "baths": null,
+        "sf": 2995,
+        "src": "compass.com"
+       },
+       {
+        "addr": "3694 Berwick Dr, La Cañada Flintridge 91011",
+        "rent": 6995,
+        "beds": 5,
+        "baths": 3.5,
+        "sf": 3650,
+        "src": "hotpads.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3–4 ba, ~2,265 sf+, La Cañada Flintridge; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -1322,7 +3857,70 @@
    "note": "Fronts Foothill Blvd, a busy arterial; check traffic noise.",
    "new": true,
    "sf": 1975,
-   "lot_sf": 11000
+   "lot_sf": 11000,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.5,
+      "rent": 6031,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "4450 St Francis Pl, La Cañada Flintridge 91011",
+        "rent": 6000,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1640,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4828 Grand Ave, La Cañada Flintridge 91011",
+        "rent": 5888,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1760,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2260 Los Amigos St, La Cañada Flintridge 91011",
+        "rent": 7500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1912,
+        "src": "homes.com"
+       },
+       {
+        "addr": "5036 Westslope Ln, La Cañada Flintridge 91011",
+        "rent": 6700,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1617,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2279 Saranne St, La Cañada Flintridge 91011",
+        "rent": 4600,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1547,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "4913 Revlon Dr, La Cañada Flintridge 91011",
+        "rent": 5500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1480,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–2.5 ba, 1,550–2,000 sf, La Cañada Flintridge; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Mar Vista",
@@ -1353,7 +3951,206 @@
    "note": "Added by you Nov 23, 2026. Not a single-family home: a 4-unit income property (MLS 26105806, Active, listed Nov 2) with 3 units rented for $4,207/mo. Listing says it is subject to Culver City rent control. Price is below your $1.3M floor. No open house listed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active. Not re-confirmed Nov 26 (Trulia blocked).",
    "price_exempt": "buyer exemption (Nov 22, 2026)",
    "sf": 2780,
-   "lot_sf": 4879
+   "lot_sf": 4879,
+   "cf": {
+    "units": [
+     {
+      "beds": 2,
+      "baths": 1,
+      "rent": 2647,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "3961 Moore St Unit 7, Los Angeles 90066",
+        "rent": 2795,
+        "beds": 2,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "12626 Caswell Ave Unit 6, Los Angeles 90066",
+        "rent": 2495,
+        "beds": 2,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11002 Rose Ave Unit 202, Los Angeles 90034",
+        "rent": 2850,
+        "beds": 2,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11131 Rose Ave Unit 25, Los Angeles 90034",
+        "rent": 2850,
+        "beds": 2,
+        "baths": 1,
+        "sf": 975,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11519 Venice Blvd, Los Angeles 90066",
+        "rent": 2246,
+        "beds": 2,
+        "baths": 1,
+        "sf": 975,
+        "src": "forrent.com"
+       }
+      ]
+     },
+     {
+      "beds": 2,
+      "baths": 1,
+      "rent": 2647,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "3961 Moore St Unit 7, Los Angeles 90066",
+        "rent": 2795,
+        "beds": 2,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "12626 Caswell Ave Unit 6, Los Angeles 90066",
+        "rent": 2495,
+        "beds": 2,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11002 Rose Ave Unit 202, Los Angeles 90034",
+        "rent": 2850,
+        "beds": 2,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11131 Rose Ave Unit 25, Los Angeles 90034",
+        "rent": 2850,
+        "beds": 2,
+        "baths": 1,
+        "sf": 975,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11519 Venice Blvd, Los Angeles 90066",
+        "rent": 2246,
+        "beds": 2,
+        "baths": 1,
+        "sf": 975,
+        "src": "forrent.com"
+       }
+      ]
+     },
+     {
+      "beds": 1,
+      "baths": 1,
+      "rent": 2137,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "4026 Inglewood Blvd Unit 01, Los Angeles 90066",
+        "rent": 1925,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "3966 Inglewood Blvd Unit 1, Los Angeles 90066",
+        "rent": 2195,
+        "beds": 1,
+        "baths": 1,
+        "sf": 600,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11715 Palms Blvd Unit 2501, Los Angeles 90066",
+        "rent": 2050,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "3821 Wasatch Ave Unit 9, Los Angeles 90066",
+        "rent": 2150,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11811 W Washington Pl Unit 305, Mar Vista 90066",
+        "rent": 2366,
+        "beds": 1,
+        "baths": 1,
+        "sf": 750,
+        "src": "apartments.com"
+       }
+      ]
+     },
+     {
+      "beds": 1,
+      "baths": 1,
+      "rent": 2137,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "4026 Inglewood Blvd Unit 01, Los Angeles 90066",
+        "rent": 1925,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "3966 Inglewood Blvd Unit 1, Los Angeles 90066",
+        "rent": 2195,
+        "beds": 1,
+        "baths": 1,
+        "sf": 600,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11715 Palms Blvd Unit 2501, Los Angeles 90066",
+        "rent": 2050,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "3821 Wasatch Ave Unit 9, Los Angeles 90066",
+        "rent": 2150,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "redfin.com"
+       },
+       {
+        "addr": "11811 W Washington Pl Unit 305, Mar Vista 90066",
+        "rent": 2366,
+        "beds": 1,
+        "baths": 1,
+        "sf": 750,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Each unit priced at the average of actual rental listings for that unit size nearby, found Nov 27, 2026 (distance not measured). Actual: 3 units currently rented for $4,207/mo total under rent control",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Mar Vista",
@@ -1390,7 +4187,54 @@
    "note": "Listed Aug 31 at $2,495,000. Weichert says it was cut on Sep 23; Compass dates the cut Oct 30. Weichert and the Compass search page show the Nov 29 open house, but the Compass detail page does not. Weichert says to confirm with the agent.",
    "new": true,
    "sf": 1672,
-   "lot_sf": 5022
+   "lot_sf": 5022,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 10312,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3839 Marcasel Ave, Los Angeles 90066",
+        "rent": 8500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1578,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3600 Coolidge Ave, Los Angeles 90066",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1900,
+        "src": "forrent.com"
+       },
+       {
+        "addr": "3268 Butler Ave, Los Angeles 90066",
+        "rent": 12750,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2025,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "4147 S Marcasel Ave, Los Angeles 90066",
+        "rent": 12000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1325,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2–3 ba, 1,500–2,000 sf, Mar Vista; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Mar Vista",
@@ -1422,7 +4266,54 @@
    "new": true,
    "sf": 1514,
    "lot_sf": 10017,
-   "fixer": true
+   "fixer": true,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 2.0,
+      "rent": 10312,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3839 Marcasel Ave, Los Angeles 90066",
+        "rent": 8500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1578,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3600 Coolidge Ave, Los Angeles 90066",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1900,
+        "src": "forrent.com"
+       },
+       {
+        "addr": "3268 Butler Ave, Los Angeles 90066",
+        "rent": 12750,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2025,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "4147 S Marcasel Ave, Los Angeles 90066",
+        "rent": 12000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 1325,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2–3 ba, 1,500–2,000 sf, Mar Vista; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Mar Vista",
@@ -1453,7 +4344,54 @@
    "note": "Listed Sep 18 at $2,700,000. The Compass search page shows $2,599,000, but the detail page still shows $2.7M (last updated Oct 15). Don Swiers architectural home. The only open house was Oct 18 (past).",
    "new": true,
    "sf": 2614,
-   "lot_sf": 6752
+   "lot_sf": 6752,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 3.0,
+      "rent": 12775,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3363 Colbert Ave, Los Angeles 90066",
+        "rent": 11200,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2436,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "3540 Mountain View Ave, Los Angeles 90066 (furnished)",
+        "rent": 13500,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2268,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "Savills listing, Mar Vista Hill 90066",
+        "rent": 8900,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2600,
+        "src": "savills.com"
+       },
+       {
+        "addr": "12718 Westminster Ave, Los Angeles 90066",
+        "rent": 17500,
+        "beds": 4,
+        "baths": 4,
+        "sf": 2969,
+        "src": "renthop.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3–4 bd / 3+ ba, 2,400–2,900 sf, Mar Vista; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Palms",
@@ -1485,7 +4423,62 @@
    "new": true,
    "sf": 2247,
    "lot_sf": 7561,
-   "fixer": true
+   "fixer": true,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 3.0,
+      "rent": 9190,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "2700 Coolidge Ave, Los Angeles 90064",
+        "rent": 9150,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2580,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2350 Malcolm Ave, Los Angeles 90064",
+        "rent": 7950,
+        "beds": 4,
+        "baths": 3.5,
+        "sf": 1838,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2963 Queensbury Dr, Los Angeles 90064",
+        "rent": 8000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2295,
+        "src": "homes.com"
+       },
+       {
+        "addr": "10833 Tabor St, Los Angeles 90034",
+        "rent": 9899,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2198,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2929 Motor Ave, Los Angeles 90064",
+        "rent": 10950,
+        "beds": 4,
+        "baths": 4,
+        "sf": 3037,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2–3 ba, 1,900–2,600 sf, Cheviot Hills / Palms; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Cypress Park",
@@ -1515,7 +4508,46 @@
    },
    "note": "Added by you Nov 23, 2026. Active (Movoto, Nov 26); listed Oct 14–15 (MLS 26102327). Trulia places it in Highland Park (Sycamore Grove), not Cypress Park. No open house listed.",
    "sf": 3345,
-   "lot_sf": 5811
+   "lot_sf": 5811,
+   "cf": {
+    "units": [
+     {
+      "beds": 6,
+      "baths": 4.0,
+      "rent": 6398,
+      "n": 3,
+      "comps": [
+       {
+        "addr": "5938 E Echo St, Los Angeles 90042",
+        "rent": 6000,
+        "beds": 5,
+        "baths": 2,
+        "sf": 2180,
+        "src": "renthop.com"
+       },
+       {
+        "addr": "6017 La Prada St, Los Angeles 90042",
+        "rent": 6995,
+        "beds": 5,
+        "baths": 2.5,
+        "sf": 2340,
+        "src": "renthop.com (leased)"
+       },
+       {
+        "addr": "429 N Avenue 51, Los Angeles 90042",
+        "rent": 6200,
+        "beds": 4,
+        "baths": 2,
+        "sf": null,
+        "src": "homes.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (5–6 bd / 2–4 ba, 2,200–3,500 sf, Highland Park; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Other",
@@ -1550,7 +4582,166 @@
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). MULTI-UNIT, not single-family. MLS CLW-C122196 (Coldwell Banker shows MLS CL26837951 at $2,995,000). Price cut from $2,995,000 to $2,895,000 on Nov 6, 2026. 176 DOM, so listed about early June 2026 (exact date not stated). Page updated Nov 20, 2026. The seller may carry a 1st trust deed. Prevu shows 'no longer on the market', which conflicts. Crown Coastal (updated Nov 20) shows Active. No open houses listed ('Book Visit' only). No open house listed Nov 26–Dec 6.",
    "new": true,
    "sf": 2850,
-   "lot_sf": 5496
+   "lot_sf": 5496,
+   "cf": {
+    "units": [
+     {
+      "beds": 2,
+      "baths": 1,
+      "rent": 4135,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "2107 Oak St Unit D, Santa Monica 90405",
+        "rent": 3895,
+        "beds": 2,
+        "baths": 1,
+        "sf": 850,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2032 Ocean Park Blvd, Santa Monica 90405",
+        "rent": 4795,
+        "beds": 2,
+        "baths": 1,
+        "sf": 800,
+        "src": "homes.com"
+       },
+       {
+        "addr": "839 Grant St, Santa Monica 90405",
+        "rent": 4100,
+        "beds": 2,
+        "baths": 1,
+        "sf": 1150,
+        "src": "homes.com"
+       },
+       {
+        "addr": "Apartments.com listing, Santa Monica 90405",
+        "rent": 3750,
+        "beds": 2,
+        "baths": 1,
+        "sf": 821,
+        "src": "apartments.com"
+       }
+      ]
+     },
+     {
+      "beds": 2,
+      "baths": 1,
+      "rent": 4135,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "2107 Oak St Unit D, Santa Monica 90405",
+        "rent": 3895,
+        "beds": 2,
+        "baths": 1,
+        "sf": 850,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2032 Ocean Park Blvd, Santa Monica 90405",
+        "rent": 4795,
+        "beds": 2,
+        "baths": 1,
+        "sf": 800,
+        "src": "homes.com"
+       },
+       {
+        "addr": "839 Grant St, Santa Monica 90405",
+        "rent": 4100,
+        "beds": 2,
+        "baths": 1,
+        "sf": 1150,
+        "src": "homes.com"
+       },
+       {
+        "addr": "Apartments.com listing, Santa Monica 90405",
+        "rent": 3750,
+        "beds": 2,
+        "baths": 1,
+        "sf": 821,
+        "src": "apartments.com"
+       }
+      ]
+     },
+     {
+      "beds": 1,
+      "baths": 1,
+      "rent": 3359,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1034 Bay St Unit C, Santa Monica 90405",
+        "rent": 3900,
+        "beds": 1,
+        "baths": 1,
+        "sf": 600,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3111 4th St Unit 309, Santa Monica 90405",
+        "rent": 3895,
+        "beds": 1,
+        "baths": 1,
+        "sf": 900,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2721 2nd St, Santa Monica 90405",
+        "rent": 4000,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "2643 Centinela Ave, Santa Monica 90405",
+        "rent": 2350,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "2247 29th St, Santa Monica 90405",
+        "rent": 2650,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       }
+      ]
+     },
+     {
+      "beds": 0,
+      "baths": 1,
+      "rent": 2372,
+      "n": 2,
+      "comps": [
+       {
+        "addr": "624-32 Pico Blvd, Santa Monica 90405",
+        "rent": 1795,
+        "beds": 0,
+        "baths": 1,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "Apartments.com listing (studio house), Santa Monica 90405",
+        "rent": 2950,
+        "beds": 0,
+        "baths": 1,
+        "sf": null,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Each unit priced at the average of actual rental listings for that unit size nearby, found Nov 27, 2026 (distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Other",
@@ -1589,7 +4780,38 @@
     "detail": "TIC with a $527/mo HOA (homefront, Nov 26, 2026); you don't want HOA listings"
    },
    "sf": 1480,
-   "lot_sf": 6501
+   "lot_sf": 6501,
+   "cf": {
+    "units": [
+     {
+      "beds": 4,
+      "baths": 2.0,
+      "rent": 14000,
+      "n": 2,
+      "comps": [
+       {
+        "addr": "718 Marine St, Santa Monica 90405",
+        "rent": 13000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2128,
+        "src": "homes.com"
+       },
+       {
+        "addr": "1102 Maple St, Santa Monica 90405",
+        "rent": 15000,
+        "beds": 4,
+        "baths": 3,
+        "sf": 2778,
+        "src": "homes.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 2–3 ba, Santa Monica 90405; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Other",
@@ -1624,7 +4846,54 @@
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). Over $2.75M budget. Current MLS 26103760, listed Oct 22, 2026 at $3,996,000. History: MLS 26664905 listed Mar 16, 2026 at $3,395,000, withdrawn Apr 9, expired May 1, and shown Active again Jul 21, 2026 (Prevu). MLS 26691751 listed Apr 2026 at $4,395,000. Weichert's title shows $4,196,000, which may be a stale price. Sold Jun 22, 2018 for $3,400,000. Includes the 702 Navy lot. No open houses listed for Nov 26–Dec 6. No open house listed Nov 26–Dec 6.",
    "new": true,
    "sf": 2301,
-   "lot_sf": 5554
+   "lot_sf": 5554,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.5,
+      "rent": 11625,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "3114 4th St, Santa Monica 90405",
+        "rent": 9500,
+        "beds": 3,
+        "baths": 3,
+        "sf": 2491,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "2714 4th St, Santa Monica 90405",
+        "rent": 13500,
+        "beds": 3,
+        "baths": 4,
+        "sf": 2906,
+        "src": "zillow.com"
+       },
+       {
+        "addr": "1709 Dewey St, Santa Monica 90405",
+        "rent": 12999,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1591,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2441 21st St, Santa Monica 90405",
+        "rent": 10500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1550,
+        "src": "hotpads.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 2–4 ba, 1,550–2,900 sf, Santa Monica 90405; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Other",
@@ -1659,7 +4928,198 @@
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). MULTI-UNIT, not single-family. MLS SR26068002, added Mar 30, 2026 (homefront, updated Nov 26, 2026 5:16 PM). Current price $1,599,000 (MLSListings shows 241 DOM). An early IDX page showed $2,100,000, which suggests a large cut. Sale is subject to court confirmation, so overbid and court timing apply. Prevu says 'no longer on the market', which conflicts. Public record calls it a duplex, but the listing says 4 units. No open houses listed. No open house listed Nov 26–Dec 6.",
    "new": true,
    "sf": 2369,
-   "lot_sf": 6006
+   "lot_sf": 6006,
+   "cf": {
+    "units": [
+     {
+      "beds": 2,
+      "baths": 1,
+      "rent": 4135,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "2107 Oak St Unit D, Santa Monica 90405",
+        "rent": 3895,
+        "beds": 2,
+        "baths": 1,
+        "sf": 850,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2032 Ocean Park Blvd, Santa Monica 90405",
+        "rent": 4795,
+        "beds": 2,
+        "baths": 1,
+        "sf": 800,
+        "src": "homes.com"
+       },
+       {
+        "addr": "839 Grant St, Santa Monica 90405",
+        "rent": 4100,
+        "beds": 2,
+        "baths": 1,
+        "sf": 1150,
+        "src": "homes.com"
+       },
+       {
+        "addr": "Apartments.com listing, Santa Monica 90405",
+        "rent": 3750,
+        "beds": 2,
+        "baths": 1,
+        "sf": 821,
+        "src": "apartments.com"
+       }
+      ]
+     },
+     {
+      "beds": 1,
+      "baths": 1,
+      "rent": 3359,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1034 Bay St Unit C, Santa Monica 90405",
+        "rent": 3900,
+        "beds": 1,
+        "baths": 1,
+        "sf": 600,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3111 4th St Unit 309, Santa Monica 90405",
+        "rent": 3895,
+        "beds": 1,
+        "baths": 1,
+        "sf": 900,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2721 2nd St, Santa Monica 90405",
+        "rent": 4000,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "2643 Centinela Ave, Santa Monica 90405",
+        "rent": 2350,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "2247 29th St, Santa Monica 90405",
+        "rent": 2650,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       }
+      ]
+     },
+     {
+      "beds": 1,
+      "baths": 1,
+      "rent": 3359,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1034 Bay St Unit C, Santa Monica 90405",
+        "rent": 3900,
+        "beds": 1,
+        "baths": 1,
+        "sf": 600,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3111 4th St Unit 309, Santa Monica 90405",
+        "rent": 3895,
+        "beds": 1,
+        "baths": 1,
+        "sf": 900,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2721 2nd St, Santa Monica 90405",
+        "rent": 4000,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "2643 Centinela Ave, Santa Monica 90405",
+        "rent": 2350,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "2247 29th St, Santa Monica 90405",
+        "rent": 2650,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       }
+      ]
+     },
+     {
+      "beds": 1,
+      "baths": 1,
+      "rent": 3359,
+      "n": 5,
+      "comps": [
+       {
+        "addr": "1034 Bay St Unit C, Santa Monica 90405",
+        "rent": 3900,
+        "beds": 1,
+        "baths": 1,
+        "sf": 600,
+        "src": "homes.com"
+       },
+       {
+        "addr": "3111 4th St Unit 309, Santa Monica 90405",
+        "rent": 3895,
+        "beds": 1,
+        "baths": 1,
+        "sf": 900,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2721 2nd St, Santa Monica 90405",
+        "rent": 4000,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       },
+       {
+        "addr": "2643 Centinela Ave, Santa Monica 90405",
+        "rent": 2350,
+        "beds": 1,
+        "baths": 1,
+        "sf": null,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "2247 29th St, Santa Monica 90405",
+        "rent": 2650,
+        "beds": 1,
+        "baths": null,
+        "sf": null,
+        "src": "rentcafe.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Each unit priced at the average of actual rental listings for that unit size nearby, found Nov 27, 2026 (distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Other",
@@ -1694,7 +5154,54 @@
    "note": "Added by you Nov 25, 2026 (zip 90405, outside your search areas). Active per Zillow: listed Nov 16, 2026 at $2,100,000 (MLS 226005321, Century 21 Masters). No open house listed Nov 26–Dec 6.",
    "new": true,
    "sf": 1434,
-   "lot_sf": 6534
+   "lot_sf": 6534,
+   "cf": {
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2.0,
+      "rent": 10087,
+      "n": 4,
+      "comps": [
+       {
+        "addr": "2376 Dewey St, Santa Monica 90405",
+        "rent": 8100,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1442,
+        "src": "homes.com"
+       },
+       {
+        "addr": "1709 Dewey St, Santa Monica 90405",
+        "rent": 12999,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1591,
+        "src": "homes.com"
+       },
+       {
+        "addr": "2441 21st St, Santa Monica 90405",
+        "rent": 10500,
+        "beds": 3,
+        "baths": 2,
+        "sf": 1550,
+        "src": "hotpads.com"
+       },
+       {
+        "addr": "3118 21st St, Santa Monica 90405",
+        "rent": 8750,
+        "beds": 3,
+        "baths": 1,
+        "sf": 1245,
+        "src": "homes.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Average of actual rental listings found Nov 27, 2026 (3 bd / 1–2 ba, 1,250–1,600 sf, Santa Monica 90405; same neighborhood or zip, distance not measured)",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Other",
@@ -1729,7 +5236,70 @@
    "note": "Added by you Nov 25, 2026 (zip 90291, outside your search areas; your \"805 Crest\" entry is the same address). Redfin shows For sale at $2,250,000, listed Sep 10, 2026 (MLS 26863211, Compass), but that page was last updated Sep 18, so confirm it is still active. Rear unit is tenant-occupied. No open house listed.",
    "new": true,
    "sf": 808,
-   "lot_sf": 4200
+   "lot_sf": 4200,
+   "cf": {
+    "units": [
+     {
+      "beds": 2,
+      "baths": 1,
+      "rent": 4400,
+      "n": 6,
+      "comps": [
+       {
+        "addr": "46 Clubhouse Ave Unit 2, Venice 90291",
+        "rent": 3900,
+        "beds": 2,
+        "baths": 1,
+        "sf": 800,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "51 Paloma Ave Unit B, Venice 90291",
+        "rent": 3800,
+        "beds": 2,
+        "baths": 1,
+        "sf": 800,
+        "src": "forrent.com"
+       },
+       {
+        "addr": "425 Grand Blvd, Venice 90291",
+        "rent": 5200,
+        "beds": 2,
+        "baths": 1,
+        "sf": 800,
+        "src": "forrentuniversity.com"
+       },
+       {
+        "addr": "1919 Penmar Ave, Venice 90291",
+        "rent": 3500,
+        "beds": 2,
+        "baths": 1,
+        "sf": 900,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "840 Rose Ave, Venice 90291",
+        "rent": 4500,
+        "beds": 2,
+        "baths": 1,
+        "sf": 965,
+        "src": "apartments.com"
+       },
+       {
+        "addr": "643 Vernon Ave, Venice 90291",
+        "rent": 5500,
+        "beds": 2,
+        "baths": 1,
+        "sf": 894,
+        "src": "apartments.com"
+       }
+      ]
+     }
+    ],
+    "rent_src": "Each unit priced at the average of actual rental listings for that unit size nearby, found Nov 27, 2026 (distance not measured). Only the legal 2 bd / 1 ba house is counted; the unpermitted rear unit is left out",
+    "as_of": "2026-11-27",
+    "rent_as_of": "2026-11-27"
+   }
   }
  ]
 }
