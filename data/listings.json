@@ -1,6 +1,6 @@
 {
  "scan_date": "2026-11-26",
- "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first).",
+ "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first). cf: cash-flow comps for starred listings {city, units:[{beds,baths,rent}], rent_src, adr (whole-home nightly), adr_src, cagr5 (5-yr annual price growth, decimal), cagr_src, pool_add:{room,access:true|false|null,note}, hoa_mo, str_note, as_of}. Missing cf = comps not filled yet.",
  "listings": [
   {
    "neighborhood": "Sherman Oaks",
@@ -380,7 +380,24 @@
    "note": "One Elliman field lists 1 bath against 2 in the details; confirm.",
    "sf": 1788,
    "lot_sf": 7207,
-   "fixer": true
+   "fixer": true,
+   "cf": {
+    "city": "Glendale",
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2,
+      "rent": 4500
+     }
+    ],
+    "rent_src": "Trulia, Glendale 3-bedroom average rent $4,500 (May 2026); Zumper houses $4,195, Zillow 3-bed $4,395",
+    "adr": 243,
+    "adr_src": "AirROI, Glendale average nightly rate $243 (Aug 2025–Jul 2026); AirDNA $193",
+    "cagr5": 0.041,
+    "cagr_src": "Glendale 5-yr ZHVI trend CAGR +4.1% (ocity.org, Zillow ZHVI)",
+    "str_note": "Glendale allows hosted home-sharing only; whole-home rentals banned (Ord. 5941)",
+    "as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "Glendale",
@@ -1191,7 +1208,29 @@
    },
    "note": "Added by you Nov 23, 2026. Status is Contingent (MLS P1-29527, Sereno page updated Nov 20), so it may not be available; not re-confirmed Nov 26 (Sereno page blocked). No open house listed. Status not re-confirmed in the Nov 26 scan (listing pages blocked or stale); confirm it is still active.",
    "sf": 1939,
-   "lot_sf": 16799
+   "lot_sf": 16799,
+   "cf": {
+    "city": "La Cañada Flintridge",
+    "units": [
+     {
+      "beds": 3,
+      "baths": 2,
+      "rent": 5900
+     }
+    ],
+    "rent_src": "Trulia, La Cañada Flintridge 3-bedroom average rent $5,900 (May 2026); 3/2 houses listed $5,700–$6,750",
+    "adr": 390,
+    "adr_src": "AirROI, La Cañada Flintridge average nightly rate $390 (Jul 2025–Jun 2026)",
+    "cagr5": 0.0527,
+    "cagr_src": "Zillow ZHVI via Stacker: +29.3% over 5 years ($2.46M typical value, Aug 2026) = 5.27%/yr",
+    "pool_add": {
+     "room": true,
+     "access": null,
+     "note": "Flat 16,799 sf lot, so room is likely; street access for a pool build not confirmed"
+    },
+    "str_note": "La Cañada Flintridge bans short-term rentals",
+    "as_of": "2026-11-27"
+   }
   },
   {
    "neighborhood": "La Cañada Flintridge",
