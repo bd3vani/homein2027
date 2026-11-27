@@ -82,6 +82,7 @@ window.addEventListener("hashchange",show);
 
 // removal: hidden here for good, kept in the weekly report data
 const REMOVED=new Map(); const LSR="listing-check-removed";
+window.__cfRejected=()=>new Set(REMOVED.keys());
 function lsRemoved(){try{return JSON.parse(localStorage.getItem(LSR)||"[]")}catch(e){return []}}
 function tidyGroups(){
   let shown=0;
@@ -109,6 +110,7 @@ function drawRejected(){
 }
 function hideKey(k,d){
   REMOVED.set(k,d||REMOVED.get(k)||{key:k});
+  if(window.__cfRender) window.__cfRender();
   document.querySelectorAll('.nb li[data-key="'+k+'"]').forEach(li=>li.hidden=true);
   tidyGroups();
   const id=SCAN[k]||("added-"+k);
@@ -118,6 +120,7 @@ function hideKey(k,d){
 }
 function unhideKey(k){
   REMOVED.delete(k);
+  if(window.__cfRender) window.__cfRender();
   document.querySelectorAll('.nb li[data-key="'+k+'"]').forEach(li=>li.hidden=false);
   tidyGroups(); drawRejected(); if(window.__starsReady) drawStarred();
 }
@@ -160,6 +163,7 @@ $("#list").addEventListener("click",e=>{
 
 // stars: 0–3 per listing, 3 stars puts it on the Starred list
 const STARS=new Map(); const LSS="listing-check-stars";
+window.__cfStars=()=>STARS;
 function lsStars(){try{return JSON.parse(localStorage.getItem(LSS)||"{}")}catch(e){return {}}}
 function paintStars(k){
   const n=STARS.get(k)||0;
@@ -178,6 +182,7 @@ function drawStarred(){
     const li=document.createElement("li"); li.dataset.star=k; li.append(src.cloneNode(true)); ul.append(li);
   }
   $("#starred").hidden=!ul.children.length;
+  if(window.__cfRender) window.__cfRender();
 }
 function setStars(k,n){ if(n) STARS.set(k,n); else STARS.delete(k); paintStars(k); drawStarred(); if(FILTER==="starred") applyFilter(); }
 window.__starsReady=true;

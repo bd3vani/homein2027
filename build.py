@@ -30,7 +30,7 @@ def _load():
         for k,v in r.items():
             if k in ("neighborhood","address","price","url"): continue
             if k=="open_houses": x["oh"]=[(o["sort"],o["label"]) for o in v]
-            elif isinstance(v,dict): x[k]=(v["result"],v["detail"])
+            elif isinstance(v,dict) and "result" in v: x[k]=(v["result"],v["detail"])
             else: x[k]=v
         out.append((r["neighborhood"],r["address"],r["price"],r["url"],x))
     return out
@@ -161,6 +161,11 @@ for area,lis in groups.items():
     items.append(f'<div class="nb" data-nbhd="{E(area)}"><h3>{E(area)}</h3>{body}</div>')
 import os
 _js=open("src/app.js").read().replace("%SHEET_URL%",json.dumps(os.environ.get("LISTING_SHEET_URL",""))).replace("%SHEET_TOKEN%",json.dumps(os.environ.get("LISTING_SHEET_TOKEN","")))
+def _cfrow(t):
+    nb,addr,price,url,x=t; pool=x.get("pool")
+    return {"key":key(addr),"addr":addr,"nbhd":nb,"price":price,"pool":pool[0] if pool else "pass","cf":x.get("cf")}
+_cf=json.dumps([_cfrow(t) for t in L],ensure_ascii=False).replace("</","<\\/")
+_js+="\n"+open("src/cashflow.js").read().replace("%CFDATA%",_cf)
 tpl=open("src/index.template.html").read().replace("%CSS%",open("src/styles.css").read()).replace("%JS%",_js)
 out=tpl.replace("%OPTS%","".join(opts)).replace("%ITEMS%","\n".join(items)).replace("%PANELS%","\n".join(panels)).replace("%COUNT%",str(len(L))).replace("%KEYS%",__import__("json").dumps(keys))
 open("listing-check.html","w").write(out)
