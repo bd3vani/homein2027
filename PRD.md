@@ -1,4 +1,4 @@
-# Listing check v8.12.1 — PRD
+# Listing check v8.12.2 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -6,7 +6,7 @@ Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
 Listing check tells a home buyer, in one tap, whether an LA listing fits their needs and whether it has a way out. It is a single hosted page, built from the weekly listing scan.
 
-**Problem.** The buyer is searching for a primary residence with a pool, $1.3M–$2.75M, across 17 LA neighborhoods (Valley Village dropped by the buyer, Nov 26, 2026). Each week brings about 36 candidate listings, and judging each one means checking 8 filters by hand across listing sites, maps and school rankings. A wrong pick is costly, so each home also needs an exit: a forced value add, or Airbnb income worth 3 months of mortgage.
+**Problem.** The buyer is searching for a primary residence with a pool, $1.3M–$2.75M, across 14 LA neighborhoods (Valley Village dropped by the buyer, Nov 26, 2026; Sherman Oaks, Van Nuys and Cheviot Hills dropped Nov 27, 2026). Scans skip dropped neighborhoods; addresses entered there still get checked. Each week brings about 36 candidate listings, and judging each one means checking 8 filters by hand across listing sites, maps and school rankings. A wrong pick is costly, so each home also needs an exit: a forced value add, or Airbnb income worth 3 months of mortgage.
 
 **Who it's for.** The buyer and anyone they share the link with, such as a spouse or agent. Use is weekly, around open houses: Thursday twilight and the weekend.
 
@@ -180,7 +180,7 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
     - Assumptions the buyer should set: insurance (0.35%), buyer closing (1%), tax brackets (35% federal, 9.3% California), Airbnb operating costs (15%), building share (50%).
 
 - [ ] **Flow (new in 8.7.0).** The page runs in four steps, labeled and linked from the header: 1 Find (check box), 2 Evaluate the basics (verdict panel), 3 Evaluate as a group (list and filters), 4 Evaluate financing (cash flow). The cash-flow section can show Starred (default) or All listings, and lists each unit's rent comps.
-- [ ] **Ruled out.** A listing with `out` in the data is kept but left off the page (5221 La Forest Dr, Nov 27, 2026).
+- [ ] **Ruled out.** A listing with `out` in the data is kept but left off the page (5221 La Forest Dr, Nov 27, 2026; all 10 Sherman Oaks, Van Nuys and Cheviot Hills listings, Nov 27, 2026).
 
 - [ ] **Layout (new in 8.9.0): table + side drawer.** The address box is the first thing on the page. Below it, every listing is one row in a sortable table: Listing (with neighborhood), Price, Basics, Exit, Next open house, Votes, Stars, Best vs market, and a reject ×. By default rows group by neighborhood in scan order, then by next open house; clicking a header sorts by it (again reverses). Filter chips sit above the table, with the financing assumptions menu. Selecting a row (click, Enter or Space; arrow keys move between rows) opens a drawer on the right with the listing's stars, vote, basics, exit and financing; the table stays visible and the row stays highlighted. On screens under 761px the drawer is full screen with “Back to table”; Escape closes it. Checking an address opens its drawer; a repeat entry highlights its row yellow. The step labels, Starred analysis link and stale footer were removed.
 - [ ] **Collapsed passes (8.9.0).** When every filter passes, the filter table sits behind “All 8 filters pass. Show them”. When an exit path passes, the exit table sits behind “An exit path is there. Show the paths”. Otherwise both are open.
@@ -285,6 +285,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.12.2 | Sherman Oaks, Van Nuys and Cheviot Hills dropped: 10 listings ruled out; scans skip them |
 | v8.12.1 | No auto-scroll: opening a listing, closing the drawer, rejecting and re-entering an address never move the page; in-page links use pushState; page loads at the top; duplicates are highlighted in place |
 | v8.12.0 | Sold comps for every active listing (24-month window, beds ±1, size 0.6–1.6×, same zips); multi-unit homes use 2–4 unit sales; pass line names the failing filter when price holds; single-value ranges collapse |
 | v8.11.0 | Offer-first drawer: fair value from sold comps, break-even vs market, ceiling (lower of the two), offer range, leverage, blockers; rent saved counted for owner paths; area price trends for every neighborhood; valuation non-goal lifted |
