@@ -11,46 +11,50 @@
 %CSS%</style>
 </head>
 <body>
-<main>
-<nav class="top"><span class="ver">Listing check v8.8.0</span><span class="flow"><a href="#find">1 Find</a> → <a href="#basics">2 Basics</a> → <a href="#group">3 Group</a> → <a href="#financing">4 Financing</a></span><a href="https://docs.google.com/spreadsheets/d/1LYYPUgIz2QuCC12P-3ufATq0tb3jcv9CFPP1ldBKR8g/edit?usp=sharing" target="_blank" rel="noopener">Starred analysis ↗</a></nav>
+<main class="wide">
+<nav class="top"><span class="ver">Listing check v8.9.0</span></nav>
 <h1>Is this house a fit?</h1>
-<p class="lede">Checks a listing against your needs (budget, size, pool, grocery, school, terrain) and your exit: a forced value add, or Airbnb income worth 3 months of mortgage.</p>
-<p class="step" id="find"><b>1</b> Find</p>
+<p class="lede">Enter an address or listing link. Every listing is in the table below; select one to see its basics, the group vote and financing.</p>
 <form class="field" id="checkForm" novalidate>
   <label for="q">Address or listing URL</label>
   <div class="row">
-    <input id="q" type="text" list="scan" placeholder="12507 Miranda St, Valley Village 91607" autocomplete="off">
+    <input id="q" type="text" list="scan" placeholder="1417 Ardmore Ave, Glendale 91205" autocomplete="off">
     <button type="submit">Check listing</button>
   </div>
   <datalist id="scan">%OPTS%</datalist>
   <p id="status" role="status">Include the zip code so a new address lands in the right neighborhood.</p>
 </form>
-<p class="step" id="basics"><b>2</b> Evaluate the basics</p>
-<section class="results" aria-live="polite">
-  <p class="empty">Pick a listing to see whether it’s a fit and how it scores on each filter.</p>
-%PANELS%
-</section>
-<p class="step" id="group"><b>3</b> Evaluate as a group</p>
-<section class="list" id="list">
-  <div class="voteme"><label for="voteAs">I’m voting as</label> <select id="voteAs"><option value="">Pick your name</option></select> <span class="muted">Each listing needs 2 of 3 Yes votes to move to financing.</span></div>
-  <div id="starred" hidden>
-    <h2>Starred</h2>
-    <p>Listings you rated 3 stars.</p>
-    <ul id="starList"></ul>
+<section class="tview" id="tview" aria-labelledby="tviewH">
+  <div class="tbar">
+    <h2 id="tviewH">Listings <span class="muted" id="tcount"></span></h2>
+    <div class="chips" role="group" aria-label="Filter the table">
+      <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
+      <button type="button" class="chip" data-f="fit" aria-pressed="false">Fit</button>
+      <button type="button" class="chip" data-f="exit" aria-pressed="false">Exit: Yes</button>
+      <button type="button" class="chip" data-f="oh" aria-pressed="false">Open house</button>
+      <button type="button" class="chip" data-f="fixer" aria-pressed="false">Fixer</button>
+      <button type="button" class="chip" data-f="starred" aria-pressed="false">Starred</button>
+      <button type="button" class="chip" data-f="advance" aria-pressed="false">2 of 3 Yes</button>
+    </div>
+    <details class="cfmenu"><summary>Financing assumptions</summary><div id="cfInputs" class="cfinputs"></div><p class="cfhint">Changes last until you leave or reload the page. Nothing is saved.</p></details>
   </div>
-  <h2>Nov 21 scan</h2>
-  <p>Active listings with a pool, $1.3M–$2.75M, by neighborhood and next open house.</p>
-  <div class="chips" role="group" aria-label="Filter the list">
-    <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
-    <button type="button" class="chip" data-f="fit" aria-pressed="false">Fit</button>
-    <button type="button" class="chip" data-f="exit" aria-pressed="false">Exit: Yes</button>
-    <button type="button" class="chip" data-f="oh" aria-pressed="false">Open house</button>
-    <button type="button" class="chip" data-f="fixer" aria-pressed="false">Fixer</button>
-    <button type="button" class="chip" data-f="starred" aria-pressed="false">Starred</button>
-    <button type="button" class="chip" data-f="advance" aria-pressed="false">Advancing</button>
-  </div>
+  <div class="tscroll"><table class="ltable" id="ltable">
+    <caption class="sr">Listings from the %SCANLABEL% scan. Select a row to open its details.</caption>
+    <thead><tr>
+      <th scope="col" data-sort="addr"><button type="button">Listing</button></th>
+      <th scope="col" data-sort="price" class="num"><button type="button">Price</button></th>
+      <th scope="col" data-sort="v"><button type="button">Basics</button></th>
+      <th scope="col" data-sort="ev"><button type="button">Exit</button></th>
+      <th scope="col" data-sort="oh"><button type="button">Next open house</button></th>
+      <th scope="col" data-sort="votes" class="num"><button type="button">Votes</button></th>
+      <th scope="col" data-sort="stars" class="num"><button type="button">Stars</button></th>
+      <th scope="col" data-sort="best" class="num"><button type="button">Best vs market</button></th>
+      <th scope="col"><span class="sr">Reject</span></th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
   <p id="noMatch" class="muted" hidden>No listings match this filter.</p>
-%ITEMS%
+  <p class="tnote muted">Scan of %SCANLABEL%. “Best vs market” is the 5-year after-tax profit of the best income path and loan, minus the same cash invested at the market return.</p>
   <p class="rejbar"><button type="button" id="rejToggle" class="linkbtn" aria-expanded="false" aria-controls="rejected">Show rejected listings</button></p>
   <div id="rejected" hidden>
     <h3>Rejected listings</h3>
@@ -58,16 +62,16 @@
     <ul id="rejList"></ul>
   </div>
 </section>
-<p class="step" id="financing"><b>4</b> Evaluate financing</p>
-<section class="cashflow" id="cashflow">
-  <h2>Cash flow <span id="cfCount" class="cfcount"></span></h2>
-  <p>Listings with 2 of 3 Yes votes, starred listings (any rating) or all listings. Rent is the average of actual nearby rental listings for the same beds, baths and size. Monthly cost, income by exit, and 5-year after-tax profit against the same cash in the market.</p>
-  <div class="chips cfscope" role="group" aria-label="Which listings"><button type="button" class="chip" data-s="advance" aria-pressed="false">Advancing (2 of 3)</button><button type="button" class="chip" data-s="starred" aria-pressed="false">Starred</button><button type="button" class="chip" data-s="all" aria-pressed="false">All listings</button></div>
-  <details class="cfmenu"><summary>Assumptions</summary><div id="cfInputs" class="cfinputs"></div><p class="cfhint">Changes last until you leave or reload the page. Nothing is saved.</p></details>
-  <div id="cfBody"></div>
+<section class="list srclist" id="list" aria-hidden="true">
+  <div id="starred" hidden><ul id="starList"></ul></div>
+%ITEMS%
 </section>
-<p class="mfoot">Mortgage is principal and interest on the price minus $1M cash, at 7.3% over 30 years.</p>
 </main>
+<aside class="results drawer" id="drawer" aria-label="Listing details" tabindex="-1">
+  <button type="button" class="dclose" id="dclose" aria-label="Close details">← Back to table</button>
+  <p class="empty">Select a listing to see its details.</p>
+%PANELS%
+</aside>
 
 <script>
 %JS%</script>

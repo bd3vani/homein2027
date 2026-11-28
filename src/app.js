@@ -61,7 +61,7 @@ function render(d){
   const rows=`<tr><th scope="row">Neighborhood</th><td><span class="tag pass">Filed</span></td><td>${esc(d.nbhd)} (${esc(d.why)})</td></tr>`+ROWS.map(r=>`<tr><th scope="row">${esc(r)}</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr>`).join("");
   const link=/^https?:/i.test(d.input)?`<a href="${esc(d.input)}" rel="noopener" target="_blank">Open listing</a>`:"";
   const a=document.createElement("article");a.className="panel";a.id=id;a.tabIndex=-1;a.dataset.key=d.key;
-  a.innerHTML=`<p class="where">${esc(d.nbhd)}</p><h2>${esc(d.street)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Tap 3 stars to add to Starred.</span></div><h3 class="sec">Your needs</h3><div class="verdict check"><strong>Needs check</strong><span>New address, added ${esc(when)}. Filters aren’t checked yet.</span></div><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>${rows}</tbody></table></div><h3 class="sec">Exit</h3><div class="verdict check"><strong>Needs check</strong><span>Price not known yet, so the 3-month mortgage target can’t be set.</span></div><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody><tr><th scope="row">Airbnb income covering 3 months of mortgage</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr><tr><th scope="row">Forced value add (ADU, addition, fixer, lot)</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr></tbody></table></div><p class="links">${link}<a href="#list">Back to list</a></p>`;
+  a.innerHTML=`<p class="where">${esc(d.nbhd)}</p><h2>${esc(d.street)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Tap 3 stars to add to Starred.</span></div><h3 class="sec">Your needs</h3><div class="verdict check"><strong>Needs check</strong><span>New address, added ${esc(when)}. Filters aren’t checked yet.</span></div><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>${rows}</tbody></table></div><h3 class="sec">Exit</h3><div class="verdict check"><strong>Needs check</strong><span>Price not known yet, so the 3-month mortgage target can’t be set.</span></div><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody><tr><th scope="row">Airbnb income covering 3 months of mortgage</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr><tr><th scope="row">Forced value add (ADU, addition, fixer, lot)</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr></tbody></table></div><p class="links">${link}</p><div class="finbox"></div>`;
   $(".results").append(a);
   if(typeof regroupReady!=="undefined") regroup();
   if(REMOVED.has(d.key)) hideKey(d.key);
@@ -69,16 +69,29 @@ function render(d){
   try{ paintVotes(d.key); }catch(e){}
   return id;
 }
+// drawer: the selected listing opens on the right; the table stays in view
+function fillFin(p){ const f=p&&p.querySelector(".finbox"); if(f&&window.__cfCard) f.innerHTML=window.__cfCard(p.dataset.key); }
+window.__refreshFin=()=>fillFin(document.querySelector(".panel.show"));
 function show(){
   document.querySelectorAll(".panel.show").forEach(p=>p.classList.remove("show"));
   const h=decodeURIComponent(location.hash.slice(1));
   const p=h&&document.getElementById(h);
-  if(p&&p.classList.contains("panel")){p.classList.add("show");}
+  const open=!!(p&&p.classList.contains("panel"));
+  if(open){ p.classList.add("show"); fillFin(p); $("#drawer").scrollTop=0; }
+  document.body.classList.toggle("dopen",open);
+  document.querySelectorAll("#ltable tbody tr[data-key]").forEach(tr=>tr.setAttribute("aria-selected",String(open&&tr.dataset.key===p.dataset.key)));
 }
 function go(id){
   if(location.hash==="#"+id) show(); else location.hash=id;
-  const p=document.getElementById(id); if(p) p.scrollIntoView({block:"start"});
+  const d=$("#drawer"); if(d) d.focus({preventScroll:true});
 }
+function closeDrawer(){
+  const k=(document.querySelector(".panel.show")||{}).dataset; 
+  history.pushState(null,"",location.pathname+location.search); show();
+  const tr=k&&document.querySelector('#ltable tr[data-key="'+k.key+'"]'); if(tr) tr.focus();
+}
+$("#dclose").addEventListener("click",closeDrawer);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&document.body.classList.contains("dopen")) closeDrawer(); });
 window.addEventListener("hashchange",show);
 
 // removal: hidden here for good, kept in the weekly report data
@@ -96,7 +109,6 @@ function tidyGroups(){
     nb.querySelectorAll(".day").forEach(dy=>{ dy.hidden=![...dy.querySelectorAll(".slot")].some(sl=>!sl.hidden); });
     nb.hidden=!anyNb; if(anyNb) shown++;
   });
-  const nm=document.getElementById("noMatch"); if(nm) nm.hidden=shown>0;
 }
 function streetOf(k){const el=document.querySelector('.nb li[data-key="'+k+'"] .addr');return el?addrText(el):k;}
 function drawRejected(){
@@ -200,44 +212,47 @@ document.addEventListener("click",async e=>{
   if(!saved){ try{ const o=lsStars(); if(n) o[k]=n; else delete o[k]; localStorage.setItem(LSS,JSON.stringify(o)); }catch(err){} }
 });
 
-// group vote: three named voters, Yes/No per listing; 2 of 3 Yes advances to financing
-const VOTERS=%VOTERS%; const LSV="listing-check-votes", LSME="listing-check-voter";
+// group vote: three anonymous votes per listing; 2 of 3 Yes advances to financing.
+// Each tap fills the next open slot. This browser remembers its own taps so it can undo them.
+const LSV="listing-check-votes", LSMY="listing-check-myvotes";
 const VOTES=new Map(); // key -> [v0,v1,v2] with "yes"/"no"/undefined
 function yesCount(k){ return (VOTES.get(k)||[]).filter(v=>v==="yes").length; }
 window.__cfYes=()=>{ const m=new Map(); VOTES.forEach((a,k)=>m.set(k,a.filter(v=>v==="yes").length)); return m; };
+window.__votes=k=>VOTES.get(k)||[];
 function lsVotes(){try{return JSON.parse(localStorage.getItem(LSV)||"{}")}catch(e){return {}}}
-const me=$("#voteAs");
-VOTERS.forEach((n,i)=>{ const o=document.createElement("option"); o.value=String(i); o.textContent=n; me.append(o); });
-try{ me.value=localStorage.getItem(LSME)||""; }catch(e){}
-me.addEventListener("change",()=>{ try{ localStorage.setItem(LSME,me.value); }catch(e){} paintAllVotes(); });
+function myVotes(){try{return JSON.parse(localStorage.getItem(LSMY)||"{}")}catch(e){return {}}}
+function saveMy(o){ try{ localStorage.setItem(LSMY,JSON.stringify(o)); }catch(e){} }
 function voteBox(k){
-  const a=VOTES.get(k)||[], y=yesCount(k), cast=a.filter(Boolean).length;
-  return `<p class="vlbl">Group vote: <b>${y} of 3 Yes</b>${y>=2?' <span class="adv">Advances to financing</span>':cast===3?' <span class="noadv">Doesn’t advance</span>':""}</p><div class="vrow">${VOTERS.map((n,i)=>`<span class="voter${me.value===String(i)?" me":""}"><span class="vname">${esc(n)}</span><button type="button" class="vbtn" data-v="yes" data-i="${i}" aria-pressed="${a[i]==="yes"}" aria-label="${esc(n)}: Yes">Yes</button><button type="button" class="vbtn" data-v="no" data-i="${i}" aria-pressed="${a[i]==="no"}" aria-label="${esc(n)}: No">No</button></span>`).join("")}</div>`;
+  const a=VOTES.get(k)||[], y=yesCount(k), cast=[0,1,2].filter(i=>a[i]).length, mine=(myVotes()[k]||[]).filter(i=>a[i]).length;
+  const slot=i=>a[i]==="yes"?'<span class="vs yes">Yes</span>':a[i]==="no"?'<span class="vs no">No</span>':'<span class="vs open">Open</span>';
+  const res=y>=2?'<span class="adv">Advances to financing</span>':cast===3?'<span class="noadv">Doesn’t advance</span>':`${3-cast} vote${3-cast>1?"s":""} left`;
+  return `<p class="vlbl">Group vote: <b>${y} of 3 Yes</b> · ${res}</p><div class="vrow"><span class="vslots" aria-label="Votes cast">${[0,1,2].map(slot).join("")}</span>${cast<3?'<button type="button" class="vbtn" data-v="yes">Vote Yes</button><button type="button" class="vbtn" data-v="no">Vote No</button>':""}${mine?'<button type="button" class="vbtn undo" data-v="undo">Undo my vote</button>':""}</div>`;
 }
 function paintVotes(k){
   document.querySelectorAll('.panel[data-key="'+k+'"]').forEach(p=>{ let v=p.querySelector(".vote"); if(!v){ v=document.createElement("div"); v.className="vote"; const st=p.querySelector(".stars"); (st?st:p.querySelector("h2")).after(v); } v.innerHTML=voteBox(k); });
   const y=yesCount(k), cast=(VOTES.get(k)||[]).filter(Boolean).length;
-  document.querySelectorAll('.nb li[data-key="'+k+'"] .addr').forEach(el=>{
-    let s=el.querySelector(".vind"); if(!cast){ if(s) s.remove(); return; }
-    if(!s){ s=document.createElement("span"); s.className="vind"; el.append(s); }
-    s.textContent=`${y}/3 Yes`; s.classList.toggle("adv",y>=2);
-  });
+  document.querySelectorAll('.nb li[data-key="'+k+'"]').forEach(li=>{ li.dataset.yes=y; li.dataset.cast=cast; });
 }
 function paintAllVotes(){ document.querySelectorAll(".panel[data-key]").forEach(p=>paintVotes(p.dataset.key)); }
 function setVote(k,i,v){ const a=(VOTES.get(k)||[]).slice(); a[i]=v||undefined; if(a.some(Boolean)) VOTES.set(k,a); else VOTES.delete(k); paintVotes(k); if(FILTER==="advance") applyFilter(); if(window.__cfRender) window.__cfRender(); }
 Object.entries(lsVotes()).forEach(([k,a])=>{ (a||[]).forEach((v,i)=>{ if(v) setVote(k,i,v); }); });
 paintAllVotes();
-document.addEventListener("click",async e=>{
-  const b=e.target.closest(".vbtn"); if(!b) return;
-  const p=b.closest(".panel"), k=p.dataset.key, i=+b.dataset.i, street=p.querySelector("h2").textContent;
-  if(me.value===""){ status.textContent="Pick your name under “I’m voting as” first."; me.focus(); return; }
-  if(String(i)!==me.value){ status.textContent=`You’re voting as ${VOTERS[+me.value]}. Only your own vote can change.`; return; }
-  const cur=(VOTES.get(k)||[])[i], v=cur===b.dataset.v?null:b.dataset.v;
-  setVote(k,i,v);
-  status.textContent=`${VOTERS[i]} voted ${v?v.toUpperCase():"(cleared)"} on ${street}. ${yesCount(k)} of 3 Yes.`;
+async function saveVote(k,i,v){
   let saved=false; const id=k+"--v"+i;
   if(db){ try{ if(v) await db.doc("votes/"+id).set({key:id,listing:k,voter:i,vote:v,at:new Date().toISOString()}); else await db.doc("votes/"+id).delete(); saved=true; }catch(err){} }
   if(!saved){ try{ const o=lsVotes(); const a=o[k]||[]; a[i]=v||null; o[k]=a; localStorage.setItem(LSV,JSON.stringify(o)); }catch(err){} }
+}
+document.addEventListener("click",async e=>{
+  const b=e.target.closest(".vbtn"); if(!b) return;
+  const p=b.closest(".panel"), k=p.dataset.key, street=p.querySelector("h2").textContent, a=VOTES.get(k)||[], my=myVotes();
+  if(b.dataset.v==="undo"){
+    const mine=(my[k]||[]).filter(i=>a[i]); const i=mine.pop(); if(i==null) return;
+    my[k]=mine; saveMy(my); setVote(k,i,null); status.textContent=`Your vote on ${street} was removed. ${yesCount(k)} of 3 Yes.`; await saveVote(k,i,null); return;
+  }
+  const i=[0,1,2].find(n=>!a[n]); if(i==null){ status.textContent="All 3 votes are in."; return; }
+  setVote(k,i,b.dataset.v); (my[k]=my[k]||[]).push(i); saveMy(my); paintVotes(k);
+  status.textContent=`Voted ${b.dataset.v==="yes"?"Yes":"No"} on ${street}. ${yesCount(k)} of 3 Yes.`;
+  await saveVote(k,i,b.dataset.v);
 });
 
 // open houses: each listing sits under its next open house that hasn't ended,
@@ -362,8 +377,9 @@ function markDup(k){
   if(!li){ status.textContent="You entered this before."; return; }
   if(li.classList.contains("ff")){ FILTER="all"; document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.f==="all"))); applyFilter(); }
   document.querySelectorAll("#list li.dup").forEach(x=>x.classList.remove("dup"));
-  li.classList.add("dup");
-  li.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+  li.classList.add("dup"); buildTable();
+  const tr=document.querySelector('#ltable tr[data-key="'+k+'"]');
+  if(tr) tr.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
   status.textContent="You entered this before. It’s highlighted in the list.";
 }
 $("#checkForm").addEventListener("submit",async e=>{
@@ -390,4 +406,78 @@ $("#checkForm").addEventListener("submit",async e=>{
   $("#q").value="";
   go(id);
 });
+
+// ---- listings table: one row per listing, sortable; built from the list items, which hold the state
+const SORT={col:"nbhd",dir:1};
+const VRANK={pass:0,check:1,fail:2}, VLBL={pass:"Fit",check:"Needs check",fail:"Not a fit"}, ELBL={pass:"Yes",check:"Needs check",fail:"No"};
+function rowData(li){
+  const k=li.dataset.key, a=li.querySelector("a"), nb=li.closest(".nb"), o=nextOH(li,Date.now()), best=window.__cfBest?window.__cfBest(k):null;
+  return {k,li,href:a?a.getAttribute("href"):"#",addr:addrText(li.querySelector(".addr")),tags:[...li.querySelectorAll(".addr .new")].map(t=>t.textContent),
+    nbhd:nb?nb.dataset.nbhd:"",price:li.dataset.price?+li.dataset.price:null,v:li.dataset.v,ev:li.dataset.ev,o,
+    yes:+(li.dataset.yes||0),cast:+(li.dataset.cast||0),stars:STARS.get(k)||0,best,dup:li.classList.contains("dup"),xb:li.querySelector(".x")};
+}
+function cmp(a,b){
+  const d=SORT.dir, n=(x,y)=>(x==null)-(y==null)||(x==null?0:(x<y?-1:x>y?1:0)*d);
+  switch(SORT.col){
+    case "addr": return n(a.addr,b.addr);
+    case "price": return n(a.price,b.price);
+    case "v": return n(VRANK[a.v],VRANK[b.v]);
+    case "ev": return n(VRANK[a.ev],VRANK[b.ev]);
+    case "oh": return n(a.o?a.o[0]:null,b.o?b.o[0]:null);
+    case "votes": return n(a.yes,b.yes)||n(a.cast,b.cast);
+    case "stars": return n(a.stars,b.stars);
+    case "best": return n(a.best?a.best.delta:null,b.best?b.best.delta:null);
+    default: return 0;
+  }
+}
+const money=n=>n==null?"—":(n<0?"(":"")+"$"+(Math.abs(n)>=1e6?(Math.abs(n)/1e6).toFixed(2)+"M":Math.round(Math.abs(n)/1000)+"k")+(n<0?")":"");
+function buildTable(){
+  const tb=document.querySelector("#ltable tbody"); if(!tb) return;
+  const order=[...document.querySelectorAll("#list .nb")].map(n=>n.dataset.nbhd);
+  let R=[...document.querySelectorAll("#list li[data-key]")].filter(li=>!li.hidden&&!li.classList.contains("ff")).map(rowData);
+  const byNb=SORT.col==="nbhd";
+  R.sort((a,b)=>byNb?(order.indexOf(a.nbhd)-order.indexOf(b.nbhd))*SORT.dir||((a.o?a.o[0]:Infinity)-(b.o?b.o[0]:Infinity)):cmp(a,b)||a.addr.localeCompare(b.addr));
+  const sel=(document.querySelector(".panel.show")||{}).dataset;
+  let html="", last=null;
+  for(const r of R){
+    if(byNb&&r.nbhd!==last){ html+=`<tr class="grp"><th scope="rowgroup" colspan="9">${esc(r.nbhd)}</th></tr>`; last=r.nbhd; }
+    const ohTxt=r.o?`${esc(r.o[2])}, ${esc(r.o[3])}`:"—";
+    const votes=r.cast?`<span class="vt3${r.yes>=2?" adv":""}">${r.yes}/3 Yes</span>`:'<span class="muted">—</span>';
+    const best=r.best?`<span class="${r.best.delta>=0?"pos":"neg"}" title="${esc(r.best.label)}">${r.best.delta>=0?"+":""}${money(r.best.delta)}</span>`:'<span class="muted" title="Needs the area price trend; scans add it">Needs trend</span>';
+    const x=r.xb?r.xb.textContent:"×";
+    html+=`<tr data-key="${esc(r.k)}" data-href="${esc(r.href)}" tabindex="0" aria-selected="${!!sel&&sel.key===r.k}"${r.dup?' class="dup"':""}>
+<th scope="row"><a href="${esc(r.href)}">${esc(r.addr)}</a>${r.tags.map(t=>` <span class="new${t==="Fixer"?" fx":""}">${esc(t)}</span>`).join("")}${byNb?"":`<span class="tnb">${esc(r.nbhd)}</span>`}</th>
+<td class="num">${r.price!=null?money(r.price):"—"}</td><td><span class="vt ${r.v}">${VLBL[r.v]||"—"}</span></td><td><span class="vt ${r.ev}">${ELBL[r.ev]||"—"}</span></td>
+<td>${ohTxt}</td><td class="num">${votes}</td><td class="num">${r.stars?`<span class="tstars" aria-label="${r.stars} stars">${"★".repeat(r.stars)}</span>`:'<span class="muted">—</span>'}</td><td class="num">${best}</td>
+<td class="txc"><button type="button" class="tx${x!=="×"?" armed":""}" aria-label="Reject ${esc(r.addr)}: tap 3 times" title="Reject (tap 3 times)">${esc(x)}</button></td></tr>`;
+  }
+  tb.innerHTML=html;
+  const n=R.length; $("#tcount").textContent=`${n} shown`;
+  const nm=$("#noMatch"); if(nm) nm.hidden=n>0;
+  document.querySelectorAll("#ltable thead th[data-sort]").forEach(th=>th.setAttribute("aria-sort",th.dataset.sort===SORT.col?(SORT.dir>0?"ascending":"descending"):"none"));
+}
+window.__tableRefresh=buildTable;
+document.querySelector("#ltable thead").addEventListener("click",e=>{
+  const th=e.target.closest("th[data-sort]"); if(!th) return;
+  const c=th.dataset.sort; if(SORT.col===c) SORT.dir*=-1; else { SORT.col=c; SORT.dir=(c==="stars"||c==="votes"||c==="best")?-1:1; }
+  buildTable();
+});
+// Listing header sorts by address; a second header click on Listing goes back to grouping by neighborhood
+document.querySelector('#ltable thead th[data-sort="addr"]').addEventListener("dblclick",()=>{ SORT.col="nbhd"; SORT.dir=1; buildTable(); });
+const tbody=document.querySelector("#ltable tbody");
+tbody.addEventListener("click",e=>{
+  const tr=e.target.closest("tr[data-key]"); if(!tr) return;
+  const xb=e.target.closest(".tx");
+  if(xb){ e.preventDefault(); const li=document.querySelector('#list li[data-key="'+tr.dataset.key+'"]'); const b=li&&li.querySelector(".x"); if(b) b.click(); setTimeout(buildTable,0); return; }
+  if(e.target.closest("a")) return; // the link sets the hash itself
+  location.hash=tr.dataset.href.slice(1);
+});
+tbody.addEventListener("keydown",e=>{
+  const tr=e.target.closest("tr[data-key]"); if(!tr) return;
+  if(e.key==="Enter"||e.key===" "){ e.preventDefault(); location.hash=tr.dataset.href.slice(1); }
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault(); let t=tr; do{ t=e.key==="ArrowDown"?t.nextElementSibling:t.previousElementSibling; }while(t&&!t.dataset.key); if(t) t.focus(); }
+});
+let tbTimer=null;
+new MutationObserver(()=>{ clearTimeout(tbTimer); tbTimer=setTimeout(buildTable,30); }).observe($("#list"),{subtree:true,childList:true,attributes:true,attributeFilter:["hidden","class","data-yes","data-cast"],characterData:true});
+buildTable(); show();
 })();

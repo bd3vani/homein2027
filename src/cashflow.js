@@ -2,7 +2,6 @@
 (function(){
 const CF=%CFDATA%;
 const $=s=>document.querySelector(s);
-const root=$("#cfBody"); if(!root) return;
 
 // City rules. Transfer tax is what the seller pays at resale (county 0.11% everywhere).
 // strCap = nights a year a whole home may be rented short-term while it is your primary residence; 0 = banned; null = rule not checked.
@@ -79,9 +78,9 @@ IN.forEach(([id,label,def,unit,g,note])=>{
   groups[g].append(w);
 });
 const reset=document.createElement("button"); reset.type="button"; reset.className="cfreset"; reset.textContent="Reset to defaults";
-reset.addEventListener("click",()=>{ IN.forEach(r=>{ $("#cf_"+r[0]).value=r[2]; V[r[0]]=r[2]; }); POOL.clear(); render(); });
+reset.addEventListener("click",()=>{ IN.forEach(r=>{ $("#cf_"+r[0]).value=r[2]; V[r[0]]=r[2]; }); POOL.clear(); render(true); });
 menu.append(reset);
-menu.addEventListener("input",e=>{ const id=e.target.id.replace(/^cf_/,""); if(id in V){ const n=parseFloat(e.target.value); V[id]=isFinite(n)?n:0; render(); } });
+menu.addEventListener("input",e=>{ const id=e.target.id.replace(/^cf_/,""); if(id in V){ const n=parseFloat(e.target.value); V[id]=isFinite(n)?n:0; render(true); } });
 const POOL=new Map(); // per-listing pool-add override for this view only
 
 // ---- math
@@ -280,23 +279,28 @@ function card(x){
   return `<article class="cfcard">${head}${missing}<p class="cfpoolnote">${pnote}</p>${poolCtl}${facts}${comps}<h4>Income paths <small>30-yr fixed, 20% down; investment paths on a 25% down investment loan</small></h4><div class="cfscroll"><table class="cftable"><thead><tr><th></th>${th}</tr></thead><tbody>${body}</tbody></table></div>${notes?`<ul class="cfnotes">${notes}</ul>`:""}${fin}${src.length?`<p class="cfsrc">${src.join(" · ")}${c.as_of?` (as of ${c.as_of})`:""}</p>`:""}</article>`;
 }
 
-let SCOPE=null; // "advance" | "starred" | "all"; null = advance if any, else starred
-function shortlist(){
-  const stars=window.__cfStars?window.__cfStars():new Map(), rej=window.__cfRejected?window.__cfRejected():new Set(), yes=window.__cfYes?window.__cfYes():new Map();
-  const adv=CF.filter(x=>(yes.get(x.key)||0)>=2&&!rej.has(x.key)&&!x.out&&x.price);
-  const sc=SCOPE||(adv.length?"advance":"starred");
-  document.querySelectorAll(".cfscope button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.s===sc)));
-  const L=sc==="advance"?adv:CF.filter(x=>(sc==="all"||(stars.get(x.key)||0)>0)&&!rej.has(x.key)&&!x.out&&x.price);
-  return {sc,L:L.map(x=>Object.assign({},x,{stars:stars.get(x.key)||0,votes:yes.has(x.key)?yes.get(x.key):null})).sort((a,b)=>(b.votes||0)-(a.votes||0)||b.stars-a.stars||a.price-b.price)};
+// ---- hooks for the table and the drawer
+const BEST=new Map(); // key -> {delta,label}; cleared when inputs or votes change
+function rowX(key){ const x=CF.find(c=>c.key===key); if(!x) return null; const stars=window.__cfStars?window.__cfStars():new Map(), yes=window.__cfYes?window.__cfYes():new Map(); return Object.assign({},x,{stars:stars.get(key)||0,votes:yes.has(key)?yes.get(key):null}); }
+window.__cfBest=key=>{
+  if(BEST.has(key)) return BEST.get(key);
+  const x=rowX(key); let b=null;
+  if(x&&x.price&&!x.out&&x.cf&&x.cf.cagr5!=null){ const u=((x.cf.units||[]).filter(u=>u&&u.rent>0)).length; const t=screen(x,Math.max(1,u)).top[0]; if(t) b={delta:t.delta,label:`${t.path}, ${t.ln.label}`}; }
+  BEST.set(key,b); return b;
+};
+window.__cfCard=key=>{
+  const x=rowX(key);
+  if(!x) return `<h3 class="sec">Financing</h3><p class="cfmiss">New address: financing appears after the next scan fills its price and comps.</p>`;
+  if(!x.price) return `<h3 class="sec">Financing</h3><p class="cfmiss">List price not found, so financing can’t be modeled yet.</p>`;
+  const yes=x.votes||0;
+  return `<h3 class="sec">Financing</h3>${yes>=2?"":`<p class="cfgate">Shown for every listing. The group's step is 2 of 3 Yes; this one has ${yes}.</p>`}${card(x)}`;
+};
+function render(clear){
+  if(clear) BEST.clear();
+  if(window.__tableRefresh) window.__tableRefresh();
+  if(window.__refreshFin) window.__refreshFin();
 }
-function render(){
-  const {sc,L}=shortlist();
-  const label={advance:"advancing (2 of 3 Yes)",starred:"starred",all:"listings"}[sc];
-  root.innerHTML=L.length?L.map(card).join(""):`<p class="cfmiss">${sc==="advance"?"No listing has 2 of 3 Yes votes yet.":sc==="starred"?"Star a listing (any rating) to see its cash flow here.":"No listings."}</p>`;
-  $("#cfCount").textContent=L.length?`${L.length} ${label}`:"";
-}
-root.addEventListener("change",e=>{ const k=e.target.dataset&&e.target.dataset.k; if(k){ POOL.set(k,e.target.checked); render(); } });
-document.querySelectorAll(".cfscope button").forEach(b=>b.addEventListener("click",()=>{ SCOPE=b.dataset.s; render(); }));
-window.__cfRender=render;
-render();
+document.addEventListener("change",e=>{ const k=e.target.dataset&&e.target.closest(".finbox")&&e.target.dataset.k; if(k){ POOL.set(k,e.target.checked); render(true); } });
+window.__cfRender=()=>render(false);
+render(true);
 })();
