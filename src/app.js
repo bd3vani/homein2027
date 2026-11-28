@@ -81,18 +81,23 @@ function show(){
   document.body.classList.toggle("dopen",open);
   document.querySelectorAll("#ltable tbody tr[data-key]").forEach(tr=>tr.setAttribute("aria-selected",String(open&&tr.dataset.key===p.dataset.key)));
 }
+function nav(id){ if(location.hash!=="#"+id) history.pushState(null,"","#"+id); show(); }
 function go(id){
-  if(location.hash==="#"+id) show(); else location.hash=id;
+  nav(id);
   const d=$("#drawer"); if(d) d.focus({preventScroll:true});
 }
 function closeDrawer(){
   const k=(document.querySelector(".panel.show")||{}).dataset; 
   history.pushState(null,"",location.pathname+location.search); show();
-  const tr=k&&document.querySelector('#ltable tr[data-key="'+k.key+'"]'); if(tr) tr.focus();
+  const tr=k&&document.querySelector('#ltable tr[data-key="'+k.key+'"]'); if(tr) tr.focus({preventScroll:true});
 }
 $("#dclose").addEventListener("click",closeDrawer);
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&document.body.classList.contains("dopen")) closeDrawer(); });
 window.addEventListener("hashchange",show);
+// never move the page: in-page links open the drawer without jumping; load starts at the top
+if("scrollRestoration" in history) history.scrollRestoration="manual";
+document.addEventListener("click",e=>{ const a=e.target.closest('a[href^="#"]'); if(!a||e.defaultPrevented||e.metaKey||e.ctrlKey) return; e.preventDefault(); nav(decodeURIComponent(a.getAttribute("href").slice(1))); });
+window.addEventListener("load",()=>window.scrollTo(0,0));
 
 // removal: hidden here for good, kept in the weekly report data
 const REMOVED=new Map(); const LSR="listing-check-removed";
@@ -127,7 +132,7 @@ function hideKey(k,d){
   document.querySelectorAll('.nb li[data-key="'+k+'"]').forEach(li=>li.hidden=true);
   tidyGroups();
   const id=SCAN[k]||("added-"+k);
-  if(location.hash==="#"+id){ location.hash="list"; }
+  if(location.hash==="#"+id){ history.pushState(null,"",location.pathname+location.search); show(); }
   const p=document.getElementById(id); if(p) p.classList.remove("show");
   drawRejected(); if(typeof drawStarred==="function"&&window.__starsReady) drawStarred();
 }
@@ -380,8 +385,7 @@ function markDup(k){
   document.querySelectorAll("#list li.dup").forEach(x=>x.classList.remove("dup"));
   li.classList.add("dup"); buildTable();
   const tr=document.querySelector('#ltable tr[data-key="'+k+'"]');
-  if(tr) tr.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
-  status.textContent="You entered this before. It’s highlighted in the list.";
+  status.textContent="You entered this before. It’s highlighted in yellow in the list.";
 }
 $("#checkForm").addEventListener("submit",async e=>{
   e.preventDefault();
@@ -469,11 +473,11 @@ tbody.addEventListener("click",e=>{
   const xb=e.target.closest(".tx");
   if(xb){ e.preventDefault(); const li=document.querySelector('#list li[data-key="'+tr.dataset.key+'"]'); const b=li&&li.querySelector(".x"); if(b) b.click(); setTimeout(buildTable,0); return; }
   if(e.target.closest("a")) return; // the link sets the hash itself
-  location.hash=tr.dataset.href.slice(1);
+  nav(tr.dataset.href.slice(1));
 });
 tbody.addEventListener("keydown",e=>{
   const tr=e.target.closest("tr[data-key]"); if(!tr) return;
-  if(e.key==="Enter"||e.key===" "){ e.preventDefault(); location.hash=tr.dataset.href.slice(1); }
+  if(e.key==="Enter"||e.key===" "){ e.preventDefault(); nav(tr.dataset.href.slice(1)); }
   if(e.key==="ArrowDown"||e.key==="ArrowUp"){ e.preventDefault(); let t=tr; do{ t=e.key==="ArrowDown"?t.nextElementSibling:t.previousElementSibling; }while(t&&!t.dataset.key); if(t) t.focus(); }
 });
 let tbTimer=null;
