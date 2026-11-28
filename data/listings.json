@@ -908,7 +908,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Burbank zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91505"
   },
   {
    "neighborhood": "Burbank",
@@ -1063,7 +1064,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Burbank zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91504"
   },
   {
    "neighborhood": "Burbank",
@@ -1218,7 +1220,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Burbank zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91501"
   },
   {
    "neighborhood": "Burbank",
@@ -1372,7 +1375,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Burbank zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91505"
   },
   {
    "neighborhood": "North Hollywood / Toluca Lake",
@@ -1506,7 +1510,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the North Hollywood / Toluca Lake zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91601"
   },
   {
    "neighborhood": "North Hollywood / Toluca Lake",
@@ -1653,7 +1658,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the North Hollywood / Toluca Lake zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91601"
   },
   {
    "neighborhood": "Studio City",
@@ -1786,7 +1792,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Studio City zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91604"
   },
   {
    "neighborhood": "Glendale",
@@ -1923,7 +1930,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Glendale zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91202"
   },
   {
    "neighborhood": "Glendale",
@@ -2088,7 +2096,8 @@
     ],
     "note": "Bought for $2.3M in Oct 2025 and relisted a year later; the seller's own purchase price anchors value.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91207"
   },
   {
    "neighborhood": "Glendale",
@@ -2229,7 +2238,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Glendale zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91208"
   },
   {
    "neighborhood": "Glendale",
@@ -4481,7 +4491,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Pasadena zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91104"
   },
   {
    "neighborhood": "Pasadena",
@@ -4628,7 +4639,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Pasadena zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "91107"
   },
   {
    "neighborhood": "Pasadena",
@@ -5720,7 +5732,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Mar Vista zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90066"
   },
   {
    "neighborhood": "Cheviot Hills",
@@ -6396,7 +6409,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Silver Lake zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90039"
   },
   {
    "neighborhood": "La Cañada Flintridge",
@@ -7162,7 +7176,8 @@
     ],
     "note": "Multi-unit sold comps are thin; nearest are Venice/Santa Monica 2–4 unit sales. Treat fair value as low confidence; confirm with a cap-rate check.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90066"
   },
   {
    "neighborhood": "Mar Vista",
@@ -7307,7 +7322,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Mar Vista zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90066"
   },
   {
    "neighborhood": "Mar Vista",
@@ -7447,7 +7463,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Mar Vista zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90066"
   },
   {
    "neighborhood": "Mar Vista",
@@ -7586,7 +7603,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Mar Vista zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90066"
   },
   {
    "neighborhood": "Palms",
@@ -7734,7 +7752,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Palms zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90034"
   },
   {
    "neighborhood": "Cypress Park",
@@ -7837,7 +7856,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Cypress Park zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90031"
   },
   {
    "neighborhood": "Other",
@@ -8074,7 +8094,8 @@
     ],
     "note": "Multi-unit sold comps are thin; nearest are Venice/Santa Monica 2–4 unit sales. Treat fair value as low confidence; confirm with a cap-rate check.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90405"
   },
   {
    "neighborhood": "Other",
@@ -8724,7 +8745,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Other zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90405"
   },
   {
    "neighborhood": "Other",
@@ -8865,7 +8887,8 @@
     ],
     "note": "Sold comps from public search results (Nov 2025–Nov 2026, ~24-month window), matched by beds ±1 and size within the Other zips; distance not measured.",
     "as_of": "2026-11-27"
-   }
+   },
+   "zip": "90291"
   }
  ],
  "voters": [
