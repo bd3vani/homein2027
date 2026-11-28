@@ -1,4 +1,4 @@
-# Listing check v8.12.2 — PRD
+# Listing check v8.13.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -162,7 +162,7 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 - [ ] **Check box.** Accepts an address or a homes.com, Redfin or Zillow URL. A scan match opens its result the first time. Entering an address or URL already on the page again (a repeat scan match, or any added address) fills its row in the list yellow (#F4E842) without moving the page (buyer decision Nov 27, 2026: never auto-scroll); the filter resets to All if it hid the row. Entered addresses are remembered in the viewer's browser. Matching uses street number plus street name, ignoring N/S/E/W and suffix spelling.
 - [ ] **Verdict panel.** Shows the needs verdict and table, the Exit verdict and table, open houses, and an Open listing link.
 - [ ] **Weekly report list (changed in 8.3.0).** Grouped neighborhood > open-house day > open-house time. Neighborhoods stay in scan order. Each listing sits under its next open house that hasn't ended, on any day of the week, judged when the page is opened and refreshed every minute. Days and times run earliest first; day headings read "Open house Thu Nov 26" with "(today)" or "(tomorrow)" where true, and a running open house says "happening now." Listings sharing a time share one heading. "No upcoming open house" comes last. All times are Los Angeles time, whatever the viewer's time zone. New listings are tagged New.
-- [ ] **Quick filters (new in 8.2.0).** One-tap chips above the list: All, Fit, Exit: Yes, Open house, Fixer (new in 8.5.0), Starred. One is active at a time. Empty subheadings and neighborhoods hide; if nothing matches, the list says so. "Open house" shows listings with any open house that hasn't ended yet.
+- [ ] **Views and filters (changed in 8.13.0).** Top level is two views: All listings (default) and Open house (listings with an open house that hasn't ended). Under All listings sit the secondary chips: Any, Fit, Exit: Yes, Fixer, 2+ stars, 3 stars; one is active at a time. The chips hide in the Open house view. Empty subheadings and neighborhoods hide; if nothing matches, the list says so.
 - [ ] **Add new address.** Files by zip or neighborhood name into a matching search area, else Other, under "No upcoming open house." Added listings show "Needs check" until the weekly run fills them.
 - [ ] **Reject (changed in 8.2.0).** × appears on hover at the top-right of each row (always visible on touch screens). Tapping it three times rejects the listing; the button shows "× 1/3" and "× 2/3" and the status line counts down. The count resets after 6 seconds without a tap. No confirmation dialog. Rejected listings stay hidden in every later session and stay in the weekly report.
 - [ ] **Show rejected listings.** Link at the list's end; lists rejections newest first with Restore.
@@ -285,6 +285,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.13.0 | Two top-level views (All listings, Open house); secondary chips sit under All listings |
 | v8.12.2 | Sherman Oaks, Van Nuys and Cheviot Hills dropped: 10 listings ruled out; scans skip them |
 | v8.12.1 | No auto-scroll: opening a listing, closing the drawer, rejecting and re-entering an address never move the page; in-page links use pushState; page loads at the top; duplicates are highlighted in place |
 | v8.12.0 | Sold comps for every active listing (24-month window, beds ±1, size 0.6–1.6×, same zips); multi-unit homes use 2–4 unit sales; pass line names the failing filter when price holds; single-value ranges collapse |

@@ -12,7 +12,7 @@
 </head>
 <body>
 <main class="wide">
-<nav class="top"><span class="ver">Listing check v8.12.2</span></nav>
+<nav class="top"><span class="ver">Listing check v8.13.0</span></nav>
 <h1>Is this house a fit?</h1>
 <p class="lede">Enter an address or listing link. Every listing is in the table below; select one to see its basics, exits and financing. Each star is one person’s yes; 2 stars moves a listing to financing.</p>
 <form class="field" id="checkForm" novalidate>
@@ -27,11 +27,14 @@
 <section class="tview" id="tview" aria-labelledby="tviewH">
   <div class="tbar">
     <h2 id="tviewH">Listings <span class="muted" id="tcount"></span></h2>
-    <div class="chips" role="group" aria-label="Filter the table">
-      <button type="button" class="chip" data-f="all" aria-pressed="true">All</button>
+    <div class="views" role="group" aria-label="Which listings">
+      <button type="button" class="view" data-v="all" aria-pressed="true">All listings</button>
+      <button type="button" class="view" data-v="oh" aria-pressed="false">Open house</button>
+    </div>
+    <div class="chips" role="group" aria-label="Filter all listings">
+      <button type="button" class="chip" data-f="all" aria-pressed="true">Any</button>
       <button type="button" class="chip" data-f="fit" aria-pressed="false">Fit</button>
       <button type="button" class="chip" data-f="exit" aria-pressed="false">Exit: Yes</button>
-      <button type="button" class="chip" data-f="oh" aria-pressed="false">Open house</button>
       <button type="button" class="chip" data-f="fixer" aria-pressed="false">Fixer</button>
       <button type="button" class="chip" data-f="advance" aria-pressed="false">2+ stars</button>
       <button type="button" class="chip" data-f="starred" aria-pressed="false">3 stars</button>
