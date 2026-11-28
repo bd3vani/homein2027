@@ -420,7 +420,7 @@ const VRANK={pass:0,check:1,fail:2}, VLBL={pass:"Fit",check:"Needs check",fail:"
 function rowData(li){
   const k=li.dataset.key, a=li.querySelector("a"), nb=li.closest(".nb"), o=nextOH(li,Date.now()), best=window.__cfBest?window.__cfBest(k):null;
   return {k,li,href:a?a.getAttribute("href"):"#",addr:addrText(li.querySelector(".addr")),tags:[...li.querySelectorAll(".addr .new")].map(t=>t.textContent),
-    nbhd:nb?nb.dataset.nbhd:"",price:li.dataset.price?+li.dataset.price:null,v:li.dataset.v,ev:li.dataset.ev,o,
+    nbhd:nb?nb.dataset.nbhd:"",zip:li.dataset.zip||"",price:li.dataset.price?+li.dataset.price:null,v:li.dataset.v,ev:li.dataset.ev,o,
     yes:+(li.dataset.yes||0),cast:+(li.dataset.cast||0),stars:STARS.get(k)||0,best,dup:li.classList.contains("dup"),xb:li.querySelector(".x")};
 }
 function cmp(a,b){
@@ -446,14 +446,14 @@ function buildTable(){
   const sel=(document.querySelector(".panel.show")||{}).dataset;
   let html="", last=null;
   for(const r of R){
-    if(byNb&&r.nbhd!==last){ html+=`<tr class="grp"><th scope="rowgroup" colspan="8">${esc(r.nbhd)}</th></tr>`; last=r.nbhd; }
+    if(byNb&&r.nbhd!==last){ html+=`<tr class="grp"><th scope="rowgroup" colspan="7">${esc(r.nbhd)}</th></tr>`; last=r.nbhd; }
     const ohTxt=r.o?`${esc(r.o[2])}, ${esc(r.o[3])}`:"—";
     const best=r.best?`<span class="${r.best.delta>=0?"pos":"neg"}" title="${esc(r.best.label)}">${r.best.delta>=0?"+":""}${money(r.best.delta)}</span>`:'<span class="muted" title="Needs rent comps; scans add them">Needs comps</span>';
     const x=r.xb?r.xb.textContent:"×";
     html+=`<tr data-key="${esc(r.k)}" data-href="${esc(r.href)}" tabindex="0" aria-selected="${!!sel&&sel.key===r.k}"${r.dup?' class="dup"':""}>
-<th scope="row"><a href="${esc(r.href)}">${esc(r.addr)}</a>${r.tags.map(t=>` <span class="new${t==="Fixer"?" fx":""}">${esc(t)}</span>`).join("")}${byNb?"":`<span class="tnb">${esc(r.nbhd)}</span>`}</th>
-<td class="num">${r.price!=null?money(r.price):"—"}</td><td><span class="vt ${r.v}">${VLBL[r.v]||"—"}</span></td><td><span class="vt ${r.ev}">${ELBL[r.ev]||"—"}</span></td>
-<td>${ohTxt}</td><td class="num">${r.stars?`<span class="tstars${r.stars>=2?" adv":""}" aria-label="${r.stars} of 3 stars">${"★".repeat(r.stars)}</span>`:'<span class="muted">—</span>'}</td><td class="num">${best}</td>
+<td>${ohTxt}</td><td class="num">${r.price!=null?money(r.price):"—"}</td>
+<th scope="row"><a href="${esc(r.href)}">${esc(r.addr)}</a>${r.zip?` <span class="tzip">${esc(r.zip)}</span>`:""}${r.stars?` <span class="tstars${r.stars>=2?" adv":""}" aria-label="${r.stars} of 3 stars">${"★".repeat(r.stars)}</span>`:""}${r.tags.map(t=>` <span class="new${t==="Fixer"?" fx":""}">${esc(t)}</span>`).join("")}${byNb?"":`<span class="tnb">${esc(r.nbhd)}</span>`}</th>
+<td><span class="vt ${r.v}">${VLBL[r.v]||"—"}</span></td><td><span class="vt ${r.ev}">${ELBL[r.ev]||"—"}</span></td><td class="num">${best}</td>
 <td class="txc"><button type="button" class="tx${x!=="×"?" armed":""}" aria-label="Reject ${esc(r.addr)}: tap 3 times" title="Reject (tap 3 times)">${esc(x)}</button></td></tr>`;
   }
   tb.innerHTML=html;

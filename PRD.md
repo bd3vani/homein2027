@@ -1,4 +1,4 @@
-# Listing check v8.13.0 — PRD
+# Listing check v8.13.1 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -41,6 +41,8 @@ Read this section before changing Listing check. The rest of the PRD is the spec
 - MUST cite rules and rates from pages you actually opened, with the as-of date.
 
 **Standing scan step: cash-flow comps.** Every scheduled scan (daily and Thursday) also reads the Sheet's "stars" tab. For each starred listing (any rating, not removed) with no `cf` object in `data/listings.json`, research and add `cf`: city; units [{beds, baths, rent}] from rental comps; rent_src; adr (whole-home nightly rate for that size and area, from AirDNA, AirROI or BNBCalc); adr_src; cagr5 (neighborhood or city 5-year annual price growth from Zillow ZHVI or Redfin, as a decimal); cagr_src; pool_add {room, access, note} when there's no pool (true/false only when confirmed); hoa_mo; str_note; as_of. Cite only pages you opened and leave out what you can't find. List them in the PR under "Cash-flow comps added".
+
+**Standing scan step: zip.** Every scan fills `zip` for any active listing without one, from the listing URL or a listing/record page it opens; never guessed.
 
 **Standing scan step: valuation.** For every listing with 2+ stars that has no `val`, add `val`: status; list_date; list_hist (each listing, relist and price cut with date and price); avm (Zillow/Redfin/Trulia estimates); comps = 5–7 recent sales (last 12 months) within about 1 mile with similar beds, baths and size, each with address, price, date, beds, baths, sf and source; note on anything that skews value (fixer, location edge). Cite only pages you opened.
 
@@ -182,7 +184,7 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 - [ ] **Flow (new in 8.7.0).** The page runs in four steps, labeled and linked from the header: 1 Find (check box), 2 Evaluate the basics (verdict panel), 3 Evaluate as a group (list and filters), 4 Evaluate financing (cash flow). The cash-flow section can show Starred (default) or All listings, and lists each unit's rent comps.
 - [ ] **Ruled out.** A listing with `out` in the data is kept but left off the page (5221 La Forest Dr, Nov 27, 2026; all 10 Sherman Oaks, Van Nuys and Cheviot Hills listings, Nov 27, 2026).
 
-- [ ] **Layout (new in 8.9.0): table + side drawer.** The address box is the first thing on the page. Below it, every listing is one row in a sortable table: Listing (with neighborhood), Price, Basics, Exit, Next open house, Votes, Stars, Best vs market, and a reject ×. By default rows group by neighborhood in scan order, then by next open house; clicking a header sorts by it (again reverses). Filter chips sit above the table, with the financing assumptions menu. Selecting a row (click, Enter or Space; arrow keys move between rows) opens a drawer on the right with the listing's stars, vote, basics, exit and financing; the table stays visible and the row stays highlighted. On screens under 761px the drawer is full screen with “Back to table”; Escape closes it. Checking an address opens its drawer; a repeat entry highlights its row yellow. The step labels, Starred analysis link and stale footer were removed.
+- [ ] **Layout (new in 8.9.0): table + side drawer.** The address box is the first thing on the page. Below it, every listing is one row in a sortable table. Columns (changed in 8.13.1): Next open house, Price, Listing ("street zip ★★★": stars sit next to the name, zip muted), Basics, Exit, Best vs market, and a reject ×. By default rows group by neighborhood in scan order, then by next open house; clicking a header sorts by it (again reverses). Views and filter chips sit above the table; the financing assumptions menu is right-aligned. Selecting a row (click, Enter or Space; arrow keys move between rows) opens a drawer on the right with the listing's stars, vote, basics, exit and financing; the table stays visible and the row stays highlighted. On screens under 761px the drawer is full screen with “Back to table”; Escape closes it. Checking an address opens its drawer; a repeat entry highlights its row yellow. The step labels, Starred analysis link and stale footer were removed.
 - [ ] **Collapsed passes (8.9.0).** When every filter passes, the filter table sits behind “All 8 filters pass. Show them”. When an exit path passes, the exit table sits behind “An exit path is there. Show the paths”. Otherwise both are open.
 - [ ] **Group vote = stars (changed in 8.10.0).** The 3 stars are the vote: each star is one person’s yes, and 2 stars moves a listing to financing. There is no separate vote box or Votes column. Chips: “2+ stars” (advancing) and “3 stars”. The `votes` Sheet tab is no longer written.
 - [ ] **Financing (changed in 8.8.0, step 4).** Scope defaults to Advancing (2 of 3 Yes) when any listing advances, else Starred; All is available.
@@ -285,6 +287,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.13.1 | Table columns: Next open house, Price, then Listing with zip and stars beside the name; Stars column removed; financing menu right-aligned; `zip` field |
 | v8.13.0 | Two top-level views (All listings, Open house); secondary chips sit under All listings |
 | v8.12.2 | Sherman Oaks, Van Nuys and Cheviot Hills dropped: 10 listings ruled out; scans skip them |
 | v8.12.1 | No auto-scroll: opening a listing, closing the drawer, rejecting and re-entering an address never move the page; in-page links use pushState; page loads at the top; duplicates are highlighted in place |

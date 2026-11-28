@@ -207,8 +207,10 @@ main.wide{max-width:76rem;transition:padding-right .2s ease}
 .views{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
 .view{font-size:.95rem;font-weight:600;padding:.45rem 1rem;border-radius:999px;border:0;background:transparent;color:var(--ink)}
 .view[aria-pressed="true"]{background:var(--pool);color:var(--surface)}
-.tbar .cfmenu{margin:0;padding:.35rem .75rem;flex-basis:100%}
-.tbar .cfmenu:not([open]){flex-basis:auto}
+.tbar .cfmenu{margin:0 0 0 auto;padding:.35rem .75rem;order:2}
+.tbar .cfmenu[open]{flex-basis:100%;order:4}
+.tbar .cfmenu summary{text-align:right}
+.tbar .chips{order:3}
 .tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
 .ltable{width:100%;border-collapse:collapse;font-size:.9rem;font-variant-numeric:tabular-nums}
 .ltable caption.sr,.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -231,6 +233,7 @@ main.wide{max-width:76rem;transition:padding-right .2s ease}
 .ltable tr.grp th{background:var(--bg,transparent);font-size:.8rem;font-weight:700;color:var(--pool);padding:.7rem .6rem .3rem;text-align:left;border-bottom:1px solid var(--line)}
 .ltable .vt{font-size:.8rem;font-weight:700;white-space:nowrap}
 .ltable .vt3{font-weight:600}.ltable .vt3.adv{color:#15803d}
+.ltable .tzip{font-weight:400;color:var(--muted)}
 .ltable .tstars{color:#d4a017;letter-spacing:.05em}
 .ltable .pos{color:#15803d;font-weight:600}.ltable .neg{color:#b91c1c;font-weight:600}
 .ltable .tx{min-width:44px;min-height:44px;border:0;background:transparent;color:var(--muted);font-size:1.1rem;cursor:pointer;border-radius:8px}
