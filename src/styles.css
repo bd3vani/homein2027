@@ -202,7 +202,11 @@ main.wide{max-width:76rem;transition:padding-right .2s ease}
 .tbar{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin-bottom:.6rem}
 .tbar h2{margin:0;font-size:1.25rem}
 .tbar h2 .muted{font-size:.85rem;font-weight:500}
-.tbar .chips{margin:0}
+.tbar .chips{margin:0;flex-basis:100%}
+.tbar .chips[hidden]{display:none}
+.views{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.view{font-size:.95rem;font-weight:600;padding:.45rem 1rem;border-radius:999px;border:0;background:transparent;color:var(--ink)}
+.view[aria-pressed="true"]{background:var(--pool);color:var(--surface)}
 .tbar .cfmenu{margin:0;padding:.35rem .75rem;flex-basis:100%}
 .tbar .cfmenu:not([open]){flex-basis:auto}
 .tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}

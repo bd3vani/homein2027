@@ -1,6 +1,6 @@
 (function(){
 const SCAN=%KEYS%;
-let FILTER="all";
+let FILTER="all", VIEW="all";
 const addrText=el=>{for(const n of el.childNodes){if(n.nodeType===3&&n.textContent.trim())return n.textContent.trim();}return el.textContent.trim();};
 const DIRS=new Set(["n","s","e","w","north","south","east","west"]);
 const SUFFIX=new Set(["st","street","ave","avenue","dr","drive","rd","road","pl","place","blvd","way","ln","lane","ct","court","ter","terr","terrace","cir","circle","pkwy","trl","trail"]);
@@ -298,9 +298,9 @@ function regroup(){
 function applyFilter(){
   document.querySelectorAll(".nb li[data-key]").forEach(li=>{
     let ok=true;
-    if(FILTER==="fit") ok=li.dataset.v==="pass";
+    if(VIEW==="oh") ok=!!nextOH(li,Date.now());
+    else if(FILTER==="fit") ok=li.dataset.v==="pass";
     else if(FILTER==="exit") ok=li.dataset.ev==="pass";
-    else if(FILTER==="oh") ok=!!nextOH(li,Date.now());
     else if(FILTER==="fixer") ok=li.dataset.fx==="1";
     else if(FILTER==="starred") ok=(STARS.get(li.dataset.key)||0)===3;
     else if(FILTER==="advance") ok=(STARS.get(li.dataset.key)||0)>=2;
@@ -308,6 +308,8 @@ function applyFilter(){
   });
   tidyGroups();
 }
+function setView(v){ VIEW=v; document.querySelectorAll(".view").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.v===v))); document.querySelector(".chips").hidden=v!=="all"; applyFilter(); }
+document.querySelector(".views").addEventListener("click",e=>{ const b=e.target.closest(".view"); if(b) setView(b.dataset.v); });
 document.querySelector(".chips").addEventListener("click",e=>{
   const c=e.target.closest(".chip"); if(!c) return;
   FILTER=c.dataset.f;
@@ -315,8 +317,8 @@ document.querySelector(".chips").addEventListener("click",e=>{
   applyFilter();
 });
 var regroupReady=true; regroup();
-setInterval(()=>{ regroup(); if(FILTER==="oh") applyFilter(); },60000);
-document.addEventListener("visibilitychange",()=>{ if(!document.hidden){ regroup(); if(FILTER==="oh") applyFilter(); } });
+setInterval(()=>{ regroup(); if(VIEW==="oh") applyFilter(); },60000);
+document.addEventListener("visibilitychange",()=>{ if(!document.hidden){ regroup(); if(VIEW==="oh") applyFilter(); } });
 
 // storage: shared db if available, else this browser
 let db=null; const LS="listing-check-added";
@@ -381,7 +383,7 @@ function saveEntered(){ try{ localStorage.setItem(LSE,JSON.stringify([...entered
 function markDup(k){
   const li=document.querySelector('#list li[data-key="'+k+'"]');
   if(!li){ status.textContent="You entered this before."; return; }
-  if(li.classList.contains("ff")){ FILTER="all"; document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.f==="all"))); applyFilter(); }
+  if(li.classList.contains("ff")){ FILTER="all"; document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.f==="all"))); setView("all"); }
   document.querySelectorAll("#list li.dup").forEach(x=>x.classList.remove("dup"));
   li.classList.add("dup"); buildTable();
   const tr=document.querySelector('#ltable tr[data-key="'+k+'"]');
