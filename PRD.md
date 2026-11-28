@@ -1,4 +1,4 @@
-# Listing check v8.12.0 — PRD
+# Listing check v8.12.1 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -159,7 +159,7 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 
 **P0: must have**
 
-- [ ] **Check box.** Accepts an address or a homes.com, Redfin or Zillow URL. A scan match opens its result the first time. Entering an address or URL already on the page again (a repeat scan match, or any added address) scrolls to its row in the list and fills it yellow (#F4E842); the filter resets to All if it hid the row. Entered addresses are remembered in the viewer's browser. Matching uses street number plus street name, ignoring N/S/E/W and suffix spelling.
+- [ ] **Check box.** Accepts an address or a homes.com, Redfin or Zillow URL. A scan match opens its result the first time. Entering an address or URL already on the page again (a repeat scan match, or any added address) fills its row in the list yellow (#F4E842) without moving the page (buyer decision Nov 27, 2026: never auto-scroll); the filter resets to All if it hid the row. Entered addresses are remembered in the viewer's browser. Matching uses street number plus street name, ignoring N/S/E/W and suffix spelling.
 - [ ] **Verdict panel.** Shows the needs verdict and table, the Exit verdict and table, open houses, and an Open listing link.
 - [ ] **Weekly report list (changed in 8.3.0).** Grouped neighborhood > open-house day > open-house time. Neighborhoods stay in scan order. Each listing sits under its next open house that hasn't ended, on any day of the week, judged when the page is opened and refreshed every minute. Days and times run earliest first; day headings read "Open house Thu Nov 26" with "(today)" or "(tomorrow)" where true, and a running open house says "happening now." Listings sharing a time share one heading. "No upcoming open house" comes last. All times are Los Angeles time, whatever the viewer's time zone. New listings are tagged New.
 - [ ] **Quick filters (new in 8.2.0).** One-tap chips above the list: All, Fit, Exit: Yes, Open house, Fixer (new in 8.5.0), Starred. One is active at a time. Empty subheadings and neighborhoods hide; if nothing matches, the list says so. "Open house" shows listings with any open house that hasn't ended yet.
@@ -285,6 +285,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.12.1 | No auto-scroll: opening a listing, closing the drawer, rejecting and re-entering an address never move the page; in-page links use pushState; page loads at the top; duplicates are highlighted in place |
 | v8.12.0 | Sold comps for every active listing (24-month window, beds ±1, size 0.6–1.6×, same zips); multi-unit homes use 2–4 unit sales; pass line names the failing filter when price holds; single-value ranges collapse |
 | v8.11.0 | Offer-first drawer: fair value from sold comps, break-even vs market, ceiling (lower of the two), offer range, leverage, blockers; rent saved counted for owner paths; area price trends for every neighborhood; valuation non-goal lifted |
 | v8.10.0 | Stars are the group vote (2 stars advances); separate vote box and Votes column removed |
