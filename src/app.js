@@ -61,7 +61,7 @@ function render(d){
   const rows=`<tr><th scope="row">Neighborhood</th><td><span class="tag pass">Filed</span></td><td>${esc(d.nbhd)} (${esc(d.why)})</td></tr>`+ROWS.map(r=>`<tr><th scope="row">${esc(r)}</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr>`).join("");
   const link=/^https?:/i.test(d.input)?`<a href="${esc(d.input)}" rel="noopener" target="_blank">Open listing</a>`:"";
   const a=document.createElement("article");a.className="panel";a.id=id;a.tabIndex=-1;a.dataset.key=d.key;
-  a.innerHTML=`<p class="where">${esc(d.nbhd)}</p><h2>${esc(d.street)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Each star is one person’s yes; 2 moves it to financing.</span></div><h3 class="sec">Your needs</h3><div class="verdict check"><strong>Needs check</strong><span>New address, added ${esc(when)}. Filters aren’t checked yet.</span></div><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>${rows}</tbody></table></div><h3 class="sec">Exit</h3><div class="verdict check"><strong>Needs check</strong><span>Price not known yet, so the 3-month mortgage target can’t be set.</span></div><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody><tr><th scope="row">Airbnb income covering 3 months of mortgage</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr><tr><th scope="row">Forced value add (ADU, addition, fixer, lot)</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr></tbody></table></div><p class="links">${link}</p><div class="finbox"></div>`;
+  a.innerHTML=`<p class="where">${esc(d.nbhd)}</p><h2>${esc(d.street)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Each star is one person’s yes; 2 moves it to financing.</span></div><div class="offerbox"></div><details class="dtl sup" open><summary><span class="sk">Basics</span> <span class="tag check">Needs check</span> <span class="ss">New address, added ${esc(when)}. Filters aren’t checked yet.</span></summary><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>${rows}</tbody></table></div></details><details class="dtl sup"><summary><span class="sk">Exit</span> <span class="tag check">Needs check</span> <span class="ss">Price not known yet.</span></summary><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody><tr><th scope="row">Airbnb income covering 3 months of mortgage</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr><tr><th scope="row">Forced value add (ADU, addition, fixer, lot)</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr></tbody></table></div></details><details class="dtl sup"><summary><span class="sk">Financing detail</span></summary><div class="finbox"></div></details><p class="links">${link}</p>`;
   $(".results").append(a);
   if(typeof regroupReady!=="undefined") regroup();
   if(REMOVED.has(d.key)) hideKey(d.key);
@@ -70,7 +70,7 @@ function render(d){
   return id;
 }
 // drawer: the selected listing opens on the right; the table stays in view
-function fillFin(p){ const f=p&&p.querySelector(".finbox"); if(f&&window.__cfCard) f.innerHTML=window.__cfCard(p.dataset.key); }
+function fillFin(p){ if(!p) return; const f=p.querySelector(".finbox"); if(f&&window.__cfCard) f.innerHTML=window.__cfCard(p.dataset.key); const o=p.querySelector(".offerbox"); if(o&&window.__cfOffer) o.innerHTML=window.__cfOffer(p.dataset.key); }
 window.__refreshFin=()=>fillFin(document.querySelector(".panel.show"));
 function show(){
   document.querySelectorAll(".panel.show").forEach(p=>p.classList.remove("show"));
@@ -197,7 +197,7 @@ function drawStarred(){
   $("#starred").hidden=!ul.children.length;
   if(window.__cfRender) window.__cfRender();
 }
-function setStars(k,n){ if(n) STARS.set(k,n); else STARS.delete(k); paintStars(k); drawStarred(); if(FILTER==="starred"||FILTER==="advance") applyFilter(); if(window.__tableRefresh) window.__tableRefresh(); }
+function setStars(k,n){ if(n) STARS.set(k,n); else STARS.delete(k); paintStars(k); drawStarred(); if(FILTER==="starred"||FILTER==="advance") applyFilter(); if(window.__tableRefresh) window.__tableRefresh(); if(window.__refreshFin) window.__refreshFin(); }
 window.__starsReady=true;
 Object.entries(lsStars()).forEach(([k,n])=>setStars(k,n));
 document.addEventListener("click",async e=>{
@@ -442,7 +442,7 @@ function buildTable(){
   for(const r of R){
     if(byNb&&r.nbhd!==last){ html+=`<tr class="grp"><th scope="rowgroup" colspan="8">${esc(r.nbhd)}</th></tr>`; last=r.nbhd; }
     const ohTxt=r.o?`${esc(r.o[2])}, ${esc(r.o[3])}`:"—";
-    const best=r.best?`<span class="${r.best.delta>=0?"pos":"neg"}" title="${esc(r.best.label)}">${r.best.delta>=0?"+":""}${money(r.best.delta)}</span>`:'<span class="muted" title="Needs the area price trend; scans add it">Needs trend</span>';
+    const best=r.best?`<span class="${r.best.delta>=0?"pos":"neg"}" title="${esc(r.best.label)}">${r.best.delta>=0?"+":""}${money(r.best.delta)}</span>`:'<span class="muted" title="Needs rent comps; scans add them">Needs comps</span>';
     const x=r.xb?r.xb.textContent:"×";
     html+=`<tr data-key="${esc(r.k)}" data-href="${esc(r.href)}" tabindex="0" aria-selected="${!!sel&&sel.key===r.k}"${r.dup?' class="dup"':""}>
 <th scope="row"><a href="${esc(r.href)}">${esc(r.addr)}</a>${r.tags.map(t=>` <span class="new${t==="Fixer"?" fx":""}">${esc(t)}</span>`).join("")}${byNb?"":`<span class="tnb">${esc(r.nbhd)}</span>`}</th>

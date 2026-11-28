@@ -1,4 +1,4 @@
-# Listing check v8.10.0 — PRD
+# Listing check v8.11.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -41,6 +41,8 @@ Read this section before changing Listing check. The rest of the PRD is the spec
 - MUST cite rules and rates from pages you actually opened, with the as-of date.
 
 **Standing scan step: cash-flow comps.** Every scheduled scan (daily and Thursday) also reads the Sheet's "stars" tab. For each starred listing (any rating, not removed) with no `cf` object in `data/listings.json`, research and add `cf`: city; units [{beds, baths, rent}] from rental comps; rent_src; adr (whole-home nightly rate for that size and area, from AirDNA, AirROI or BNBCalc); adr_src; cagr5 (neighborhood or city 5-year annual price growth from Zillow ZHVI or Redfin, as a decimal); cagr_src; pool_add {room, access, note} when there's no pool (true/false only when confirmed); hoa_mo; str_note; as_of. Cite only pages you opened and leave out what you can't find. List them in the PR under "Cash-flow comps added".
+
+**Standing scan step: valuation.** For every listing with 2+ stars that has no `val`, add `val`: status; list_date; list_hist (each listing, relist and price cut with date and price); avm (Zillow/Redfin/Trulia estimates); comps = 5–7 recent sales (last 12 months) within about 1 mile with similar beds, baths and size, each with address, price, date, beds, baths, sf and source; note on anything that skews value (fixer, location edge). Cite only pages you opened.
 
 **Data contract**
 
@@ -97,7 +99,6 @@ Build the reading most likely to match the buyer's intent and state the assumpti
 
 - **No connectors or third-party APIs beyond the Sheet script.** Data that needs the web comes from Claude in the project, saved into the page.
 - **No live web lookups from the page.** A pasted URL is matched and filed, not scraped.
-- **No valuation or offer pricing.** The tool judges fit and exit, not what to bid.
 - **No investment-property analysis.** It assumes primary occupancy; full cash-flow and cap-rate modeling is out of scope.
 - **No accounts.** Anyone with the page password sees the same shared list.
 
@@ -190,6 +191,11 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
     - Financing screen: every eligible path × loan, ranked by 5-year after-tax profit vs the same cash in the market; the best 6 show with cash at close, after-tax monthly cash flow, DSCR, profit and annualized ROI. Loans tested: 30-yr fixed at 20%, 25%, 30% down and $1M down; 7/6 ARM; 1 and 2 discount points; conforming 10% and 5% down with PMI; FHA 3.5% down with MIP; conventional investment 25% down; DSCR 25% and 20% down.
     - PMI, MIP and points surface only when they beat the same path without them. Loans over the 2026 LA County limit for the unit count (1 unit $1,249,125; 2 units $1,599,375; 3 units $1,933,200; 4 units $2,402,625) and DSCR below the minimum are listed under “Not surfaced” with the reason.
 
+- [ ] **Offer-first drawer (new in 8.11.0).** The drawer leads with the offer decision. Top: Ready to offer / Not yet: n to resolve / Pass, with the offer range, walk-away price and list price. Then four tiles: fair value from sold comps (median $/sf × living area, with the 25th–75th percentile range, count and confidence), break-even vs market (highest price at which the best path and loan match the market return, found by bisection on price), ceiling (the lower of the two, buyer decision Nov 27, 2026) and leverage (days on market and price cuts, up to −4%). Then the best path at the opening offer (cash at close, after-tax monthly, 5-year vs market), the list of what must be resolved (failing or unconfirmed filters, fewer than 2 stars, missing comps, status), the sold comps with automated estimates and listing history, and finally Basics, Exit and Financing detail as collapsed sections.
+    - Opening offer = lower of ceiling and fair-value low, less leverage, never above list. Pass when a filter fails, when no price beats the market, or when the ceiling is more than 15% under list.
+    - Rent saved: living there saves the rent for the same home, so owner paths count this home’s rent comps for the share you live in (input; 0 turns it off). Without rent comps, the price isn’t tested against the market and the listing shows “Needs comps”.
+    - Resale uses the listing’s own trend if set, else the area trend (`area_trend`), else the LA fallback.
+
 **P1: next**
 
 - Side-by-side compare of 2–3 listings.
@@ -279,6 +285,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.11.0 | Offer-first drawer: fair value from sold comps, break-even vs market, ceiling (lower of the two), offer range, leverage, blockers; rent saved counted for owner paths; area price trends for every neighborhood; valuation non-goal lifted |
 | v8.10.0 | Stars are the group vote (2 stars advances); separate vote box and Votes column removed |
 | v8.9.0 | Table + side drawer layout; anonymous votes (tap fills the next slot, undo your own); passing filter and exit tables collapse; step labels, Starred analysis link and stale copy removed |
 | v8.8.0 | Group vote (3 voters, 2 of 3 Yes advances); financing adds shoots (Peerspace + film), best legal combo, and a loan screen (fixed, ARM, points, PMI, FHA, investment, DSCR) ranked by profit vs market |

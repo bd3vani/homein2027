@@ -143,14 +143,15 @@ for area,addr,price,url,x in L:
     link=f'<a href="{E(url)}" rel="noopener" target="_blank">Open listing</a>' if url else '<span class="muted">Listing link not captured in scan</span>'
     panels.append(f'''<article class="panel" id="{sid}" data-key="{key(addr)}" tabindex="-1">
 <p class="where">{E(area)}</p><h2>{E(addr)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Each star is one person’s yes; 2 moves it to financing.</span></div>
+<div class="offerbox" aria-live="polite"></div>
 {note}
-<h3 class="sec">Your needs</h3>
-<div class="verdict {v}"><strong>{VT[v]}</strong><span>{sub}</span></div>
-<details class="dtl"{"" if v=="pass" else " open"}><summary>{"All 8 filters pass. Show them" if v=="pass" else "Filters"}</summary><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{tr}</tbody></table></div></details>
-<h3 class="sec">Exit</h3>
-<div class="verdict {ev}"><strong>{EVT[ev]}</strong><span>{esub} {f"Mortgage is about ${m:,.0f} a month, so 3 months is about ${goal:,.0f}." if m is not None else "Mortgage not computed: list price not found."}</span></div>
-<details class="dtl"{"" if ev=="pass" else " open"}><summary>{"An exit path is there. Show the paths" if ev=="pass" else "Exit paths"}</summary><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{etr}</tbody></table></div></details>
-<p class="links">{link}</p><div class="finbox"></div></article>''')
+<details class="dtl sup"{"" if v=="pass" else " open"}><summary><span class="sk">Basics</span> <span class="tag {v}">{VT[v]}</span> <span class="ss">{sub}</span></summary>
+<div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{tr}</tbody></table></div></details>
+<details class="dtl sup"{"" if ev=="pass" else " open"}><summary><span class="sk">Exit</span> <span class="tag {ev}">{EVT[ev]}</span> <span class="ss">{esub}</span></summary>
+<p class="ss2">{f"Mortgage is about ${m:,.0f} a month, so 3 months is about ${goal:,.0f}." if m is not None else "Mortgage not computed: list price not found."}</p>
+<div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{etr}</tbody></table></div></details>
+<details class="dtl sup"><summary><span class="sk">Financing detail</span> <span class="ss">Income paths, loan screen, comps</span></summary><div class="finbox"></div></details>
+<p class="links">{link}</p></article>''')
 items=[]
 for area,lis in groups.items():
     lis.sort(key=lambda t:t[0])
@@ -163,11 +164,12 @@ for area,lis in groups.items():
 import os
 _js=open("src/app.js").read().replace("%SHEET_URL%",json.dumps(os.environ.get("LISTING_SHEET_URL",""))).replace("%SHEET_TOKEN%",json.dumps(os.environ.get("LISTING_SHEET_TOKEN","")))
 def _cfrow(t):
-    nb,addr,price,url,x=t; pool=x.get("pool")
-    return {"key":key(addr),"addr":addr,"nbhd":nb,"price":price,"pool":pool[0] if pool else "pass","cf":x.get("cf")}
+    nb,addr,price,url,x=t; pool=x.get("pool"); r=rows(price,x)
+    return {"key":key(addr),"addr":addr,"nbhd":nb,"price":price,"pool":pool[0] if pool else "pass","cf":x.get("cf"),"val":x.get("val"),"sf":x.get("sf"),
+            "v":verdict(r),"checks":[k for k,st,_ in r if st=="check"],"fails":[k for k,st,_ in r if st=="fail"],"oh":[o[1] for o in x.get("oh",[])]}
 _cf=json.dumps([_cfrow(t) for t in L],ensure_ascii=False).replace("</","<\\/")
 _js=_js.replace("%VOTERS%",json.dumps(json.load(open("data/listings.json")).get("voters",["Voter 1","Voter 2","Voter 3"]),ensure_ascii=False))
-_js+="\n"+open("src/cashflow.js").read().replace("%CFDATA%",_cf)
+_js+="\n"+open("src/cashflow.js").read().replace("%CFDATA%",_cf).replace("%AREA%",json.dumps(json.load(open("data/listings.json")).get("area_trend",{}),ensure_ascii=False))
 _sd=datetime.strptime(SCAN_DATE,"%Y-%m-%d")
 tpl=open("src/index.template.html").read().replace("%SCANLABEL%",f"{_sd:%b} {_sd.day}").replace("%CSS%",open("src/styles.css").read()).replace("%JS%",_js)
 out=tpl.replace("%OPTS%","".join(opts)).replace("%ITEMS%","\n".join(items)).replace("%PANELS%","\n".join(panels)).replace("%COUNT%",str(len(L))).replace("%KEYS%",__import__("json").dumps(keys))
