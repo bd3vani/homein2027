@@ -1,4 +1,4 @@
-# Listing check v8.11.0 — PRD
+# Listing check v8.12.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -285,6 +285,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.12.0 | Sold comps for every active listing (24-month window, beds ±1, size 0.6–1.6×, same zips); multi-unit homes use 2–4 unit sales; pass line names the failing filter when price holds; single-value ranges collapse |
 | v8.11.0 | Offer-first drawer: fair value from sold comps, break-even vs market, ceiling (lower of the two), offer range, leverage, blockers; rent saved counted for owner paths; area price trends for every neighborhood; valuation non-goal lifted |
 | v8.10.0 | Stars are the group vote (2 stars advances); separate vote box and Votes column removed |
 | v8.9.0 | Table + side drawer layout; anonymous votes (tap fills the next slot, undo your own); passing filter and exit tables collapse; step labels, Starred analysis link and stale copy removed |

@@ -343,8 +343,9 @@ window.__cfOffer=key=>{
   if(!x0.price) return `<div class="offer not-yet"><p class="olabel">Not yet</p><p class="oline">List price not found, so no offer can be framed.</p></div>`;
   const x=Object.assign({},x0), o=offer(x), L=x.price, v=x.val||{};
   const lbl={ready:"Ready to offer","not-yet":`Not yet: ${o.blockers.length} to resolve`,"pass-on":"Pass"}[o.verdict];
-  const line=o.verdict==="pass-on"&&o.open?`Pass at list ${m1(L)}. Worth it only at ${m1(o.open)}–${m1(o.ceil)}, ${Math.round((1-o.ceil/L)*100)}% under list.`:o.verdict==="pass-on"&&!o.open?`List ${m1(L)}. ${o.be&&o.be.below?"No price makes it beat the market.":`Ceiling ${m1(o.ceil)} is ${Math.round((1-o.ceil/L)*100)}% under list.`}`
-    :o.open?`Offer ${m1(o.open)}–${m1(Math.min(o.ceil,Math.max(o.open,o.ceil)))} · walk away above ${m1(o.ceil)} · list ${m1(L)}`:`List ${m1(L)} · ceiling needs ${o.fv?"the area trend":"sold comps"}`;
+  const rg=(a,b)=>m1(a)===m1(b)?m1(a):`${m1(a)}–${m1(b)}`, failT=(x.fails||[]).join("; ");
+  const line=o.verdict==="pass-on"&&o.open&&o.ceil>=L?`Pass: fails ${failT||"a filter"}. Price holds up to ${m1(o.ceil)} vs list ${m1(L)}.`:o.verdict==="pass-on"&&o.open?`Pass at list ${m1(L)}. Worth it only at ${rg(o.open,o.ceil)}, ${Math.round((1-o.ceil/L)*100)}% under list.`:o.verdict==="pass-on"&&!o.open?`List ${m1(L)}. ${o.be&&o.be.below?"No price makes it beat the market.":`Ceiling ${m1(o.ceil)} is ${Math.round((1-o.ceil/L)*100)}% under list.`}`
+    :o.open?`Offer ${rg(o.open,Math.min(o.ceil,Math.max(o.open,o.ceil)))} · walk away above ${m1(o.ceil)} · list ${m1(L)}`:`List ${m1(L)} · ceiling needs ${o.fv?"the area trend":"sold comps"}`;
   const beTxt=!o.be?"—":o.be.below?"None":o.be.above?`${m1(o.be.p)}+`:m1(o.be.p);
   const lev=[o.dom!=null?`${o.dom} days on market`:null,o.cuts?`${o.cuts} price cut${o.cuts>1?"s":""}`:null].filter(Boolean).join(", ")||"No leverage signals";
   const t=o.at;
