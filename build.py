@@ -134,7 +134,7 @@ for area,addr,price,url,x in L:
     newtag=('<span class="new">New</span> ' if x.get("new") else "")+('<span class="new fx">Fixer</span> ' if x.get("fixer") else "")
     prio=(0 if office(x)[0]=="pass" else 1) if x.get("fixer") else 2
     ohs=[t for t in (oh_times(lab,SCAN_DATE) for _,lab in oh) if t]
-    li=f'<li data-key="{key(addr)}" data-fx="{1 if x.get('fixer') else 0}" data-v="{v}" data-ev="{ev}" data-ohs="{E(json.dumps(ohs))}"><a href="#{sid}"><span class="dot {v}" aria-hidden="true"></span><span class="addr">{newtag}{E(addr)}</span><span class="meta">{f"${price/1e6:.2f}M" if price is not None else "Price unknown"}. Exit: {EVT[ev].lower()}</span><span class="vt {v}">{VT[v]}</span></a><button class="x" type="button" aria-label="Reject {E(addr)}" title="Reject">×</button></li>'
+    li=f'<li data-key="{key(addr)}" data-price="{price if price is not None else ""}" data-fx="{1 if x.get('fixer') else 0}" data-v="{v}" data-ev="{ev}" data-ohs="{E(json.dumps(ohs))}"><a href="#{sid}"><span class="dot {v}" aria-hidden="true"></span><span class="addr">{newtag}{E(addr)}</span><span class="meta">{f"${price/1e6:.2f}M" if price is not None else "Price unknown"}. Exit: {EVT[ev].lower()}</span><span class="vt {v}">{VT[v]}</span></a><button class="x" type="button" aria-label="Reject {E(addr)}" title="Reject">×</button></li>'
     groups.setdefault(area,[]).append(((oh[0][0] if oh else 99999,prio),("Open house "+nxt) if nxt else "No upcoming open house",li))
     tr="".join(f'<tr><th scope="row">{E(k)}</th><td><span class="tag {s}">{LBL[s]}</span></td><td>{E(d)}</td></tr>' for k,s,d in r)
     etr="".join(f'<tr><th scope="row">{E(k)}</th><td><span class="tag {s}">{LBL[s]}</span></td><td>{E(d)}</td></tr>' for k,s,d in er)
@@ -146,11 +146,11 @@ for area,addr,price,url,x in L:
 {note}
 <h3 class="sec">Your needs</h3>
 <div class="verdict {v}"><strong>{VT[v]}</strong><span>{sub}</span></div>
-<div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{tr}</tbody></table></div>
+<details class="dtl"{"" if v=="pass" else " open"}><summary>{"All 8 filters pass. Show them" if v=="pass" else "Filters"}</summary><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{tr}</tbody></table></div></details>
 <h3 class="sec">Exit</h3>
 <div class="verdict {ev}"><strong>{EVT[ev]}</strong><span>{esub} {f"Mortgage is about ${m:,.0f} a month, so 3 months is about ${goal:,.0f}." if m is not None else "Mortgage not computed: list price not found."}</span></div>
-<div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{etr}</tbody></table></div>
-<p class="links">{link}<a href="#list">Back to list</a></p></article>''')
+<details class="dtl"{"" if ev=="pass" else " open"}><summary>{"An exit path is there. Show the paths" if ev=="pass" else "Exit paths"}</summary><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>{etr}</tbody></table></div></details>
+<p class="links">{link}</p><div class="finbox"></div></article>''')
 items=[]
 for area,lis in groups.items():
     lis.sort(key=lambda t:t[0])
@@ -168,7 +168,8 @@ def _cfrow(t):
 _cf=json.dumps([_cfrow(t) for t in L],ensure_ascii=False).replace("</","<\\/")
 _js=_js.replace("%VOTERS%",json.dumps(json.load(open("data/listings.json")).get("voters",["Voter 1","Voter 2","Voter 3"]),ensure_ascii=False))
 _js+="\n"+open("src/cashflow.js").read().replace("%CFDATA%",_cf)
-tpl=open("src/index.template.html").read().replace("%CSS%",open("src/styles.css").read()).replace("%JS%",_js)
+_sd=datetime.strptime(SCAN_DATE,"%Y-%m-%d")
+tpl=open("src/index.template.html").read().replace("%SCANLABEL%",f"{_sd:%b} {_sd.day}").replace("%CSS%",open("src/styles.css").read()).replace("%JS%",_js)
 out=tpl.replace("%OPTS%","".join(opts)).replace("%ITEMS%","\n".join(items)).replace("%PANELS%","\n".join(panels)).replace("%COUNT%",str(len(L))).replace("%KEYS%",__import__("json").dumps(keys))
 open("listing-check.html","w").write(out)
 print(len(out))

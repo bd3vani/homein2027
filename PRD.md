@@ -1,4 +1,4 @@
-# Listing check v8.8.0 — PRD
+# Listing check v8.9.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -181,7 +181,9 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 - [ ] **Flow (new in 8.7.0).** The page runs in four steps, labeled and linked from the header: 1 Find (check box), 2 Evaluate the basics (verdict panel), 3 Evaluate as a group (list and filters), 4 Evaluate financing (cash flow). The cash-flow section can show Starred (default) or All listings, and lists each unit's rent comps.
 - [ ] **Ruled out.** A listing with `out` in the data is kept but left off the page (5221 La Forest Dr, Nov 27, 2026).
 
-- [ ] **Group vote (new in 8.8.0, step 3).** Three named voters (`voters` in `data/listings.json`). A viewer picks “I’m voting as” (remembered in their browser) and taps Yes or No on a listing’s panel; tapping again clears it. Only your own vote changes. A listing with 2 of 3 Yes advances to financing. Rows show “n/3 Yes”; an Advancing chip filters the list. Votes are saved in the Sheet’s `votes` tab (one row per listing and voter, key `listing--v0/1/2`); if the Sheet script hasn’t been updated, votes fall back to the browser.
+- [ ] **Layout (new in 8.9.0): table + side drawer.** The address box is the first thing on the page. Below it, every listing is one row in a sortable table: Listing (with neighborhood), Price, Basics, Exit, Next open house, Votes, Stars, Best vs market, and a reject ×. By default rows group by neighborhood in scan order, then by next open house; clicking a header sorts by it (again reverses). Filter chips sit above the table, with the financing assumptions menu. Selecting a row (click, Enter or Space; arrow keys move between rows) opens a drawer on the right with the listing's stars, vote, basics, exit and financing; the table stays visible and the row stays highlighted. On screens under 761px the drawer is full screen with “Back to table”; Escape closes it. Checking an address opens its drawer; a repeat entry highlights its row yellow. The step labels, Starred analysis link and stale footer were removed.
+- [ ] **Collapsed passes (8.9.0).** When every filter passes, the filter table sits behind “All 8 filters pass. Show them”. When an exit path passes, the exit table sits behind “An exit path is there. Show the paths”. Otherwise both are open.
+- [ ] **Group vote (changed in 8.9.0).** No names and no picking who you are. Each listing has three vote slots; Vote Yes or Vote No fills the next open slot, and the buttons go away when all three are in. 2 of 3 Yes advances to financing. The browser remembers its own votes so “Undo my vote” can take back the last one. One person can vote more than once; the buyer accepted that at this scale. Votes save to the Sheet's `votes` tab (keys `listing--v0/1/2`).
 - [ ] **Financing (changed in 8.8.0, step 4).** Scope defaults to Advancing (2 of 3 Yes) when any listing advances, else Starred; All is available.
     - Income paths: Live in, House hack, Rent all units, Airbnb 20% legal, Airbnb 20% gross, Live in + shoots (Peerspace 2 bookings × 4 hrs a month at the median nearby rate, less 20% host fee and 10% wear, plus 1 film day a year at $5,000; only homes with a pool), and Best legal combo (live there or house hack, plus shoots, plus legal Airbnb nights for single-unit homes).
     - Owner paths use owner-occupied loans; Rent all and Airbnb gross use a conventional investment loan (25% down, rate +0.625%) or DSCR.
@@ -277,6 +279,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.9.0 | Table + side drawer layout; anonymous votes (tap fills the next slot, undo your own); passing filter and exit tables collapse; step labels, Starred analysis link and stale copy removed |
 | v8.8.0 | Group vote (3 voters, 2 of 3 Yes advances); financing adds shoots (Peerspace + film), best legal combo, and a loan screen (fixed, ARM, points, PMI, FHA, investment, DSCR) ranked by profit vs market |
 | v8.7.0 | Four-step flow (find, basics, group, financing); rent from averages of actual rental listings for every listing; maintenance 2%; All-listings toggle in cash flow; 5221 La Forest Dr ruled out |
 | v8.6.0 | Cash flow section for starred listings: PITI, four exits (legal and gross Airbnb), 5-year after-tax resale profit and ROI vs 5% market; inputs in a collapsible menu, not saved |
