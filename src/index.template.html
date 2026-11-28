@@ -12,9 +12,9 @@
 </head>
 <body>
 <main class="wide">
-<nav class="top"><span class="ver">Listing check v8.9.0</span></nav>
+<nav class="top"><span class="ver">Listing check v8.10.0</span></nav>
 <h1>Is this house a fit?</h1>
-<p class="lede">Enter an address or listing link. Every listing is in the table below; select one to see its basics, the group vote and financing.</p>
+<p class="lede">Enter an address or listing link. Every listing is in the table below; select one to see its basics, exits and financing. Each star is one person’s yes; 2 stars moves a listing to financing.</p>
 <form class="field" id="checkForm" novalidate>
   <label for="q">Address or listing URL</label>
   <div class="row">
@@ -33,8 +33,8 @@
       <button type="button" class="chip" data-f="exit" aria-pressed="false">Exit: Yes</button>
       <button type="button" class="chip" data-f="oh" aria-pressed="false">Open house</button>
       <button type="button" class="chip" data-f="fixer" aria-pressed="false">Fixer</button>
-      <button type="button" class="chip" data-f="starred" aria-pressed="false">Starred</button>
-      <button type="button" class="chip" data-f="advance" aria-pressed="false">2 of 3 Yes</button>
+      <button type="button" class="chip" data-f="advance" aria-pressed="false">2+ stars</button>
+      <button type="button" class="chip" data-f="starred" aria-pressed="false">3 stars</button>
     </div>
     <details class="cfmenu"><summary>Financing assumptions</summary><div id="cfInputs" class="cfinputs"></div><p class="cfhint">Changes last until you leave or reload the page. Nothing is saved.</p></details>
   </div>
@@ -46,7 +46,6 @@
       <th scope="col" data-sort="v"><button type="button">Basics</button></th>
       <th scope="col" data-sort="ev"><button type="button">Exit</button></th>
       <th scope="col" data-sort="oh"><button type="button">Next open house</button></th>
-      <th scope="col" data-sort="votes" class="num"><button type="button">Votes</button></th>
       <th scope="col" data-sort="stars" class="num"><button type="button">Stars</button></th>
       <th scope="col" data-sort="best" class="num"><button type="button">Best vs market</button></th>
       <th scope="col"><span class="sr">Reject</span></th>

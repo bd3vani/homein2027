@@ -61,7 +61,7 @@ function render(d){
   const rows=`<tr><th scope="row">Neighborhood</th><td><span class="tag pass">Filed</span></td><td>${esc(d.nbhd)} (${esc(d.why)})</td></tr>`+ROWS.map(r=>`<tr><th scope="row">${esc(r)}</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr>`).join("");
   const link=/^https?:/i.test(d.input)?`<a href="${esc(d.input)}" rel="noopener" target="_blank">Open listing</a>`:"";
   const a=document.createElement("article");a.className="panel";a.id=id;a.tabIndex=-1;a.dataset.key=d.key;
-  a.innerHTML=`<p class="where">${esc(d.nbhd)}</p><h2>${esc(d.street)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Tap 3 stars to add to Starred.</span></div><h3 class="sec">Your needs</h3><div class="verdict check"><strong>Needs check</strong><span>New address, added ${esc(when)}. Filters aren’t checked yet.</span></div><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>${rows}</tbody></table></div><h3 class="sec">Exit</h3><div class="verdict check"><strong>Needs check</strong><span>Price not known yet, so the 3-month mortgage target can’t be set.</span></div><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody><tr><th scope="row">Airbnb income covering 3 months of mortgage</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr><tr><th scope="row">Forced value add (ADU, addition, fixer, lot)</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr></tbody></table></div><p class="links">${link}</p><div class="finbox"></div>`;
+  a.innerHTML=`<p class="where">${esc(d.nbhd)}</p><h2>${esc(d.street)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Each star is one person’s yes; 2 moves it to financing.</span></div><h3 class="sec">Your needs</h3><div class="verdict check"><strong>Needs check</strong><span>New address, added ${esc(when)}. Filters aren’t checked yet.</span></div><div class="scroll"><table><thead><tr><th scope="col">Filter</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody>${rows}</tbody></table></div><h3 class="sec">Exit</h3><div class="verdict check"><strong>Needs check</strong><span>Price not known yet, so the 3-month mortgage target can’t be set.</span></div><div class="scroll"><table><thead><tr><th scope="col">Path</th><th scope="col">Result</th><th scope="col">Details</th></tr></thead><tbody><tr><th scope="row">Airbnb income covering 3 months of mortgage</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr><tr><th scope="row">Forced value add (ADU, addition, fixer, lot)</th><td><span class="tag check">Check</span></td><td>Not checked yet</td></tr></tbody></table></div><p class="links">${link}</p><div class="finbox"></div>`;
   $(".results").append(a);
   if(typeof regroupReady!=="undefined") regroup();
   if(REMOVED.has(d.key)) hideKey(d.key);
@@ -197,7 +197,7 @@ function drawStarred(){
   $("#starred").hidden=!ul.children.length;
   if(window.__cfRender) window.__cfRender();
 }
-function setStars(k,n){ if(n) STARS.set(k,n); else STARS.delete(k); paintStars(k); drawStarred(); if(FILTER==="starred") applyFilter(); }
+function setStars(k,n){ if(n) STARS.set(k,n); else STARS.delete(k); paintStars(k); drawStarred(); if(FILTER==="starred"||FILTER==="advance") applyFilter(); if(window.__tableRefresh) window.__tableRefresh(); }
 window.__starsReady=true;
 Object.entries(lsStars()).forEach(([k,n])=>setStars(k,n));
 document.addEventListener("click",async e=>{
@@ -217,7 +217,7 @@ document.addEventListener("click",async e=>{
 const LSV="listing-check-votes", LSMY="listing-check-myvotes";
 const VOTES=new Map(); // key -> [v0,v1,v2] with "yes"/"no"/undefined
 function yesCount(k){ return (VOTES.get(k)||[]).filter(v=>v==="yes").length; }
-window.__cfYes=()=>{ const m=new Map(); VOTES.forEach((a,k)=>m.set(k,a.filter(v=>v==="yes").length)); return m; };
+window.__cfYes=()=>new Map(STARS); // stars are the vote: each star is one yes
 window.__votes=k=>VOTES.get(k)||[];
 function lsVotes(){try{return JSON.parse(localStorage.getItem(LSV)||"{}")}catch(e){return {}}}
 function myVotes(){try{return JSON.parse(localStorage.getItem(LSMY)||"{}")}catch(e){return {}}}
@@ -228,7 +228,8 @@ function voteBox(k){
   const res=y>=2?'<span class="adv">Advances to financing</span>':cast===3?'<span class="noadv">Doesn’t advance</span>':`${3-cast} vote${3-cast>1?"s":""} left`;
   return `<p class="vlbl">Group vote: <b>${y} of 3 Yes</b> · ${res}</p><div class="vrow"><span class="vslots" aria-label="Votes cast">${[0,1,2].map(slot).join("")}</span>${cast<3?'<button type="button" class="vbtn" data-v="yes">Vote Yes</button><button type="button" class="vbtn" data-v="no">Vote No</button>':""}${mine?'<button type="button" class="vbtn undo" data-v="undo">Undo my vote</button>':""}</div>`;
 }
-function paintVotes(k){
+function paintVotes(k){ return; // v8.10: stars are the vote
+
   document.querySelectorAll('.panel[data-key="'+k+'"]').forEach(p=>{ let v=p.querySelector(".vote"); if(!v){ v=document.createElement("div"); v.className="vote"; const st=p.querySelector(".stars"); (st?st:p.querySelector("h2")).after(v); } v.innerHTML=voteBox(k); });
   const y=yesCount(k), cast=(VOTES.get(k)||[]).filter(Boolean).length;
   document.querySelectorAll('.nb li[data-key="'+k+'"]').forEach(li=>{ li.dataset.yes=y; li.dataset.cast=cast; });
@@ -297,7 +298,7 @@ function applyFilter(){
     else if(FILTER==="oh") ok=!!nextOH(li,Date.now());
     else if(FILTER==="fixer") ok=li.dataset.fx==="1";
     else if(FILTER==="starred") ok=(STARS.get(li.dataset.key)||0)===3;
-    else if(FILTER==="advance") ok=yesCount(li.dataset.key)>=2;
+    else if(FILTER==="advance") ok=(STARS.get(li.dataset.key)||0)>=2;
     li.classList.toggle("ff",!ok);
   });
   tidyGroups();
@@ -424,7 +425,6 @@ function cmp(a,b){
     case "v": return n(VRANK[a.v],VRANK[b.v]);
     case "ev": return n(VRANK[a.ev],VRANK[b.ev]);
     case "oh": return n(a.o?a.o[0]:null,b.o?b.o[0]:null);
-    case "votes": return n(a.yes,b.yes)||n(a.cast,b.cast);
     case "stars": return n(a.stars,b.stars);
     case "best": return n(a.best?a.best.delta:null,b.best?b.best.delta:null);
     default: return 0;
@@ -440,15 +440,14 @@ function buildTable(){
   const sel=(document.querySelector(".panel.show")||{}).dataset;
   let html="", last=null;
   for(const r of R){
-    if(byNb&&r.nbhd!==last){ html+=`<tr class="grp"><th scope="rowgroup" colspan="9">${esc(r.nbhd)}</th></tr>`; last=r.nbhd; }
+    if(byNb&&r.nbhd!==last){ html+=`<tr class="grp"><th scope="rowgroup" colspan="8">${esc(r.nbhd)}</th></tr>`; last=r.nbhd; }
     const ohTxt=r.o?`${esc(r.o[2])}, ${esc(r.o[3])}`:"—";
-    const votes=r.cast?`<span class="vt3${r.yes>=2?" adv":""}">${r.yes}/3 Yes</span>`:'<span class="muted">—</span>';
     const best=r.best?`<span class="${r.best.delta>=0?"pos":"neg"}" title="${esc(r.best.label)}">${r.best.delta>=0?"+":""}${money(r.best.delta)}</span>`:'<span class="muted" title="Needs the area price trend; scans add it">Needs trend</span>';
     const x=r.xb?r.xb.textContent:"×";
     html+=`<tr data-key="${esc(r.k)}" data-href="${esc(r.href)}" tabindex="0" aria-selected="${!!sel&&sel.key===r.k}"${r.dup?' class="dup"':""}>
 <th scope="row"><a href="${esc(r.href)}">${esc(r.addr)}</a>${r.tags.map(t=>` <span class="new${t==="Fixer"?" fx":""}">${esc(t)}</span>`).join("")}${byNb?"":`<span class="tnb">${esc(r.nbhd)}</span>`}</th>
 <td class="num">${r.price!=null?money(r.price):"—"}</td><td><span class="vt ${r.v}">${VLBL[r.v]||"—"}</span></td><td><span class="vt ${r.ev}">${ELBL[r.ev]||"—"}</span></td>
-<td>${ohTxt}</td><td class="num">${votes}</td><td class="num">${r.stars?`<span class="tstars" aria-label="${r.stars} stars">${"★".repeat(r.stars)}</span>`:'<span class="muted">—</span>'}</td><td class="num">${best}</td>
+<td>${ohTxt}</td><td class="num">${r.stars?`<span class="tstars${r.stars>=2?" adv":""}" aria-label="${r.stars} of 3 stars">${"★".repeat(r.stars)}</span>`:'<span class="muted">—</span>'}</td><td class="num">${best}</td>
 <td class="txc"><button type="button" class="tx${x!=="×"?" armed":""}" aria-label="Reject ${esc(r.addr)}: tap 3 times" title="Reject (tap 3 times)">${esc(x)}</button></td></tr>`;
   }
   tb.innerHTML=html;
@@ -459,7 +458,7 @@ function buildTable(){
 window.__tableRefresh=buildTable;
 document.querySelector("#ltable thead").addEventListener("click",e=>{
   const th=e.target.closest("th[data-sort]"); if(!th) return;
-  const c=th.dataset.sort; if(SORT.col===c) SORT.dir*=-1; else { SORT.col=c; SORT.dir=(c==="stars"||c==="votes"||c==="best")?-1:1; }
+  const c=th.dataset.sort; if(SORT.col===c) SORT.dir*=-1; else { SORT.col=c; SORT.dir=(c==="stars"||c==="best")?-1:1; }
   buildTable();
 });
 // Listing header sorts by address; a second header click on Listing goes back to grouping by neighborhood
