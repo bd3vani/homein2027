@@ -1,6 +1,6 @@
 {
  "scan_date": "2026-11-26",
- "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first). cf: cash-flow comps for starred listings {city, units:[{beds,baths,rent}], rent_src, adr (whole-home nightly), adr_src, cagr5 (5-yr annual price growth, decimal), cagr_src, pool_add:{room,access:true|false|null,note}, hoa_mo, str_note, as_of}. Missing cf = comps not filled yet. out: text; listing ruled out by the buyer. Kept in the data, left off the page. cf.units[].rent: average of the comps listed in cf.units[].comps [{addr,rent,beds,baths,sf,src}] (actual rental listings); cf.units[].n = comp count. voters (top level): the three group voters, in order.",
+ "_fields": "open_houses.sort encodes date+hour: 2114 = Nov 21 at 14:00; 10613 = Dec 6 at 13:00. pool/grocery/school/terrain/va/str_ = {result: pass|check|fail, detail}. size, note, new are plain values. price_exempt: text; when set, a price outside $1.3M–$2.75M passes (buyer exemption). price may be null when no listing link is found (price row shows Check). hoa: optional {result, detail}; when set it adds a \"No HOA\" row (fail = has an HOA). sf and lot_sf: living area and lot in square feet (numbers) for the 2,400 sf / 7,000 sf lot row; missing = Check. fixer: true tags a fixer (Fixer chip; listed first in its open-house slot, office-proxy passes first). cf: cash-flow comps for starred listings {city, units:[{beds,baths,rent}], rent_src, adr (whole-home nightly), adr_src, cagr5 (5-yr annual price growth, decimal), cagr_src, pool_add:{room,access:true|false|null,note}, hoa_mo, str_note, as_of}. Missing cf = comps not filled yet. out: text; listing ruled out by the buyer. Kept in the data, left off the page. cf.units[].rent: average of the comps listed in cf.units[].comps [{addr,rent,beds,baths,sf,src}] (actual rental listings); cf.units[].n = comp count. voters (top level): the three group voters, in order. val: valuation inputs {status, list_date, list_hist:[{date,price,event}], avm:[{src,value}], comps:[{addr,price,date,beds,baths,sf,src}] (recent sales within ~1 mi, similar beds/size), note, as_of}. area_trend (top level): 5-yr annual price growth by neighborhood, _default for the rest; cf.cagr5 overrides it.",
  "listings": [
   {
    "neighborhood": "Sherman Oaks",
@@ -1152,6 +1152,82 @@
     "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3 ba, ~2,500 sf, Glendale; same neighborhood or zip, distance not measured)",
     "as_of": "2026-11-27",
     "rent_as_of": "2026-11-27"
+   },
+   "val": {
+    "status": "Active",
+    "list_date": "2026-10-01",
+    "list_hist": [
+     {
+      "date": "2025-10-14",
+      "price": 2300000,
+      "event": "Sold (prior sale, 15% over $1,995,000 list)"
+     },
+     {
+      "date": "2026-10-01",
+      "price": 2500000,
+      "event": "Listed (CRMLS GD26208285)"
+     },
+     {
+      "date": "2026-11-12",
+      "price": 2400000,
+      "event": "Price cut $100K"
+     }
+    ],
+    "avm": [
+     {
+      "src": "Trulia estimate",
+      "value": 2380000
+     }
+    ],
+    "comps": [
+     {
+      "addr": "1163 Geneva St (this home)",
+      "price": 2300000,
+      "date": "2025-10-14",
+      "beds": 4,
+      "baths": 3,
+      "sf": 2585,
+      "src": "Homes.com/Coldwell Banker"
+     },
+     {
+      "addr": "1239 Geneva St",
+      "price": 2070000,
+      "date": "2026-04-24",
+      "beds": 4,
+      "baths": 3,
+      "sf": 2402,
+      "src": "Redfin"
+     },
+     {
+      "addr": "1217 Moncado",
+      "price": 2485000,
+      "date": "2026-08-10",
+      "beds": 4,
+      "baths": 4,
+      "sf": 2359,
+      "src": "Redfin"
+     },
+     {
+      "addr": "1242 N Isabel St",
+      "price": 1845000,
+      "date": "2026-10-27",
+      "beds": 4,
+      "baths": 3,
+      "sf": 2810,
+      "src": "Homes.com"
+     },
+     {
+      "addr": "1257 Cordova Ave",
+      "price": 1520000,
+      "date": "2026-07-14",
+      "beds": 4,
+      "baths": 2,
+      "sf": 1978,
+      "src": "Homes.com"
+     }
+    ],
+    "note": "Bought for $2.3M in Oct 2025 and relisted a year later; the seller's own purchase price anchors value.",
+    "as_of": "2026-11-27"
    }
   },
   {
@@ -1401,6 +1477,95 @@
     "str_note": "Glendale allows hosted home-sharing only; whole-home rentals banned (Ord. 5941)",
     "as_of": "2026-11-27",
     "rent_as_of": "2026-11-27"
+   },
+   "val": {
+    "status": "Active",
+    "list_date": "2026-08-03",
+    "list_hist": [
+     {
+      "date": "2026-08-03",
+      "price": 1649000,
+      "event": "Listed (approx.; Redfin showed 51 days on Sep 23)"
+     },
+     {
+      "date": "2026-10-13",
+      "price": 1499000,
+      "event": "Price cut $150K (Zillow)"
+     }
+    ],
+    "avm": [
+     {
+      "src": "Zillow Zestimate",
+      "value": 1491800
+     }
+    ],
+    "comps": [
+     {
+      "addr": "721 Palm Dr",
+      "price": 1730000,
+      "date": "2026-10-13",
+      "beds": 3,
+      "baths": 3,
+      "sf": 1792,
+      "src": "Trulia"
+     },
+     {
+      "addr": "725 Pleasant View Ter",
+      "price": 1860000,
+      "date": "2026-09-29",
+      "beds": 3,
+      "baths": 2,
+      "sf": 2166,
+      "src": "Trulia"
+     },
+     {
+      "addr": "1436 Montgomery Ave",
+      "price": 1170000,
+      "date": "2026-09-01",
+      "beds": 3,
+      "baths": 2,
+      "sf": 1665,
+      "src": "Trulia/Redfin"
+     },
+     {
+      "addr": "540 Clement Dr",
+      "price": 1260000,
+      "date": "2026-08-26",
+      "beds": 3,
+      "baths": 2,
+      "sf": 1678,
+      "src": "Trulia"
+     },
+     {
+      "addr": "1350 Graynold Ave",
+      "price": 1360000,
+      "date": "2026-08-21",
+      "beds": 3,
+      "baths": 2,
+      "sf": 1657,
+      "src": "Trulia/Estately"
+     },
+     {
+      "addr": "1532 Ridgeway Dr",
+      "price": 1465000,
+      "date": "2026-08-20",
+      "beds": 3,
+      "baths": 1.5,
+      "sf": 1500,
+      "src": "Trulia"
+     },
+     {
+      "addr": "520 Monte Vista Ave",
+      "price": 1325000,
+      "date": "2026-08-03",
+      "beds": 3,
+      "baths": 2,
+      "sf": 1695,
+      "src": "Trulia"
+     }
+    ],
+    "note": "Subject is marketed as a fixer; most comps are move-in ready, so fair value may run high.",
+    "as_of": "2026-11-27"
    }
   },
   {
@@ -3011,6 +3176,86 @@
     "rent_src": "Average of actual rental listings found Nov 27, 2026 (4 bd / 3–4.5 ba, 2,000–3,300 sf, Silver Lake / Los Feliz; same neighborhood or zip, distance not measured)",
     "as_of": "2026-11-27",
     "rent_as_of": "2026-11-27"
+   },
+   "val": {
+    "status": "Active",
+    "list_date": null,
+    "list_hist": [
+     {
+      "date": "2026-03-01",
+      "price": 2149950,
+      "event": "Listed (SR26055460; date approx.)"
+     },
+     {
+      "date": "2026-08-18",
+      "price": 2149500,
+      "event": "Relisted (SR26181325)"
+     },
+     {
+      "date": "2026-11-20",
+      "price": 1995000,
+      "event": "Relisted at $1,995,000 (SR26244758; date approx.)"
+     }
+    ],
+    "avm": [
+     {
+      "src": "Redfin Estimate",
+      "value": 2129763
+     },
+     {
+      "src": "Zillow Zestimate",
+      "value": 2316000
+     }
+    ],
+    "comps": [
+     {
+      "addr": "5470 Los Feliz Blvd",
+      "price": 2389000,
+      "date": "2026-05-29",
+      "beds": 4,
+      "baths": 3,
+      "sf": 2209,
+      "src": "Movoto"
+     },
+     {
+      "addr": "3664 Holboro Dr",
+      "price": 2650000,
+      "date": "2026-11-16",
+      "beds": 4,
+      "baths": 4,
+      "sf": 3582,
+      "src": "Coldwell Banker (closed; date approx.)"
+     },
+     {
+      "addr": "3823 Franklin Ave",
+      "price": 2565000,
+      "date": "2026-11-22",
+      "beds": 4,
+      "baths": 3.5,
+      "sf": 4366,
+      "src": "Coldwell Banker (closed; date approx.)"
+     },
+     {
+      "addr": "5424 Franklin Ave",
+      "price": 3325000,
+      "date": "2026-06-18",
+      "beds": 4,
+      "baths": 4,
+      "sf": 3293,
+      "src": "Movoto"
+     },
+     {
+      "addr": "2007 N Hobart Blvd",
+      "price": 3322000,
+      "date": "2026-05-10",
+      "beds": 4,
+      "baths": 5,
+      "sf": 3132,
+      "src": "Movoto"
+     }
+    ],
+    "note": "On and off the market since spring 2026 with three listings; the block borders East Hollywood, while most comps are in Los Feliz proper, so comps likely overstate value.",
+    "as_of": "2026-11-27"
    }
   },
   {
@@ -5306,5 +5551,31 @@
   "Voter 1",
   "Voter 2",
   "Voter 3"
- ]
+ ],
+ "area_trend": {
+  "Glendale": {
+   "cagr": 0.041,
+   "src": "Glendale 5-yr Zillow ZHVI trend CAGR +4.1% (ocity.org)"
+  },
+  "La Crescenta": {
+   "cagr": 0.041,
+   "src": "Proxy: Glendale 5-yr ZHVI trend CAGR +4.1% (ocity.org); La Crescenta not published"
+  },
+  "Burbank": {
+   "cagr": 0.03,
+   "src": "Burbank 5-yr Zillow ZHVI trend CAGR +3.0% (ocity.org)"
+  },
+  "Pasadena": {
+   "cagr": 0.041,
+   "src": "Pasadena 5-yr Zillow ZHVI trend CAGR +4.1% (ocity.org)"
+  },
+  "La Cañada Flintridge": {
+   "cagr": 0.0527,
+   "src": "Zillow ZHVI via Stacker: +29.3% over 5 years = 5.27%/yr"
+  },
+  "_default": {
+   "cagr": 0.019,
+   "src": "Greater LA single-family median close price $1.01M (Q3 2022) to $1.09M (Q3 2026), Sotheby's quarterly report: 1.9%/yr; city-of-LA neighborhood fallback"
+  }
+ }
 }

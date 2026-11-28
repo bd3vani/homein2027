@@ -1,6 +1,8 @@
 // ---- Cash flow: starred listings (any rating). Inputs live only in this page view; nothing is saved.
 (function(){
 const CF=%CFDATA%;
+const AREA=%AREA%;
+const trendOf=x=>(x.cf&&x.cf.cagr5!=null)?{cagr:x.cf.cagr5,src:x.cf.cagr_src||""}:(AREA[x.nbhd]||AREA._default||null);
 const $=s=>document.querySelector(s);
 
 // City rules. Transfer tax is what the seller pays at resale (county 0.11% everywhere).
@@ -43,7 +45,8 @@ const IN=[
  ["vac","Long-term vacancy",0,"%","Income"],
  ["mgmt","Long-term management",0,"% of rent","Income"],
  ["grow","Rent and nightly-rate growth",0,"%/yr","Income"],
- ["rentAvoided","Rent you'd otherwise pay (live-in)",0,"$/mo","Income","Counts as a saving where you live there"],
+ ["impute","Count rent saved by living there",1,"1 = yes, 0 = no","Income","Owning replaces rent: uses this home’s own rent comps for the part you live in"],
+ ["rentAvoided","Rent saved, override",0,"$/mo","Income","0 = use this home’s rent comps"],
  ["psRate","Peerspace hourly rate",250,"$/hr","Shoots","Median of 11 LA pool-home Peerspace listings, Nov 2026"],
  ["psBook","Peerspace bookings",2,"/mo","Shoots","Conservative"],
  ["psHrs","Hours per booking",4,"hrs","Shoots"],
@@ -172,9 +175,11 @@ function evalPath(x,kind,ln){
   const upfront=down+closing+poolCost+ptsCost;
   const piMo=pmt(L,r,n), taxYr=P*V.ptax/100, insYr=P*V.ins/100, maintYr=P*V.maint/100, hoaYr=(c.hoa_mo||0)*12;
   const income0=mx.rent+mx.str+mx.shoot;
+  const compRent=((c.units||[]).filter(u=>u&&u.rent>0)).reduce((a,u)=>a+u.rent,0);
+  const avoidMo=mx.ownerShare>0?(V.rentAvoided>0?V.rentAvoided*mx.ownerShare:(V.impute?compRent*mx.ownerShare:0)):0;
   let dscr=null;
   if(ln.dscr){ const gross=(mx.rent/((1-V.vac/100)*(1-V.mgmt/100))||mx.str/(1-V.strCost/100))/12; dscr=gross/(piMo+(taxYr+insYr+hoaYr)/12); if(dscr<V.dscrMin) return {na:`DSCR ${dscr.toFixed(2)} is under ${V.dscrMin}`,dscr}; }
-  const cagr=c.cagr5, sale=cagr!=null?P*Math.pow(1+cagr,Y):null;
+  const tr=trendOf(x), cagr=tr?tr.cagr:null, sale=cagr!=null?P*Math.pow(1+cagr,Y):null;
   const tt=rule?rule.tt(sale||P):0.0011;
   const fed=V.fedOrd/100, ca=V.caOrd/100, ord=fed+ca, cg=V.fedCG/100+V.niit/100+ca;
   const basisBldg=(P+closing+poolCost)*V.bldg/100;
@@ -186,7 +191,7 @@ function evalPath(x,kind,ln){
     const mi=(ln.pmi&&balStart>0.78*P?ln.pmi:0)/100*L+(ln.mip||0)/100*balStart; // PMI drops at 78% of price; FHA MIP stays
     if(y===1) insYr1=mi;
     const carry=pmt(L,r,n)*12+taxYr+insYr+maintYr+hoaYr+mi;
-    const pre=rent+str+shoot-carry+(mx.ownerShare>0?V.rentAvoided*12*mx.ownerShare:0);
+    const pre=rent+str+shoot-carry+avoidMo*12*g;
     let tax=0;
     const ownInt=(intY+(y===1?ptsCost:0))*dedShare;
     tax-=ownInt*Math.min(1,750000/L)*fed+ownInt*Math.min(1,1000000/L)*ca;      // mortgage interest (and points in year 1)
@@ -204,7 +209,7 @@ function evalPath(x,kind,ln){
     if(shoot) tax+=shoot*ord;
     const after=pre-tax; cum+=after; if(after<0) shortfall+=-after; yrs.push(after);
   }
-  const out={note:mx.note,ln,dscr,incomeMo:income0/12,carryMo:(piMo*12+taxYr+insYr+maintYr+hoaYr+insYr1)/12,preMo:yrs.length?(income0-(piMo*12+taxYr+insYr+maintYr+hoaYr+insYr1))/12:0,cfMo:yrs[0]/12,cum,upfront};
+  const out={note:mx.note,ln,dscr,avoidMo,incomeMo:income0/12,carryMo:(piMo*12+taxYr+insYr+maintYr+hoaYr+insYr1)/12,preMo:yrs.length?(income0+avoidMo*12-(piMo*12+taxYr+insYr+maintYr+hoaYr+insYr1))/12:0,cfMo:yrs[0]/12,cum,upfront};
   if(sale==null){ out.noSale=true; return out; }
   const saleCosts=sale*V.comm/100+V.stage+sale*tt+out.carryMo*V.saleMonths;
   const loanEnd=bal(L,r,n,Y*12);
@@ -221,6 +226,7 @@ function evalPath(x,kind,ln){
 
 const ROWS=[
  ["Income /mo",s=>usd(s.incomeMo)],
+ ["Rent saved /mo",s=>s.avoidMo?usd(s.avoidMo):"—"],
  ["Cash flow /mo, pre-tax",s=>usd(s.preMo)],
  ["Cash flow /mo, after tax (yr 1)",s=>usd(s.cfMo)],
  ["5-yr after-tax cash flow",s=>usd(s.cum)],
@@ -264,7 +270,7 @@ function card(x){
    <div><dt>Rent, all units /mo</dt><dd>${units.length?usd(units.reduce((s,u)=>s+u.rent,0)):"—"}<small>${units.length?(units.length>1?`${units.length} units, `:"")+`avg of ${units.map(u=>u.n||0).reduce((a,b)=>a+b,0)} listings`:""}</small></dd></div>
    <div><dt>Airbnb at ${V.occ}% /mo, gross</dt><dd>${c.adr?usd(c.adr*365*V.occ/100/12):"—"}<small>${c.adr?`$${c.adr}/night`:""}</small></dd></div>
    <div><dt>Shoots /mo, net</dt><dd>${x.pool==="pass"?usd((V.psRate*V.psBook*V.psHrs*12*(1-V.psFee/100-V.psCost/100)+V.filmDays*V.filmRate)/12):"—"}<small>${x.pool==="pass"?"Peerspace + film days":"Needs a pool"}</small></dd></div>
-   <div><dt>Resale in ${Y} yrs</dt><dd>${live.sale!=null?usd(live.sale):"—"}<small>${c.cagr5!=null?`${(c.cagr5*100).toFixed(1)}%/yr`:"No area trend yet"}</small></dd></div>
+   <div><dt>Resale in ${Y} yrs</dt><dd>${live.sale!=null?usd(live.sale):"—"}<small>${trendOf(x)?`${(trendOf(x).cagr*100).toFixed(1)}%/yr${c.cagr5==null?" (area)":""}`:"No area trend yet"}</small></dd></div>
   </dl>`;
   const poolCtl=x.pool==="pass"?"":`<label class="cfpool"><input type="checkbox" data-k="${x.key}" ${poolNeeded(x)?"checked":""}> Add ${usd(V.pool)} pool build (this view only)</label>`;
   const th=PATHS.map(([k,l])=>{const t=S[k]; const why=t.na||(t.zero?`$0: ${t.note}`:""); return `<th scope="col">${l}${why?`<small>${why}</small>`:""}</th>`;}).join("");
@@ -273,11 +279,92 @@ function card(x){
   // financing screen
   const sc=screen(x,nUnits);
   const fin=sc.top.length?`<h4>Financing screen <small>${sc.n} path × loan combinations; best ${sc.top.length} by profit vs the market</small></h4><div class="cfscroll"><table class="cftable cffin"><thead><tr><th>Path</th><th>Loan</th><th>Cash at close</th><th>Cash flow /mo after tax</th><th>DSCR</th><th>5-yr profit</th><th>ROI /yr</th><th>vs market</th></tr></thead><tbody>${sc.top.map((r,i)=>`<tr${i===0?' class="best"':""}><th scope="row">${r.path}</th><td>${r.ln.label}</td><td>${usd(r.upfront)}</td><td>${usd(r.cfMo)}</td><td>${r.dscr!=null?r.dscr.toFixed(2):"—"}</td><td>${usd(r.profit)}</td><td>${pct(r.ann)}</td><td><b class="${r.delta>=0?"pos":"neg"}">${r.delta>=0?"+":""}${usd(r.delta)}</b></td></tr>`).join("")}</tbody></table></div>${sc.hidden.length||sc.inel.length?`<details class="cfcomps"><summary>Not surfaced (${sc.hidden.length+sc.inel.length})</summary><ul>${sc.hidden.concat(sc.inel).map(h=>`<li>${h}</li>`).join("")}</ul></details>`:""}`:`<p class="cfmiss">Financing screen needs the area price trend; it fills when comps are added.</p>`;
-  const src=[c.rent_src&&`Rent: ${c.rent_src}`,c.adr_src&&`Nightly: ${c.adr_src}`,c.cagr_src&&`Trend: ${c.cagr_src}`,rule&&`Transfer tax: ${rule.ttNote}`,c.str_note&&`Short-term rental: ${c.str_note}`].filter(Boolean);
+  const src=[c.rent_src&&`Rent: ${c.rent_src}`,c.adr_src&&`Nightly: ${c.adr_src}`,trendOf(x)&&`Trend: ${trendOf(x).src}`,rule&&`Transfer tax: ${rule.ttNote}`,c.str_note&&`Short-term rental: ${c.str_note}`].filter(Boolean);
   const comps=(c.units||[]).filter(u=>u.comps&&u.comps.length).map((u,i,arr)=>`<details class="cfcomps"><summary>Rent comps${arr.length>1?`, unit ${i+1} (${u.beds||"studio"} bd / ${u.baths} ba)`:""}: ${usd(u.rent)} average of ${u.n}</summary><ul>${u.comps.map(k=>`<li>${k.addr}: ${usd(k.rent)}, ${k.beds||"studio"} bd / ${k.baths??"?"} ba${k.sf?`, ${Number(k.sf).toLocaleString("en-US")} sf`:""} <span>(${k.src})</span></li>`).join("")}</ul></details>`).join("");
   const missing=!x.cf?`<p class="cfmiss">Comps not filled yet. The next daily or Thursday scan adds rent, nightly rate and area trend.</p>`:"";
   return `<article class="cfcard">${head}${missing}<p class="cfpoolnote">${pnote}</p>${poolCtl}${facts}${comps}<h4>Income paths <small>30-yr fixed, 20% down; investment paths on a 25% down investment loan</small></h4><div class="cfscroll"><table class="cftable"><thead><tr><th></th>${th}</tr></thead><tbody>${body}</tbody></table></div>${notes?`<ul class="cfnotes">${notes}</ul>`:""}${fin}${src.length?`<p class="cfsrc">${src.join(" · ")}${c.as_of?` (as of ${c.as_of})`:""}</p>`:""}</article>`;
 }
+
+// ---- valuation: fair value from sold comps, break-even vs the market, ceiling = the lower one
+const TODAY=new Date();
+const pctl=(a,q)=>{ const b=[...a].sort((x,y)=>x-y); if(!b.length) return null; const i=(b.length-1)*q, lo=Math.floor(i), hi=Math.ceil(i); return b[lo]+(b[hi]-b[lo])*(i-lo); };
+const hasRent=x=>(((x.cf||{}).units||[]).some(u=>u&&u.rent>0));
+const nUnitsOf=x=>Math.max(1,(((x.cf||{}).units||[]).filter(u=>u&&u.rent>0)).length);
+function bestAt(x,P){ const t=screen(Object.assign({},x,{price:P}),nUnitsOf(x)).top[0]; return t||null; }
+function fairValue(x){
+  const v=x.val||{}, comps=(v.comps||[]).filter(c=>c.price>0);
+  if(!comps.length) return null;
+  const psf=comps.filter(c=>c.sf>0).map(c=>c.price/c.sf);
+  let mid,lo,hi,basis;
+  if(x.sf&&psf.length>=3){ mid=pctl(psf,.5)*x.sf; lo=pctl(psf,.25)*x.sf; hi=pctl(psf,.75)*x.sf; basis=`median $${Math.round(pctl(psf,.5))}/sf × ${x.sf.toLocaleString("en-US")} sf`; }
+  else { const pr=comps.map(c=>c.price); mid=pctl(pr,.5); lo=pctl(pr,.25); hi=pctl(pr,.75); basis="median sold price"; }
+  const spread=lo?hi/lo:9, n=comps.length;
+  const conf=n>=5&&spread<1.25?"High":n>=3&&spread<1.5?"Medium":"Low";
+  return {mid,lo,hi,n,basis,conf,spread};
+}
+function breakEven(x){
+  const L=x.price; let lo=L*0.4, hi=L*1.3;
+  const f=P=>{ const t=bestAt(x,P); return t?t.delta:-Infinity; };
+  if(f(hi)>=0) return {p:hi,above:true};
+  if(f(lo)<0) return {p:null,below:true};
+  for(let i=0;i<22;i++){ const m=(lo+hi)/2; if(f(m)>=0) lo=m; else hi=m; }
+  return {p:lo};
+}
+const OFFER=new Map();
+function offer(x){
+  if(OFFER.has(x.key)) return OFFER.get(x.key);
+  const v=x.val||{}, L=x.price, stars=(window.__cfStars?window.__cfStars():new Map()).get(x.key)||0;
+  const fv=fairValue(x), be=trendOf(x)&&hasRent(x)?breakEven(x):null;
+  const ceil=be&&be.below?null:Math.min(...[fv&&fv.mid,be&&be.p].filter(n=>n>0));
+  const hist=v.list_hist||[], listed=hist.filter(h=>/list/i.test(h.event)), first=v.list_date||(listed[0]||{}).date;
+  const dom=first?Math.round((TODAY-new Date(first))/864e5):null;
+  const cuts=hist.filter(h=>/cut/i.test(h.event)).length+(listed.length>1&&listed[listed.length-1].price<listed[0].price?1:0);
+  const lev=Math.min(.04,(dom>60?.02:0)+(cuts?.02:0));
+  let open=null;
+  if(isFinite(ceil)){ open=Math.min(ceil,fv?fv.lo:ceil)*(1-lev); open=Math.min(open,L); }
+  const blockers=[];
+  (x.fails||[]).forEach(f=>blockers.push({k:"fail",t:`Fails: ${f}`}));
+  (x.checks||[]).forEach(f=>blockers.push({k:"check",t:`Confirm: ${f}`}));
+  if(stars<2) blockers.push({k:"check",t:`Group: ${stars} of 2 stars needed to move forward`});
+  if(!fv) blockers.push({k:"check",t:"No sold comps yet; fair value unknown"});
+  if(!hasRent(x)) blockers.push({k:"check",t:"No rent comps yet; can’t test the price against the market"});
+  if(be&&be.below) blockers.push({k:"fail",t:"No price above 40% of list beats the market return"});
+  if(v.status&&!/^active$/i.test(v.status)) blockers.push({k:"check",t:`Status: ${v.status}`});
+  const pass=(x.fails||[]).length>0||(be&&be.below)||(isFinite(ceil)&&ceil<0.85*L);
+  const verdict=pass?"pass-on":blockers.length?"not-yet":"ready";
+  const at=open?bestAt(x,open):null;
+  const o={fv,be,ceil:isFinite(ceil)?ceil:null,open,dom,cuts,lev,blockers,verdict,at,stars,hist};
+  OFFER.set(x.key,o); return o;
+}
+const m1=n=>n==null?"—":"$"+(n>=1e6?(n/1e6).toFixed(2)+"M":Math.round(n/1000)+"k");
+window.__cfOffer=key=>{
+  const x0=CF.find(c=>c.key===key);
+  if(!x0) return `<div class="offer not-yet"><p class="olabel">Not yet</p><p class="oline">New address: price, comps and financing come with the next scan.</p></div>`;
+  if(!x0.price) return `<div class="offer not-yet"><p class="olabel">Not yet</p><p class="oline">List price not found, so no offer can be framed.</p></div>`;
+  const x=Object.assign({},x0), o=offer(x), L=x.price, v=x.val||{};
+  const lbl={ready:"Ready to offer","not-yet":`Not yet: ${o.blockers.length} to resolve`,"pass-on":"Pass"}[o.verdict];
+  const line=o.verdict==="pass-on"&&o.open?`Pass at list ${m1(L)}. Worth it only at ${m1(o.open)}–${m1(o.ceil)}, ${Math.round((1-o.ceil/L)*100)}% under list.`:o.verdict==="pass-on"&&!o.open?`List ${m1(L)}. ${o.be&&o.be.below?"No price makes it beat the market.":`Ceiling ${m1(o.ceil)} is ${Math.round((1-o.ceil/L)*100)}% under list.`}`
+    :o.open?`Offer ${m1(o.open)}–${m1(Math.min(o.ceil,Math.max(o.open,o.ceil)))} · walk away above ${m1(o.ceil)} · list ${m1(L)}`:`List ${m1(L)} · ceiling needs ${o.fv?"the area trend":"sold comps"}`;
+  const beTxt=!o.be?"—":o.be.below?"None":o.be.above?`${m1(o.be.p)}+`:m1(o.be.p);
+  const lev=[o.dom!=null?`${o.dom} days on market`:null,o.cuts?`${o.cuts} price cut${o.cuts>1?"s":""}`:null].filter(Boolean).join(", ")||"No leverage signals";
+  const t=o.at;
+  const tiles=`<dl class="otiles">
+   <div><dt>Fair value (comps)</dt><dd>${o.fv?m1(o.fv.mid):"—"}<small>${o.fv?`${m1(o.fv.lo)}–${m1(o.fv.hi)}, ${o.fv.n} sales, ${o.fv.conf.toLowerCase()} confidence`:"No sold comps yet"}</small></dd></div>
+   <div><dt>Break-even vs market</dt><dd>${beTxt}<small>Highest price where the best path matches ${V.mkt}%/yr</small></dd></div>
+   <div class="key"><dt>Ceiling</dt><dd>${m1(o.ceil)}<small>Lower of the two</small></dd></div>
+   <div><dt>Leverage</dt><dd>${o.lev?`−${Math.round(o.lev*100)}%`:"None"}<small>${lev}</small></dd></div>
+  </dl>`;
+  const afford=t?`<h4 class="oh4">At the opening offer of ${m1(o.open)}</h4><dl class="otiles">
+   <div><dt>Cash at close</dt><dd>${m1(t.upfront)}</dd></div>
+   <div><dt>Monthly, after tax</dt><dd class="${t.cfMo<0?"neg":"pos"}">${t.cfMo<0?"(":""}$${Math.round(Math.abs(t.cfMo)).toLocaleString("en-US")}${t.cfMo<0?")":""}</dd></div>
+   <div><dt>5-yr vs market</dt><dd class="${t.delta<0?"neg":"pos"}">${t.delta>=0?"+":"−"}${m1(Math.abs(t.delta))}</dd></div>
+   <div><dt>Best path</dt><dd class="small">${t.path}<small>${t.ln.label}</small></dd></div>
+  </dl>`:"";
+  const ohs=(x.oh||[]).length?`Next open house: ${x.oh[0]}`:"No open house scheduled";
+  const blk=`<h4 class="oh4">${o.blockers.length?"To resolve before an offer":"Nothing blocking"}</h4><ul class="oblk">${o.blockers.map(b=>`<li class="${b.k}">${b.t}</li>`).join("")}<li class="info">${ohs}</li></ul>`;
+  const comps=(v.comps||[]).length?`<details class="cfcomps"><summary>Sold comps: ${v.comps.length} sales${o.fv?`, ${o.fv.basis}`:""}</summary><ul>${v.comps.map(c=>`<li>${c.addr}: ${m1(c.price)} on ${c.date}, ${c.beds} bd / ${c.baths} ba${c.sf?`, ${c.sf.toLocaleString("en-US")} sf, $${Math.round(c.price/c.sf)}/sf`:""} <span>(${c.src})</span></li>`).join("")}</ul>${(v.avm||[]).length?`<p class="cfsrc">Automated estimates: ${v.avm.map(a=>`${a.src} ${m1(a.value)}`).join(" · ")}</p>`:""}${o.hist.length?`<p class="cfsrc">Listing history: ${o.hist.map(h=>`${h.date} ${m1(h.price)} (${h.event})`).join(" · ")}</p>`:""}${v.note?`<p class="cfsrc">${v.note}</p>`:""}</details>`:"";
+  return `<div class="offer ${o.verdict}"><p class="olabel">${lbl}</p><p class="oline">${line}</p></div>${tiles}${afford}${blk}${comps}`;
+};
 
 // ---- hooks for the table and the drawer
 const BEST=new Map(); // key -> {delta,label}; cleared when inputs or votes change
@@ -285,7 +372,7 @@ function rowX(key){ const x=CF.find(c=>c.key===key); if(!x) return null; const s
 window.__cfBest=key=>{
   if(BEST.has(key)) return BEST.get(key);
   const x=rowX(key); let b=null;
-  if(x&&x.price&&!x.out&&x.cf&&x.cf.cagr5!=null){ const u=((x.cf.units||[]).filter(u=>u&&u.rent>0)).length; const t=screen(x,Math.max(1,u)).top[0]; if(t) b={delta:t.delta,label:`${t.path}, ${t.ln.label}`}; }
+  if(x&&x.price&&!x.out&&trendOf(x)&&hasRent(x)){ const u=(((x.cf||{}).units||[]).filter(u=>u&&u.rent>0)).length; const t=screen(x,Math.max(1,u)).top[0]; if(t) b={delta:t.delta,label:`${t.path}, ${t.ln.label}`}; }
   BEST.set(key,b); return b;
 };
 window.__cfCard=key=>{
@@ -296,7 +383,7 @@ window.__cfCard=key=>{
   return `<h3 class="sec">Financing</h3>${yes>=2?"":`<p class="cfgate">Shown for every listing. A listing moves to financing at 2 stars; this one has ${yes}.</p>`}${card(x)}`;
 };
 function render(clear){
-  if(clear) BEST.clear();
+  if(clear){ BEST.clear(); OFFER.clear(); }
   if(window.__tableRefresh) window.__tableRefresh();
   if(window.__refreshFin) window.__refreshFin();
 }
