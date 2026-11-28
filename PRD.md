@@ -1,4 +1,4 @@
-# Listing check v8.9.0 — PRD
+# Listing check v8.10.0 — PRD
 
 Nov 22, 2026 · Exported from the Claude Doc "Listing check v8.2.0 — PRD"
 
@@ -183,7 +183,7 @@ Mortgage = principal and interest on price minus $1M cash, 7.3%, 30 years.
 
 - [ ] **Layout (new in 8.9.0): table + side drawer.** The address box is the first thing on the page. Below it, every listing is one row in a sortable table: Listing (with neighborhood), Price, Basics, Exit, Next open house, Votes, Stars, Best vs market, and a reject ×. By default rows group by neighborhood in scan order, then by next open house; clicking a header sorts by it (again reverses). Filter chips sit above the table, with the financing assumptions menu. Selecting a row (click, Enter or Space; arrow keys move between rows) opens a drawer on the right with the listing's stars, vote, basics, exit and financing; the table stays visible and the row stays highlighted. On screens under 761px the drawer is full screen with “Back to table”; Escape closes it. Checking an address opens its drawer; a repeat entry highlights its row yellow. The step labels, Starred analysis link and stale footer were removed.
 - [ ] **Collapsed passes (8.9.0).** When every filter passes, the filter table sits behind “All 8 filters pass. Show them”. When an exit path passes, the exit table sits behind “An exit path is there. Show the paths”. Otherwise both are open.
-- [ ] **Group vote (changed in 8.9.0).** No names and no picking who you are. Each listing has three vote slots; Vote Yes or Vote No fills the next open slot, and the buttons go away when all three are in. 2 of 3 Yes advances to financing. The browser remembers its own votes so “Undo my vote” can take back the last one. One person can vote more than once; the buyer accepted that at this scale. Votes save to the Sheet's `votes` tab (keys `listing--v0/1/2`).
+- [ ] **Group vote = stars (changed in 8.10.0).** The 3 stars are the vote: each star is one person’s yes, and 2 stars moves a listing to financing. There is no separate vote box or Votes column. Chips: “2+ stars” (advancing) and “3 stars”. The `votes` Sheet tab is no longer written.
 - [ ] **Financing (changed in 8.8.0, step 4).** Scope defaults to Advancing (2 of 3 Yes) when any listing advances, else Starred; All is available.
     - Income paths: Live in, House hack, Rent all units, Airbnb 20% legal, Airbnb 20% gross, Live in + shoots (Peerspace 2 bookings × 4 hrs a month at the median nearby rate, less 20% host fee and 10% wear, plus 1 film day a year at $5,000; only homes with a pool), and Best legal combo (live there or house hack, plus shoots, plus legal Airbnb nights for single-unit homes).
     - Owner paths use owner-occupied loans; Rent all and Airbnb gross use a conventional investment loan (25% down, rate +0.625%) or DSCR.
@@ -279,6 +279,7 @@ Next builds go in order of value to the buyer; each is one 0.1.0 increment.
 
 | Version | What changed |
 | --- | --- |
+| v8.10.0 | Stars are the group vote (2 stars advances); separate vote box and Votes column removed |
 | v8.9.0 | Table + side drawer layout; anonymous votes (tap fills the next slot, undo your own); passing filter and exit tables collapse; step labels, Starred analysis link and stale copy removed |
 | v8.8.0 | Group vote (3 voters, 2 of 3 Yes advances); financing adds shoots (Peerspace + film), best legal combo, and a loan screen (fixed, ARM, points, PMI, FHA, investment, DSCR) ranked by profit vs market |
 | v8.7.0 | Four-step flow (find, basics, group, financing); rent from averages of actual rental listings for every listing; maintenance 2%; All-listings toggle in cash flow; 5221 La Forest Dr ruled out |

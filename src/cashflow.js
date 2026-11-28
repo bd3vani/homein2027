@@ -255,7 +255,7 @@ function card(x){
   const S={}; PATHS.forEach(([k])=>S[k]=evalPath(x,k,OWN.has(k)?base:loans(x,nUnits).find(l=>l.id==="inv25")));
   const live=S.live, P=x.price, Y=Math.max(1,Math.round(V.years));
   const piti=k=>pmt(P*.8,k/1200,V.term*12)+P*(V.ptax+V.ins)/1200;
-  const head=`<div class="cfhead"><h3>${x.addr}</h3><p>${x.nbhd}${city&&city!==x.nbhd?` · ${city}`:""} · ${usd(P)}${x.stars?` · ${"★".repeat(x.stars)}${"☆".repeat(3-x.stars)}`:""}${x.votes!=null?` · ${x.votes} of 3 Yes`:""}</p></div>`;
+  const head=`<div class="cfhead"><h3>${x.addr}</h3><p>${x.nbhd}${city&&city!==x.nbhd?` · ${city}`:""} · ${usd(P)}${x.stars?` · ${"★".repeat(x.stars)}${"☆".repeat(3-x.stars)}`:""}</p></div>`;
   const pnote=x.pool==="pass"?"Has a pool: no pool cost; shoots possible":(c.pool_add?`${c.pool_add.note||""}`:"No pool and room/access not confirmed");
   const facts=`<dl class="cffacts">
    <div><dt>PITI /mo, 20% down</dt><dd>${usd(piti(V.rate))}<small>${usd(piti(V.rateLo))}–${usd(piti(V.rateHi))} at ${V.rateLo}–${V.rateHi}%</small></dd></div>
@@ -293,7 +293,7 @@ window.__cfCard=key=>{
   if(!x) return `<h3 class="sec">Financing</h3><p class="cfmiss">New address: financing appears after the next scan fills its price and comps.</p>`;
   if(!x.price) return `<h3 class="sec">Financing</h3><p class="cfmiss">List price not found, so financing can’t be modeled yet.</p>`;
   const yes=x.votes||0;
-  return `<h3 class="sec">Financing</h3>${yes>=2?"":`<p class="cfgate">Shown for every listing. The group's step is 2 of 3 Yes; this one has ${yes}.</p>`}${card(x)}`;
+  return `<h3 class="sec">Financing</h3>${yes>=2?"":`<p class="cfgate">Shown for every listing. A listing moves to financing at 2 stars; this one has ${yes}.</p>`}${card(x)}`;
 };
 function render(clear){
   if(clear) BEST.clear();

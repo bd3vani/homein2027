@@ -142,7 +142,7 @@ for area,addr,price,url,x in L:
     note=f'<p class="note">{E(ohp)}{(" "+E(x["note"])) if x.get("note") else ""}</p>'
     link=f'<a href="{E(url)}" rel="noopener" target="_blank">Open listing</a>' if url else '<span class="muted">Listing link not captured in scan</span>'
     panels.append(f'''<article class="panel" id="{sid}" data-key="{key(addr)}" tabindex="-1">
-<p class="where">{E(area)}</p><h2>{E(addr)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Tap 3 stars to add to Starred.</span></div>
+<p class="where">{E(area)}</p><h2>{E(addr)}</h2><div class="stars" role="group" aria-label="Your rating"><button type="button" class="star" data-n="1" aria-label="1 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="2" aria-label="2 of 3 stars" aria-pressed="false">★</button><button type="button" class="star" data-n="3" aria-label="3 of 3 stars" aria-pressed="false">★</button><span class="shint">Each star is one person’s yes; 2 moves it to financing.</span></div>
 {note}
 <h3 class="sec">Your needs</h3>
 <div class="verdict {v}"><strong>{VT[v]}</strong><span>{sub}</span></div>
